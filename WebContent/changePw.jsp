@@ -24,7 +24,7 @@
 
  <body>
   <header>
-	 <h2> <a href="index.html">(林) 悼何 World</a></h2>
+	 <h2> <a href="index.html">(林)悼何 World</a></h2>
  </header>
 	<div id="page-wrap">
 
