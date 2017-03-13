@@ -5,38 +5,29 @@ package work.model.service;
 
 import java.util.ArrayList;
 
-import work.model.dao.FreeBoardDAO;
-import work.model.dto.FreeBoard;
+import work.model.dao.StudyBoardDAO;
+import work.model.dto.StudyBoard;
 
 /**
  * @author DB
  *
  */
-public class FreeBoardService {
-	private FreeBoardDAO dao = FreeBoardDAO.getInstance();
+public class StudyBoardService {
+	private StudyBoardDAO dao = StudyBoardDAO.getInstance();
 	
 	/** 게시판 글 목록 조회 */
-	public ArrayList<FreeBoard> selectList() {
+	public ArrayList<StudyBoard> selectList() {
 		return dao.selectList();
 	}
 	
-	/** 관리자의 글 등록 */
-	public void register(FreeBoard dto) {
+	/** 글 등록 */
+	public void register(StudyBoard dto) {
 		dao.insert(dto);
 	}
 	
-	public void register(int articleNo, String title, int empNo, String regDate, String content, int hits) {
-		dao.insert(articleNo, title, empNo, regDate, content, hits);
-	}
-	
 	/** 글 검색 */
-	public ArrayList<FreeBoard> search(String columnName, String keyword) {
+	public ArrayList<StudyBoard> search(String columnName, String keyword) {
 		return dao.selectListByColumn(columnName, keyword);
-	}
-	
-	/** 글번호 최댓값 +1 가져오기 */
-	public int selectMaxNo() {
-		return dao.selectMaxNo();
 	}
 	
 	/** 관리자의 글 수정 */

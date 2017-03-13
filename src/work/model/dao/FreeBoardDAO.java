@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import work.model.dto.FreeBoard;
 
 public class FreeBoardDAO {
-	private String TABLE_NAME = " dw_free_board ";
+	private String TABLE_NAME = "dw_free_board";
 
 	private FactoryDAO factory = FactoryDAO.getInstance();
 
@@ -42,9 +42,9 @@ public class FreeBoardDAO {
 		try {
 			conn = getConnection();
 			stmt = conn.createStatement();
-			String sql = "select * from " + TABLE_NAME;
+			String sql = "select " + TABLE_NAME + ".*, member.username from " + TABLE_NAME + ", member where " + TABLE_NAME + ".emp_no=member.emp_no";
 			rs = stmt.executeQuery(sql);
-
+			
 			while (rs.next()) {
 				int articleNo = rs.getInt("article_no");
 				String title = rs.getString("title");
@@ -67,7 +67,12 @@ public class FreeBoardDAO {
 		return list;
 	}
 
-	/** 글 등록 */
+	/** 회원의 글 등록 */
+	public int insert(int articleNo, String title, int empNo, String regDate, String content, int hits) {
+		return insert(new FreeBoard(articleNo, title, empNo, regDate, content, hits, "N"));
+	}
+	
+	/** 관리자의 글 등록 */
 	public int insert(FreeBoard dto) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -146,6 +151,31 @@ public class FreeBoardDAO {
 			factory.close(rs, pstmt, conn);
 		}
 		return list;
+	}
+	
+	/** 글번호 최댓값+1 가져오기 */
+	public int selectMaxNo() {
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		int no = 1;
+
+		try {
+			conn = getConnection();
+			stmt = conn.createStatement();
+			String sql = "select Max(article_no) from " + TABLE_NAME;
+			rs = stmt.executeQuery(sql);
+			
+			if(rs.next()) {
+				no = rs.getInt(1) + 1;
+			}
+		} catch (SQLException e) {
+			System.out.println("Error : 전체 조회 오류");
+			e.printStackTrace();
+		} finally {
+			factory.close(rs, stmt, conn);
+		}
+		return no;
 	}
 
 	/** 회원 본인 글 수정 */

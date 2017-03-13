@@ -17,6 +17,7 @@ public class Restaurant {
 	private String image4;
 	private String image5;
 	private int takeMin;
+	private String coords;
 
 	/**
 	 * 
@@ -53,7 +54,7 @@ public class Restaurant {
 	 * @param takeMin
 	 */
 	public Restaurant(String restaurant, String menuType, String price, int rate, String address, String image1,
-			String image2, String image3, String image4, String image5, int takeMin) {
+			String image2, String image3, String image4, String image5, int takeMin, String coords) {
 		super();
 		this.restaurant = restaurant;
 		this.menuType = menuType;
@@ -66,6 +67,7 @@ public class Restaurant {
 		this.image4 = image4;
 		this.image5 = image5;
 		this.takeMin = takeMin;
+		this.coords = coords;
 	}
 
 	/**
@@ -233,16 +235,29 @@ public class Restaurant {
 		this.takeMin = takeMin;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/**
+	 * @return the coords
+	 */
+	public String getCoords() {
+		return coords;
+	}
+
+	/**
+	 * @param coords the coords to set
+	 */
+	public void setCoords(String coords) {
+		this.coords = coords;
+	}
+
+	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
 		return "Restaurant [restaurant=" + restaurant + ", menuType=" + menuType + ", price=" + price + ", rate=" + rate
 				+ ", address=" + address + ", image1=" + image1 + ", image2=" + image2 + ", image3=" + image3
-				+ ", image4=" + image4 + ", image5=" + image5 + ", takeMin=" + takeMin + "]";
+				+ ", image4=" + image4 + ", image5=" + image5 + ", takeMin=" + takeMin + ", coords=" + coords + "]";
 	}
+
 
 }
