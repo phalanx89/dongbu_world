@@ -8,5 +8,5 @@ package work.model.dto;
  *
  */
 public class MarketReply extends Reply {
-
+	public MarketReply() {}
 }

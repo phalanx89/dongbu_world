@@ -8,5 +8,5 @@ package work.model.dto;
  *
  */
 public class StudyReply extends Reply {
-
+	public StudyReply() {}
 }

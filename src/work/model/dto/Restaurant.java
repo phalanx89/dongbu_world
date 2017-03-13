@@ -5,7 +5,7 @@ package work.model.dto;
  * @author DB
  *
  */
-public class Restaurant extends Board {
+public class Restaurant {
 	private String restaurant;
 	private String menuType;
 	private String price;

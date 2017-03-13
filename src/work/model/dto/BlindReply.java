@@ -8,5 +8,5 @@ package work.model.dto;
  *
  */
 public class BlindReply extends Reply {
-
+	public BlindReply() {}
 }
