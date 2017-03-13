@@ -46,9 +46,6 @@ public class FrontController extends HttpServlet {
 				break;
 			case "registerFreeByAdmin":
 				registerFreeByAdmin(request, response);
-				break;
-			case "registerFreeByMember":
-				registerFreeByMember(request, response);
 				break;	
 			case "login":
 				login(request, response);
@@ -80,28 +77,76 @@ public class FrontController extends HttpServlet {
 		}
 	}
 	
+	/**
+	 * 로그인 회원 체크 
+	 * @param request
+	 * @param response
+	 * @return true 로그인 사용자 false 미 로그인
+	 */
+	public boolean isAuth(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession(false);
+		if (session != null && session.getAttribute("empNo") != null && session.getAttribute("userName") != null) { 
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	/** 자유게시판 글 목록 조회 */
 	protected void selectFreeList(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
-		ArrayList<FreeBoard> list = fbservice.selectList();
-		session.setAttribute("list", list);
+/*		HttpSession session = request.getSession(false);
+		if (session != null && session.getAttribute("empNo") != null) { // 회원전용서비스 보안체크 : 로그인 사용자여부
+			ArrayList<FreeBoard> list = fbservice.selectList();
+			request.setAttribute("list", list);
+			request.getRequestDispatcher("boardMain.jsp").forward(request, response);
+		} else {
+			request.setAttribute("message", "회원전용서비스입니다.<p>로그인후 이용하시기 바랍니다.");
+			request.getRequestDispatcher("fail.jsp").forward(request, response);
+		}
+*/		
+
+//		ArrayList<FreeBoard> list = fbservice.selectList();
+//		System.out.println(">>> controller list : " + list);
+//		request.setAttribute("list", list);
+//		request.getRequestDispatcher("boardMain.jsp").forward(request, response);
 		
-		response.sendRedirect("boardMain.jsp");
+		if(isAuth(request, response)) {  // 로그인 사용자 권한 체크
+			ArrayList<FreeBoard> list = fbservice.selectList();
+			request.setAttribute("list", list);
+			request.getRequestDispatcher("boardMain.jsp").forward(request, response);
+		} else {
+			request.setAttribute("message", "회원전용서비스입니다.<p>로그인후 이용하시기 바랍니다.");
+			request.getRequestDispatcher("fail.jsp").forward(request, response);
+		}
 	}
 	
 	/** 관리자의 자유게시판 글 등록 */
 	protected void registerFreeByAdmin(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// 로그인 하지 않은 사용자 오류 처리
+		if(!isAuth(request, response)) {
+			request.setAttribute("message", "회원전용서비스입니다.<p>로그인후 이용하시기 바랍니다.");
+			request.getRequestDispatcher("fail.jsp").forward(request, response);
+			return;
+		}	
 		
-		HttpSession session = request.getSession(false);
+		// 관리자가 아니면 회원의 글 등록 메서드로 보내기
+		if((String)request.getSession(false).getAttribute("isAdmin") != "Y") {
+			registerFreeByMember(request, response);
+			return;
+		}
+		
+		int empNo = (int)request.getSession(false).getAttribute("empNo");
+		String userName = (String)request.getSession(false).getAttribute("userName");
+		
 		int articleNo = fbservice.selectMaxNo();
 		String title = request.getParameter("title");
-		int empNo = (int) session.getAttribute("empNo");
 		String regDate = Utility.getTodayDate();
 		String content = request.getParameter("content");
 		int hits = 0;
 		String isNotice = request.getParameter("isNotice");
+		
 
 		if (title == null || title.trim().length() == 0) {
 			// 실패 페이지 이동전에 오류메세지 속성 설정
@@ -121,9 +166,17 @@ public class FrontController extends HttpServlet {
 			return;
 		}
 		
-		fbservice.register(new FreeBoard(articleNo, title, empNo, regDate, content, hits, isNotice));
-		
-		response.sendRedirect("방금 쓴글 조회 페이지.jsp");
+		fbservice.register(new FreeBoard(articleNo, title, empNo, regDate, content, hits, isNotice, userName));
+		request.setAttribute("message", userName + "님 글이 등록되었습니다.");
+		request.setAttribute("ArticleNo", articleNo);
+		request.setAttribute("title", title);
+		request.setAttribute("empNo", empNo);
+		request.setAttribute("regDate", regDate);
+		request.setAttribute("content", content);
+		request.setAttribute("hits", hits);
+		request.setAttribute("isNotice", isNotice);
+		request.setAttribute("userName", userName);
+		request.getRequestDispatcher("articleReference.jsp").forward(request, response);
 	}
 	
 	/** 회원의 자유게시판 글 등록 */
@@ -137,6 +190,8 @@ public class FrontController extends HttpServlet {
 		String regDate = Utility.getTodayDate();
 		String content = request.getParameter("content");
 		int hits = 0;
+		
+		String userName = "세션설정로그인사용자이름";
 
 		if (title == null || title.trim().length() == 0) {
 			request.setAttribute("message", "제목을 입력하세요");
@@ -144,7 +199,7 @@ public class FrontController extends HttpServlet {
 			nextView.forward(request, response);
 			return;
 		} 
-		fbservice.register(articleNo, title, empNo, regDate, content, hits);
+		fbservice.register(articleNo, title, empNo, regDate, content, hits, userName);
 		
 		response.sendRedirect("articleReference.jsp");
 	}

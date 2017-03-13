@@ -35,8 +35,10 @@
 	</tr>
 	<tr>
 		<td bgcolor="c#E0282B" align="center">
-		<a href="http://localhost:8090/mms/controller" action="http://localhost:8090/mms/controller?action=selectFreeList">
-		<img src="board.png" width="60" height="60"><br><font face="조선일보명조">게시판 메인</font></a></td>
+			<a href="controller?action=selectFreeList">
+			<img src="board.png" width="60" height="60"><br><font face="조선일보명조">게시판 메인</font></a>
+		</td>
+		
 		<td bgcolor="#1FC8B6" align="center"><a href="http://ep.dongbuinc.com/"><img src="porte.png" width="60" height="60"><br><font face="조선일보명조">구글 포르테</font></a></td>
 		<td bgcolor="c#DEE40D" align="center"><a href="index.jsp"><img src="memberinfo.png" width="60" height="60"><br><font face="조선일보명조">회원정보조회</font></a></td>
 		<td bgcolor="c#E18586" align="center" ><a href="restaurant.jsp"><img src="res.png" width="60" height="60"><br><font face="조선일보명조">맛집 메인</face></a></td>

@@ -32,7 +32,10 @@ public class FreeBoardDAO {
 		return factory.getConnection();
 	}
 
-	/** 게시판 글 전체 조회 */
+	/**
+	 * 게시판 글 전체 조회
+	 * @return
+	 */
 	public ArrayList<FreeBoard> selectList() {
 		Connection conn = null;
 		Statement stmt = null;
@@ -42,9 +45,10 @@ public class FreeBoardDAO {
 		try {
 			conn = getConnection();
 			stmt = conn.createStatement();
-			String sql = "select " + TABLE_NAME + ".*, member.username from " + TABLE_NAME + ", member where " + TABLE_NAME + ".emp_no=member.emp_no";
-			rs = stmt.executeQuery(sql);
+			String sql = "select * from " + TABLE_NAME + " order by reg_date desc";
 			
+			rs = stmt.executeQuery(sql);
+			FreeBoard dto = null;
 			while (rs.next()) {
 				int articleNo = rs.getInt("article_no");
 				String title = rs.getString("title");
@@ -53,8 +57,9 @@ public class FreeBoardDAO {
 				String content = rs.getString("content");
 				int hits = rs.getInt("hits");
 				String isNotice = rs.getString("is_notice");
+				String userName = rs.getString("username");
 
-				FreeBoard dto = new FreeBoard(articleNo, title, empNo, regDate, content, hits, isNotice);
+				dto = new FreeBoard(articleNo, title, empNo, regDate, content, hits, isNotice,userName);
 				list.add(dto);
 			}
 
@@ -68,8 +73,8 @@ public class FreeBoardDAO {
 	}
 
 	/** 회원의 글 등록 */
-	public int insert(int articleNo, String title, int empNo, String regDate, String content, int hits) {
-		return insert(new FreeBoard(articleNo, title, empNo, regDate, content, hits, "N"));
+	public int insert(int articleNo, String title, int empNo, String regDate, String content, int hits, String userName) {
+		return insert(new FreeBoard(articleNo, title, empNo, regDate, content, hits, "N", userName));
 	}
 	
 	/** 관리자의 글 등록 */
@@ -80,7 +85,7 @@ public class FreeBoardDAO {
 
 		try {
 			conn = getConnection();
-			String sql = "insert into " + TABLE_NAME + " values(?, ?, ?, ?, ?, ?, ?)";
+			String sql = "insert into " + TABLE_NAME + " values(?, ?, ?, ?, ?, ?, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setInt(1, dto.getArticleNo());
@@ -90,6 +95,7 @@ public class FreeBoardDAO {
 			pstmt.setString(5, dto.getContent());
 			pstmt.setInt(6, dto.getHits());
 			pstmt.setString(7, dto.getIsNotice());
+			pstmt.setString(8, dto.getUserName());
 
 			row = pstmt.executeUpdate();
 
@@ -126,14 +132,15 @@ public class FreeBoardDAO {
 
 			rs = pstmt.executeQuery(sql);
 
-			int articleNo;
-			String title;
-			int empNo;
-			String regDate;
-			String content;
-			int hits;
-			String isNotice;
-
+			int articleNo = 0;
+			String title = null;
+			int empNo = 0;
+			String regDate = null;
+			String content = null;
+			int hits = 0;
+			String isNotice = null;
+			String userName = null;
+			
 			while (rs.next()) {
 				articleNo = rs.getInt(1);
 				title = rs.getString(2);
@@ -142,8 +149,9 @@ public class FreeBoardDAO {
 				content = rs.getString(5);
 				hits = rs.getInt(6);
 				isNotice = rs.getString(7);
+				userName = rs.getString(8);
 
-				list.add(new FreeBoard(articleNo, title, empNo, regDate, content, hits, isNotice));
+				list.add(new FreeBoard(articleNo, title, empNo, regDate, content, hits, isNotice, userName));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -1,9 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-    
-<%@ page import="java.util.ArrayList" %>  
-<%@ page import="work.model.dto.FreeBoard" %> 
- 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="kr">
  <head>
@@ -19,11 +15,22 @@
 	  }
 	  #content {
 	      width: 60%;
-		  height: 500px;
+		  height: 550px;
 		  border: 1px solid black;
 	      float: right
-right;
+			  right;
 	  }
+	  	table {width:70%;
+		   height:auto;
+	       empty_cells:hide;          
+	}
+	#td1 { height:40px;
+	    vertical-align: inherit;
+	}
+	#td2 { height:270px;
+	    vertical-align: inherit;
+	}
+
 
  </style>
  
@@ -42,35 +49,24 @@ right;
 			 			
 				</div>
  	<div id="content"> 
- 	<br><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value=" 일반게시판 "><br>
- 	<table border="1" align="center">
- 					<!-- 제목행 -->
-					<tr align="center">
-						<td><font face="조선일보명조">글번호 </td>
-						<td><font face="조선일보명조">글제목 </td>
-						<td><font face="조선일보명조">작성자 </td>
-					</tr>
-					
-					<!-- 공지 리스트 설정 크기만큼 반복행 -->
-					<%
-						ArrayList<FreeBoard> list = (ArrayList<FreeBoard>)request.getAttribute("list");
-						for (FreeBoard dto : list) {
-					%>
-					<tr align="center">
-						<td><font face="조선일보명조"><%= dto.getArticleNo() %></font></td>
-						<td><font face="조선일보명조"><%= dto.getTitle() %></td>
-						<td><font face="조선일보명조"><%= dto.getUserName() %></td>
-					</tr>
-					<%
-						}
-					%>
-				</table>
-				
-				<br><br>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="text" name="name" id="text1" /><input type="button" value="글검색"/>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="button" value="글등록" onclick="location.href=''" />
+ 	<br><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value=" 일반게시판 ">
+ 	
+ 	<table id="td1" border="1" align="center">
+ 		<br><tr >
+			<br><td><font face="조선일보명조">글제목 &nbsp;: <input type="text" name="name"><br><form enctype="multipart/form-data">파일첨부 : <input type="file" accept="image/jpeg",image/gif></form></td>
+ 		</tr> 	
+ 	<table id="td2" border="1" align="center">
+ 		<br><tr>
+			<td align="center"><TEXTAREA ROWS="16" COLS="100"></TEXTAREA></td>
+ 		</tr>
+
+ 		
+ 	 	<table id="td3" border="0" align="center">
+ 		<br><tr>
+			<td align="center">
+			<input type="button" value="등록" onclick="location.href='controller?action=registerFreeByAdmin'" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="취소"></td>
+ 		</tr>
+ 	</table>
  </div>
 	</body>
 
@@ -85,4 +81,3 @@ right;
   
  </body>
 </html>
-

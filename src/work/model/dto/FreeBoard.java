@@ -15,6 +15,7 @@ public class FreeBoard {
 	private String content;
 	private int hits;
 	private String isNotice;
+	private String userName;
 
 	/**
 	 * 
@@ -30,8 +31,10 @@ public class FreeBoard {
 	 * @param regDate
 	 * @param hits
 	 * @param isNotice
+	 * @param userName
 	 */
-	public FreeBoard(int articleNo, String title, int empNo, String regDate, int hits, String isNotice) {
+	public FreeBoard(int articleNo, String title, int empNo, String regDate, int hits, String isNotice,
+			String userName) {
 		super();
 		this.articleNo = articleNo;
 		this.title = title;
@@ -39,7 +42,10 @@ public class FreeBoard {
 		this.regDate = regDate;
 		this.hits = hits;
 		this.isNotice = isNotice;
+		this.userName = userName;
 	}
+
+
 
 	/**
 	 * @param articleNo
@@ -49,10 +55,10 @@ public class FreeBoard {
 	 * @param content
 	 * @param hits
 	 * @param isNotice
+	 * @param userName
 	 */
-	public FreeBoard(int articleNo, String title, int empNo, String regDate, String content, int hits,
-			String isNotice) {
-		super();
+	public FreeBoard(int articleNo, String title, int empNo, String regDate, String content, int hits, String isNotice,
+			String userName) {
 		this.articleNo = articleNo;
 		this.title = title;
 		this.empNo = empNo;
@@ -60,7 +66,9 @@ public class FreeBoard {
 		this.content = content;
 		this.hits = hits;
 		this.isNotice = isNotice;
+		this.userName = userName;
 	}
+
 
 	/**
 	 * @return the articleNo
@@ -160,14 +168,43 @@ public class FreeBoard {
 		this.isNotice = isNotice;
 	}
 
+	
+	/**
+	 * @return the userName
+	 */
+	public String getUserName() {
+		return userName;
+	}
+
+	/**
+	 * @param userName the userName to set
+	 */
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "FreeBoard [articleNo=" + articleNo + ", title=" + title + ", empNo=" + empNo + ", regDate=" + regDate
-				+ ", content=" + content + ", hits=" + hits + ", isNotice=" + isNotice + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append(articleNo);
+		builder.append(", ");
+		builder.append(title);
+		builder.append(", ");
+		builder.append(empNo);
+		builder.append(", ");
+		builder.append(regDate);
+		builder.append(", ");
+		builder.append(content);
+		builder.append(", ");
+		builder.append(hits);
+		builder.append(", ");
+		builder.append(isNotice);
+		builder.append(", ");
+		builder.append(userName);
+		return builder.toString();
 	}
-
 	
 }
