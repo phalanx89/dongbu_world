@@ -66,7 +66,7 @@ public class MemberDAO {
 	}
 
 	/** 특정회원 상세조회 */
-	public Member selectOne(String empNo) {
+	public Member selectOne(int empNo) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -76,7 +76,7 @@ public class MemberDAO {
 			conn = getConnection();
 			String sql = "select * from member where emp_no = ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, empNo);
+			pstmt.setInt(1, empNo);
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
@@ -94,7 +94,7 @@ public class MemberDAO {
 	}
 
 	/** 로그인 기능 */
-	public HashMap<String, String> login(String empNo, String userPw) {
+	public HashMap<String, String> login(int empNo, String userPw) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -104,7 +104,7 @@ public class MemberDAO {
 			conn = getConnection();
 			String sql = "select username, is_admin from member where emp_no = ? and userpw = ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, empNo);
+			pstmt.setInt(1, empNo);
 			pstmt.setString(2, userPw);
 			rs = pstmt.executeQuery();
 
@@ -241,8 +241,8 @@ public class MemberDAO {
 		return row;
 	}
 
-	/** 회원 탈퇴 */
-	public int deleteMember(String empNo) {
+	/** 회원 삭제 */
+	public int deleteMember(int empNo) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int row = 0;
@@ -251,7 +251,7 @@ public class MemberDAO {
 			conn = getConnection();
 			String sql = "delete member where emp_no = ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, empNo);
+			pstmt.setInt(1, empNo);
 			row = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("회원 탈퇴 오류" + e.getMessage());

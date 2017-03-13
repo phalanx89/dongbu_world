@@ -8,5 +8,5 @@ package work.model.dto;
  *
  */
 public class FreeReply extends Reply {
-
+	public FreeReply() {}
 }
