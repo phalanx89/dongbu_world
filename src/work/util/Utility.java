@@ -103,4 +103,3 @@ public class Utility {
 		
 		return result;
 	}
-}

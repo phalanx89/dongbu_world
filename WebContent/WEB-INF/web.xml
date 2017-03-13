@@ -4,4 +4,14 @@
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>FoodController</display-name>
+    <servlet-name>FoodController</servlet-name>
+    <servlet-class>work.controller.FoodController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FoodController</servlet-name>
+    <url-pattern>/food_controller</url-pattern>
+  </servlet-mapping>
 </web-app>

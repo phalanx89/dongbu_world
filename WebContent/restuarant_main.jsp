@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-<%@ page import="work.data.*" %>
+<%@ page
+import="java.util.ArrayList" 
+import="work.data.*" 
+import="work.model.dto.*"
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -61,14 +65,17 @@
 %>
 </head>
 <body>
+	<%
+	ArrayList<Restaurant> aryRestaurants = (ArrayList<Restaurant>) request.getAttribute("aryRestaurants");
+	%>
 	<div id="container">
 		<div id="header"></div>
 		<div id="sideinfo">
-			<form action="">
+			<form method="post" action="http://localhost:8090/dongbu_world/food_controller?action=<%=Define.ACTION_SEARCH_RESTAURANT%>">
 				<div id="frm_cbx">
 					<%
 						for (int i = 0; i < Define.ARY_MENUS.length; i++) {
-							out.write("<input type='checkbox'> " + Define.ARY_MENUS[i]);
+							out.write("<input name='cbxMenus' type='checkbox' value='" + Define.ARY_MENUS[i] + "'> " + Define.ARY_MENUS[i]);
 						}
 					%>
 				<hr>

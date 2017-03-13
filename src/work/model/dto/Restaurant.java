@@ -2,15 +2,20 @@ package work.model.dto;
 
 /**
  * 
- * @author DB
+ * @author ¿Ã¡ˆæ∆
  *
  */
 public class Restaurant {
+	private int article_no;
 	private String restaurant;
+	private String title;
+	private int emp_no;
 	private String menuType;
 	private String price;
 	private int rate;
 	private String address;
+	private String regDate;
+	private String content;
 	private String image1;
 	private String image2;
 	private String image3;
@@ -41,26 +46,37 @@ public class Restaurant {
 	}
 
 	/**
+	 * @param article_no
 	 * @param restaurant
+	 * @param title
+	 * @param emp_no
 	 * @param menuType
 	 * @param price
 	 * @param rate
 	 * @param address
+	 * @param regDate
 	 * @param image1
 	 * @param image2
 	 * @param image3
 	 * @param image4
 	 * @param image5
 	 * @param takeMin
+	 * @param coords
 	 */
-	public Restaurant(String restaurant, String menuType, String price, int rate, String address, String image1,
-			String image2, String image3, String image4, String image5, int takeMin, String coords) {
+	public Restaurant(int article_no, String restaurant, String title, int emp_no, String menuType, String price,
+			int rate, String address, String regDate, String content, String image1, String image2, String image3, String image4,
+			String image5, int takeMin, String coords) {
 		super();
+		this.article_no = article_no;
 		this.restaurant = restaurant;
+		this.title = title;
+		this.emp_no = emp_no;
 		this.menuType = menuType;
 		this.price = price;
 		this.rate = rate;
 		this.address = address;
+		this.regDate = regDate;
+		this.content = content;
 		this.image1 = image1;
 		this.image2 = image2;
 		this.image3 = image3;
@@ -71,6 +87,20 @@ public class Restaurant {
 	}
 
 	/**
+	 * @return the article_no
+	 */
+	public int getArticle_no() {
+		return article_no;
+	}
+
+	/**
+	 * @param article_no the article_no to set
+	 */
+	public void setArticle_no(int article_no) {
+		this.article_no = article_no;
+	}
+
+	/**
 	 * @return the restaurant
 	 */
 	public String getRestaurant() {
@@ -78,11 +108,38 @@ public class Restaurant {
 	}
 
 	/**
-	 * @param restaurant
-	 *            the restaurant to set
+	 * @param restaurant the restaurant to set
 	 */
 	public void setRestaurant(String restaurant) {
 		this.restaurant = restaurant;
+	}
+
+	/**
+	 * @return the title
+	 */
+	public String getTitle() {
+		return title;
+	}
+
+	/**
+	 * @param title the title to set
+	 */
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	/**
+	 * @return the emp_no
+	 */
+	public int getEmp_no() {
+		return emp_no;
+	}
+
+	/**
+	 * @param emp_no the emp_no to set
+	 */
+	public void setEmp_no(int emp_no) {
+		this.emp_no = emp_no;
 	}
 
 	/**
@@ -93,8 +150,7 @@ public class Restaurant {
 	}
 
 	/**
-	 * @param menuType
-	 *            the menuType to set
+	 * @param menuType the menuType to set
 	 */
 	public void setMenuType(String menuType) {
 		this.menuType = menuType;
@@ -108,8 +164,7 @@ public class Restaurant {
 	}
 
 	/**
-	 * @param price
-	 *            the price to set
+	 * @param price the price to set
 	 */
 	public void setPrice(String price) {
 		this.price = price;
@@ -123,8 +178,7 @@ public class Restaurant {
 	}
 
 	/**
-	 * @param rate
-	 *            the rate to set
+	 * @param rate the rate to set
 	 */
 	public void setRate(int rate) {
 		this.rate = rate;
@@ -138,11 +192,38 @@ public class Restaurant {
 	}
 
 	/**
-	 * @param address
-	 *            the address to set
+	 * @param address the address to set
 	 */
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	/**
+	 * @return the regDate
+	 */
+	public String getRegDate() {
+		return regDate;
+	}
+
+	/**
+	 * @param regDate the regDate to set
+	 */
+	public void setRegDate(String regDate) {
+		this.regDate = regDate;
+	}
+	
+	/**
+	 * @return the content
+	 */
+	public String geContent() {
+		return content;
+	}
+
+	/**
+	 * @param content the content to set
+	 */
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 	/**
@@ -153,8 +234,7 @@ public class Restaurant {
 	}
 
 	/**
-	 * @param image1
-	 *            the image1 to set
+	 * @param image1 the image1 to set
 	 */
 	public void setImage1(String image1) {
 		this.image1 = image1;
@@ -168,8 +248,7 @@ public class Restaurant {
 	}
 
 	/**
-	 * @param image2
-	 *            the image2 to set
+	 * @param image2 the image2 to set
 	 */
 	public void setImage2(String image2) {
 		this.image2 = image2;
@@ -183,8 +262,7 @@ public class Restaurant {
 	}
 
 	/**
-	 * @param image3
-	 *            the image3 to set
+	 * @param image3 the image3 to set
 	 */
 	public void setImage3(String image3) {
 		this.image3 = image3;
@@ -198,8 +276,7 @@ public class Restaurant {
 	}
 
 	/**
-	 * @param image4
-	 *            the image4 to set
+	 * @param image4 the image4 to set
 	 */
 	public void setImage4(String image4) {
 		this.image4 = image4;
@@ -213,8 +290,7 @@ public class Restaurant {
 	}
 
 	/**
-	 * @param image5
-	 *            the image5 to set
+	 * @param image5 the image5 to set
 	 */
 	public void setImage5(String image5) {
 		this.image5 = image5;
@@ -228,8 +304,7 @@ public class Restaurant {
 	}
 
 	/**
-	 * @param takeMin
-	 *            the takeMin to set
+	 * @param takeMin the takeMin to set
 	 */
 	public void setTakeMin(int takeMin) {
 		this.takeMin = takeMin;
@@ -249,15 +324,6 @@ public class Restaurant {
 		this.coords = coords;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Restaurant [restaurant=" + restaurant + ", menuType=" + menuType + ", price=" + price + ", rate=" + rate
-				+ ", address=" + address + ", image1=" + image1 + ", image2=" + image2 + ", image3=" + image3
-				+ ", image4=" + image4 + ", image5=" + image5 + ", takeMin=" + takeMin + ", coords=" + coords + "]";
-	}
-
+	
 
 }
