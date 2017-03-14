@@ -30,15 +30,17 @@
 }
 
 #map {
-	float:left;
-	width: 500px;
-	height: 500px;
+		float: left;
+		width: 500px;
+		height: 500px;
 }
 
 #side_map {
-	float:left;
-	width:300px;
-	height:500px;
+		float: left;
+		width: 300px;
+		height: 500px;
+		padding: 3px;
+		background-color: #cccccc;
 }
 
 #footer {
@@ -47,7 +49,7 @@
 		height: 100px;
 }
 </style>
-<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=fd96bb5ffbbe3c54d0416e62bee493f5"></script>
+<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=fd96bb5ffbbe3c54d0416e62bee493f5&libraries=services "></script>
 <script type="text/javascript">
   
 </script>
@@ -62,7 +64,6 @@
 						  ArrayList<Restaurant> aryRestaurants = (ArrayList<Restaurant>) request.getAttribute("aryRestaurants");
 						%>
 						<div id="map"></div>
-						<p id="result"></p>
 						<script>
               var container = document.getElementById('map');
               var options = {
@@ -72,39 +73,58 @@
 
               var map = new daum.maps.Map(container, options);
 
-              var markerPosition = new daum.maps.LatLng(37.5093347, 127.057700); // 마커가 표시될 위치입니다
-
-              // 마커를 생성합니다
-              var marker = new daum.maps.Marker({
-                position : markerPosition
+              // 마커 (회사)
+              var markerDongbu = new daum.maps.Marker({
+              position : new daum.maps.LatLng(37.5093347, 127.057700),
+              map : map
               });
 
-              // 마커가 지도 위에 표시되도록 설정합니다
-              marker.setMap(map);
+              // 마커 (유저)
+              var markerUser = new daum.maps.Marker({
+              position : new daum.maps.LatLng(37.5093347, 127.057700),
+              map : map
+              });
+
+              // 인포윈도우를 생성합니다
+              var infowindow = new daum.maps.InfoWindow({
+                content : '<div style="padding:5px;" align="center">짠!</div>'
+              });
 
               // 리스너 등록
-              // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
               daum.maps.event.addListener(map, 'click', function(mouseEvent) {
                 // 클릭한 위도, 경도 정보를 가져옵니다 
                 var latlng = mouseEvent.latLng;
-
-                var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
-                message += '경도는 ' + latlng.getLng() + ' 입니다';
-
-                marker.setPosition(latlng);
-
-                var resultDiv = document.getElementById('result');
-                resultDiv.innerHTML = message;
-
+                infowindow.close();
+                markerUser.setPosition(latlng);
               });
 
               daum.maps.event.addListener(map, 'rightclick', function(mouseEvent) {
-                console.log('right click');
+                // 마커에 우클릭 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
+                //infowindow.open(map, markerUser);
+                searchDetailAddrFromCoords(mouseEvent.latLng, function(status, result) {
+                  if (status === daum.maps.services.Status.OK) {
+                    var detailAddr = !!result[0].roadAddress.name ? '<div>도로명주소 : ' + result[0].roadAddress.name + '</div>' : '';
+                    detailAddr += '<div>지번 주소 : ' + result[0].jibunAddress.name + '</div>';
 
-                var latlng = mouseEvent.latLng;
-                addMarker(latlng);
+                    var content = '<div class="bAddr">' + detailAddr + '</div>';
+
+                    // 마커를 클릭한 위치에 표시합니다 
+                    markerUser.setPosition(mouseEvent.latLng);
+                    markerUser.setMap(map);
+
+                    // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
+                    infowindow.setContent(content);
+                    infowindow.open(map, markerUser);
+                  }
+                });
               });
 
+              daum.maps.event.addListener(markerUser, 'rightclick', function(mouseEvent) {
+                var content = '<div style="width:100%; padding:3px" align="center"> 여기에 새로운 맛집을 등록할래요? <button type="button" onclick="moveRegister()";>등록!</button>&nbsp;</div>';
+                infowindow.setContent(content);
+                infowindow.open(map, markerUser);
+              });
+              
               //set custom function
               function addMarker(location) {
                 var markerPosition = new daum.maps.LatLng(location.getLat(), location.getLng()); // 마커가 표시될 위치입니다
@@ -114,6 +134,17 @@
                 position : markerPosition,
                 map : map
                 });
+              }
+
+              function searchDetailAddrFromCoords(coords, callback) {
+                // 주소-좌표 변환 객체를 생성합니다
+                var geocoder = new daum.maps.services.Geocoder();
+                // 좌표로 법정동 상세 주소 정보를 요청합니다
+                geocoder.coord2detailaddr(coords, callback);
+              }
+              
+              function moveRegister() {
+                location.href="restaurantRegister.jsp"; //좌표정보 담아서 넘겨줄까?
               }
             </script>
 						<div id="side_map">
