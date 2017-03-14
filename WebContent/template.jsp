@@ -9,14 +9,8 @@
 		background-color: #ffffff;
 		width: 100%;
 		height: 100%;
-		margin: 0 auto;
 		padding: 0px;
-		margin: 0 auto;
-}
-
-#header {
-		background-color: #ffffff;
-		height: 100px;
+		margin: 0px;
 }
 
 /* #sideinfo { */
@@ -47,7 +41,9 @@
 				<div id="header">
 					<jsp:include page="top.jsp"></jsp:include>
 				</div>
-				<div id="content"></div>
+				<div id="content">
+				
+				</div>
 <!-- 				<div id="sideinfo"></div> -->
 				<div id="footer">
 				<jsp:include page="footer.jsp"></jsp:include>

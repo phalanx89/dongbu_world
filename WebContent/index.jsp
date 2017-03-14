@@ -9,14 +9,13 @@
 		background-color: #ffffff;
 		width: 100%;
 		height: 100%;
-		margin: 0 auto;
 		padding: 0px;
-		margin: 0 auto;
+		margin: 0px;
 }
 
 /* #sideinfo { */
 /* 		background-color: #cccccc; */
-/* 		float: left; */
+/* 		float: left; */0
 /* 		width: 300px; */
 /* 		height: 500px; */
 /* 		padding: 5px; */
@@ -34,12 +33,6 @@
 		clear: both;
 		height: 100px;
 }
-
-td {
-		width: 110px;
-		height: 110px;
-		padding: 5px;
-}
 </style>
 </head>
 <body>
@@ -47,26 +40,26 @@ td {
 				<div id="header">
 						<jsp:include page="top.jsp"></jsp:include>
 				</div>
-				<div id="content">
+				<div id="content" align="center">
 						<%
 						  if (session != null && session.getAttribute("empNo") != null && session.getAttribute("userName") != null) {
 						%>
 						<table>
 								<tr>
 										<td colspan="3">&nbsp;</td>
-										<td bgcolor="#cccccc" align="center"><a href=""> <img src="images/icon_rank.png" width="100px" height="100px"><br>맛집 랭킹
+										<td bgcolor="#cccccc" align="center"><a href=""> <img src="images/icon_rank.png" width="250px" height="250px"><br>맛집 랭킹
 										</a></td>
 								</tr>
 								<tr>
-										<td bgcolor="#cccccc" align="center"><a href="controller?action=selectFreeList"> <img src="images/icon_board.png" width="100px" height="100px"><br>게시판 메인
+										<td bgcolor="#cccccc" align="center"><a href="controller?action=selectFreeList"> <img src="images/icon_board.png" width="250px" height="250px"><br>게시판 메인
 										</a></td>
-										<td bgcolor="#cccccc" align="center"><a href="http://ep.dongbuinc.com/"><img src="images/icon_epdongbu.png" width="100px" height="100px"><br>구글 포르테</a></td>
-										<td bgcolor="#cccccc" align="center"><a href="index.jsp"><img src="images/icon_member.png" width="100px" height="100px"><br>회원정보조회</a></td>
-										<td bgcolor="#cccccc" align="center"><a href="restaurant.jsp"><img src="images/icon_restaurant.png" width="100px" height="100px"><br>맛집 메인</a></td>
+										<td bgcolor="#cccccc" align="center"><a href="http://ep.dongbuinc.com/"><img src="images/icon_epdongbu.png" width="250px" height="250px"><br>구글 포르테</a></td>
+										<td bgcolor="#cccccc" align="center"><a href="index.jsp"><img src="images/icon_member.png" width="250px" height="250px"><br>회원정보조회</a></td>
+										<td bgcolor="#cccccc" align="center"><a href="restaurant.jsp"><img src="images/icon_restaurant.png" width="250px" height="250px"><br>맛집 메인</a></td>
 								</tr>
 								<tr>
 										<td></td>
-										<td bgcolor="#cccccc" align="center"><a href="http://dbcni.benecafe.co.kr/"><img src="images/icon_bene.png" width="100px" height="100px"><br>Bene Cafe</a></td>
+										<td bgcolor="#cccccc" align="center"><a href="http://dbcni.benecafe.co.kr/"><img src="images/icon_bene.png" width="250px" height="250px"><br>Bene Cafe</a></td>
 										<td colspan="2"></td>
 								</tr>
 						</table>
@@ -76,19 +69,19 @@ td {
 						<table>
 								<tr>
 										<td colspan="3">&nbsp;</td>
-										<td bgcolor="#cccccc" align="center"><a href=""> <img src="images/icon_rank.png" width="100px" height="100px"><br>맛집 랭킹
+										<td bgcolor="#cccccc" align="center"><a href=""> <img src="images/icon_rank.png" width="250px" height="250px"><br>맛집 랭킹
 										</a></td>
 								</tr>
 								<tr>
-										<td bgcolor="#cccccc" align="center"><a href="login.jsp"> <img src="images/icon_board.png" width="100px" height="100px"><br>게시판 메인
+										<td bgcolor="#cccccc" align="center"><a href="login.jsp"> <img src="images/icon_board.png" width="250px" height="250px"><br>게시판 메인
 										</a></td>
-										<td bgcolor="#cccccc" align="center"><a href="http://ep.dongbuinc.com/"><img src="images/icon_epdongbu.png" width="100px" height="100px"><br>구글 포르테</a></td>
-										<td bgcolor="#cccccc" align="center"><a href="login.jsp"><img src="images/icon_member.png" width="100px" height="100px"><br>회원정보조회</a></td>
-										<td bgcolor="#cccccc" align="center"><a href="login.jsp"><img src="images/icon_restaurant.png" width="100px" height="100px"><br>맛집 메인</a></td>
+										<td bgcolor="#cccccc" align="center"><a href="http://ep.dongbuinc.com/"><img src="images/icon_epdongbu.png" width="250px" height="250px"><br>구글 포르테</a></td>
+										<td bgcolor="#cccccc" align="center"><a href="login.jsp"><img src="images/icon_member.png" width="250px" height="250px"><br>회원정보조회</a></td>
+										<td bgcolor="#cccccc" align="center"><a href="login.jsp"><img src="images/icon_restaurant.png" width="250px" height="250px"><br>맛집 메인</a></td>
 								</tr>
 								<tr>
 										<td></td>
-										<td bgcolor="#cccccc" align="center"><a href="http://dbcni.benecafe.co.kr/"><img src="images/icon_bene.png" width="100px" height="100px"><br>Bene Cafe</a></td>
+										<td bgcolor="#cccccc" align="center"><a href="http://dbcni.benecafe.co.kr/"><img src="images/icon_bene.png" width="250px" height="250px"><br>Bene Cafe</a></td>
 										<td colspan="2"></td>
 								</tr>
 						</table>

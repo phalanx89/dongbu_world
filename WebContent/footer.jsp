@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-<div style="height: 100%; width: 100%;">
+<div align="center" style="height: 100%; width: 100%;">
 <hr>
 개인정보처리방침 | 사이트맵 | 이메일무단수집거부 | 공시정보관리규정<br> 
 서울시 강남구 삼성로 96길 23(삼성동 154-17)TEL : 02-2136-6000FAX : 02-2136-6007<br>
