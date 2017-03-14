@@ -44,6 +44,12 @@ public class FrontController extends HttpServlet {
 			case "selectFreeList":
 				selectFreeList(request, response);
 				break;
+			case "deleteArticle":
+			  deleteArticle(request, response);
+			  break;
+			case "articleReference":
+			  articleReference(request, response);
+			  break;
 			case "registerFreeByAdmin":
 				registerFreeByAdmin(request, response);
 				break;
@@ -109,6 +115,50 @@ public class FrontController extends HttpServlet {
 		}
 	}
 
+	/**
+	 * 자유게시판 글 상세 조회
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	protected void articleReference(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+	  if (isAuth(request, response)) { // 로그인 사용자 권한 체크
+	    int articleNo = Integer.valueOf(request.getParameter("articleNo"));
+	    fbservice.plusHits(articleNo);
+      FreeBoard dto = fbservice.selectOne(articleNo);
+      request.setAttribute("dto", dto);
+      request.getRequestDispatcher("articleReference.jsp").forward(request, response);
+    } else {
+      request.setAttribute("message", "회원전용서비스입니다.<p>로그인후 이용하시기 바랍니다.");
+      request.getRequestDispatcher("fail.jsp").forward(request, response);
+    }
+	}
+	
+	/** 게시글 삭제 */
+	protected void deleteArticle(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+	   // 로그인 하지 않은 사용자 오류 처리
+    if (!isAuth(request, response)) {
+      request.setAttribute("message", "회원전용서비스입니다.<p>로그인후 이용하시기 바랍니다.");
+      request.getRequestDispatcher("fail.jsp").forward(request, response);
+      return;
+    }
+   
+    // 관리자가 아니면 본인의 글인지 권한 확인
+    if (!((String) request.getSession(false).getAttribute("isAdmin")).equals("Y")) {
+      if (Integer.valueOf((String)request.getSession(false).getAttribute("empNo")) != Integer.valueOf(request.getParameter("empNo"))) {
+        request.setAttribute("message", "삭제 권한이 없습니다.");
+        request.getRequestDispatcher("fail.jsp").forward(request, response);
+        return;
+      }
+    }
+    int articleNo = Integer.valueOf(request.getParameter("articleNo"));
+    fbservice.delete(articleNo);
+    selectFreeList(request, response);
+	}
+	
 	/** 관리자의 자유게시판 글 등록 */
 	protected void registerFreeByAdmin(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -152,17 +202,18 @@ public class FrontController extends HttpServlet {
 			nextView.forward(request, response);
 			return;
 		}
-
-		fbservice.register(new FreeBoard(articleNo, title, empNo, regDate, content, hits, isNotice, userName));
+		FreeBoard dto = new FreeBoard(articleNo, title, empNo, regDate, content, hits, isNotice, userName);
+		fbservice.register(dto);
 		request.setAttribute("message", userName + "님 글이 등록되었습니다.");
-		request.setAttribute("ArticleNo", articleNo);
-		request.setAttribute("title", title);
-		request.setAttribute("empNo", empNo);
-		request.setAttribute("regDate", regDate);
-		request.setAttribute("content", content);
-		request.setAttribute("hits", hits);
-		request.setAttribute("isNotice", isNotice);
-		request.setAttribute("userName", userName);
+		request.setAttribute("dto", dto);
+//		request.setAttribute("ArticleNo", articleNo);
+//		request.setAttribute("title", title);
+//		request.setAttribute("empNo", empNo);
+//		request.setAttribute("regDate", regDate);
+//		request.setAttribute("content", content);
+//		request.setAttribute("hits", hits);
+//		request.setAttribute("isNotice", isNotice);
+//		request.setAttribute("userName", userName);
 		request.getRequestDispatcher("articleReference.jsp").forward(request, response);
 	}
 
@@ -209,6 +260,13 @@ public class FrontController extends HttpServlet {
 		request.getRequestDispatcher("articleReference.jsp").forward(request, response);
 	}
 
+	/**
+	 * 글 검색(글번호, 제목, 내용, 작성자)
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	protected void selectListByColumn(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// 로그인 하지 않은 사용자 오류 처리

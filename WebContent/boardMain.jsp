@@ -74,15 +74,15 @@
 								%>
 								<tr>
 										<td><font face="조선일보명조"><%=dto.getArticleNo()%></font></td>
-										<td><% if (dto.getIsNotice().equals("Y")) { %>
+										<td width="600px"><% if (dto.getIsNotice().equals("Y")) { %>
 										공지 <% } else { %>
 										일반 <% } %>&nbsp;&nbsp;
-										<a href='controller?action=articleReference'><font face="조선일보명조"><%=dto.getTitle()%></a></td>
+										<a href='controller?action=articleReference&articleNo=<%=dto.getArticleNo()%>'><font face="조선일보명조"><%=dto.getTitle()%></a></td>
 										<td><font face="조선일보명조"><%=dto.getUserName()%></td>
 										<td><font face="조선일보명조"><%=dto.getHits()%></td>
 								</tr>
 								<%
-								  }
+								  	}
 								  }
 								%>
 						</table>
