@@ -28,6 +28,7 @@
 <%
 	if (session != null && session.getAttribute("empNo") != null && session.getAttribute("userName") != null) { 
 %>	
+	<a href='controller?action=logout'>·Î±×¾Æ¿ô</a>
 		<table>
 			<tr>
 				<td colspan="3">&nbsp;</td>

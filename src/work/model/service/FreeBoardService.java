@@ -20,6 +20,23 @@ public class FreeBoardService {
 		return dao.selectList();
 	}
 	
+	/**
+	 * 게시판 글 상세 조회
+	 * @param articleNo
+	 * @return
+	 */
+	public FreeBoard selectOne(int articleNo) {
+	  return dao.selectOne(articleNo);
+	}
+	
+	/**
+	 * 조회수 +1
+	 * @param articleNo
+	 */
+	public void plusHits(int articleNo) {
+	  dao.plusHits(articleNo);
+	}
+	
 	/** 관리자의 글 등록 */
 	public void register(FreeBoard dto) {
 		dao.insert(dto);

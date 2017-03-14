@@ -78,32 +78,63 @@ public class FreeBoardDAO {
    * 게시판 글 상세 조회
    * @return
    */
-//  public FreeBoard selectOne(int articleNo) {
-//    Connection conn = null;
-//    PreparedStatement pstmt = null;
-//    ResultSet rs = null;
-//    FreeBoard dto = new FreeBoard();
-//    
-//    try {
-//      conn = getConnection();
-//      String sql = "select * from " + TABLE_NAME + " where emp_no = ?";
-//      pstmt = conn.prepareStatement(sql);
-//      pstmt.setInt(1, empNo);
-//      rs = pstmt.executeQuery();
-//
-//      if (rs.next()) {
-//        dto = new Member(rs.getInt("EMP_NO"), rs.getString("USERPW"), rs.getString("USERNAME"),
-//            rs.getString("EMAIL"), rs.getString("MOBILE"), rs.getString("DEPT"), rs.getString("POSITION"),
-//            rs.getString("IS_ADMIN"));
-//      }
-//    } catch (SQLException e) {
-//      System.out.println("회원 상세 조회 오류: " + e.getMessage());
-//      e.printStackTrace();
-//    } finally {
-//      factory.close(rs, pstmt, conn);
-//    }
-//    return dto;
-//  }
+  public FreeBoard selectOne(int articleNo) {
+    Connection conn = null;
+    PreparedStatement pstmt = null;
+    ResultSet rs = null;
+    FreeBoard dto = new FreeBoard();
+    
+    try {
+      conn = getConnection();
+      String sql = "select * from " + TABLE_NAME + " where article_no = ?";
+      pstmt = conn.prepareStatement(sql);
+      pstmt.setInt(1, articleNo);
+      rs = pstmt.executeQuery();
+
+      if (rs.next()) {
+        dto = new FreeBoard(rs.getInt("article_no"), rs.getString("title"), rs.getInt("emp_no"),
+            rs.getString("reg_date"), rs.getString("content"), rs.getInt("hits"), rs.getString("is_notice"),
+            rs.getString("username"));
+      }
+    } catch (SQLException e) {
+      System.out.println("글 상세 조회 오류: " + e.getMessage());
+      e.printStackTrace();
+    } finally {
+      factory.close(rs, pstmt, conn);
+    }
+    return dto;
+  }
+  
+  /**
+   * 글 상세 조회 시 조회수+1
+   * @param articleNo
+   * @param title
+   * @param content
+   * @param isNotice
+   * @return
+   */
+  public int plusHits(int articleNo) {
+    Connection conn = null;
+    PreparedStatement pstmt = null;
+    int row = 0;
+    
+    try {
+      conn = getConnection();
+      String sql = "update " + TABLE_NAME + " set hits=hits+1 where article_no = ?";
+      pstmt = conn.prepareStatement(sql);
+      
+      pstmt.setInt(1, articleNo);
+      
+      row = pstmt.executeUpdate();
+      
+    } catch (SQLException e) {
+      System.out.println("Error : 조회수 카운트 오류");
+      e.printStackTrace();
+    } finally {
+      factory.close(pstmt, conn);
+    }
+    return row;
+  }
   
   /** 회원의 글 등록 */
   public int insert(int articleNo, String title, int empNo, String regDate, String content, int hits, String userName) {

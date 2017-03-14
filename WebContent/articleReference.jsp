@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
-<%@ page import="java.util.Date,java.text.SimpleDateFormat"%>
+<%@ page import="java.util.Date,java.text.SimpleDateFormat,work.model.dto.FreeBoard"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="kr">
 <head>
@@ -75,12 +75,14 @@ table {
 								<a href='boardMain.jsp'>동부배움터</a>
 				</div>
 				<div id="content">
+				<% FreeBoard dto = (FreeBoard) request.getAttribute("dto");%>
 						<br>
 						<br>
 						<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value=" 일반게시판 "><br>
 						<br>
 						<p>
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="이전글" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="다음글" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="글수정" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="글삭제" /><br>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="이전글" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="다음글" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<input type="button" value="글수정" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="글삭제" onclick="location.href='controller?action=deleteArticle&articleNo=<%= dto.getArticleNo() %>&empNo=<%= dto.getEmpNo() %>'"/><br>
 						<table id="td1" border="1" align="center">
 								<tr>
 										<th>
@@ -91,22 +93,22 @@ table {
 												%> 일반
 												<% } %>
 										</th>
-										<th><%=request.getAttribute("title")%></th>
+										<th><%=dto.getTitle()%></th>
 										<%
-										  Date d = new Date();//request.getAttribute("regDate")
+										  Date d = new Date();
 										  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 										%>
 										<td align="right"><%=sdf.format(d)%>
 								</tr>
 								<table id="td2" border="1" align="center">
 										<tr>
-												<th><%=request.getAttribute("userName")%></th>
-												<td align="right">조회수 : <%=request.getAttribute("hits")%>
+												<th><%= dto.getUserName() %></th>
+												<td align="right">조회수 : <%= dto.getHits() %>
 										</tr>
 										<table id="td3" border="1" align="center">
 												<br>
 		 										<tr>
-														<td align="center"><%=request.getAttribute("content")%></td>
+														<td align="center"><%=dto.getContent()%></td>
 												</tr>
 												<table id="td4" border="1" align="center">
 														<br>
