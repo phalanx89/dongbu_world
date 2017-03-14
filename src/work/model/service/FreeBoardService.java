@@ -26,6 +26,11 @@ public class FreeBoardService {
 	}
 	
 	public void register(int articleNo, String title, int empNo, String regDate, String content, int hits, String userName) {
+		if (userName != null && userName.length() > 14) {
+			System.out.println("userName's length is too long>> " + userName);
+			userName = userName.substring(0, 14);			
+			System.out.println("converted userName is >> " + userName);
+		}
 		dao.insert(articleNo, title, empNo, regDate, content, hits, userName);
 	}
 	

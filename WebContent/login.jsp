@@ -24,17 +24,17 @@
 
  <body>
   <header>
-	 <h2> <a href="index.html">(주) 동부 World</a></h2>
+	 <h2> <a href="index.jsp">(주) 동부 World</a></h2>
  </header>
 	<div id="page-wrap">
 
-		<form method="post" action="process.jsp">
+		<form method="post" action="controller?action=login">
 			<fieldset>
 				<legend>로그인 정보입력</legend>
 				<label for="name">ID</label>
-				<input type="text" name="name" id="text1" /><br />
+				<input type="text" name="empNo" id="text1" /><br />
 				<label for="password">패스워드</label>
-				<input type="password" name="password" /><br />
+				<input type="password" name="userPw" /><br />
 			</fieldset>
 			<a href="index.html">
 			<input type="submit" name="submit" value="로그인" /></a>

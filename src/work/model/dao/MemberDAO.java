@@ -99,10 +99,9 @@ public class MemberDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		HashMap<String, String> map = null;
-
 		try {
 			conn = getConnection();
-			String sql = "select username, is_admin from member where emp_no = ? and userpw = ?";
+			String sql = "select username, is_admin from dw_member where emp_no = ? and userpw = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, empNo);
 			pstmt.setString(2, userPw);
