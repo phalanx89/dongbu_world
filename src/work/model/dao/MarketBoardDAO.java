@@ -53,8 +53,9 @@ public class MarketBoardDAO {
 				String content = rs.getString("content");
 				int hits = rs.getInt("hits");
 				String isNotice = rs.getString("is_notice");
+				String userName = rs.getString("username");
 
-				MarketBoard dto = new MarketBoard(articleNo, title, empNo, regDate, content, hits, isNotice);
+				MarketBoard dto = new MarketBoard(articleNo, title, empNo, regDate, content, hits, isNotice, userName);
 				list.add(dto);
 			}
 
@@ -75,7 +76,7 @@ public class MarketBoardDAO {
 
 		try {
 			conn = getConnection();
-			String sql = "insert into " + TABLE_NAME + " values(?, ?, ?, ?, ?, ?, ?)";
+			String sql = "insert into " + TABLE_NAME + " values(?, ?, ?, ?, ?, ?, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setInt(1, dto.getArticleNo());
@@ -85,6 +86,7 @@ public class MarketBoardDAO {
 			pstmt.setString(5, dto.getContent());
 			pstmt.setInt(6, dto.getHits());
 			pstmt.setString(7, dto.getIsNotice());
+			pstmt.setString(8, dto.getUserName());
 
 			row = pstmt.executeUpdate();
 
@@ -128,6 +130,7 @@ public class MarketBoardDAO {
 			String content;
 			int hits;
 			String isNotice;
+			String userName;
 
 			while (rs.next()) {
 				articleNo = rs.getInt(1);
@@ -137,8 +140,9 @@ public class MarketBoardDAO {
 				content = rs.getString(5);
 				hits = rs.getInt(6);
 				isNotice = rs.getString(7);
+				userName = rs.getString(8);
 
-				list.add(new MarketBoard(articleNo, title, empNo, regDate, content, hits, isNotice));
+				list.add(new MarketBoard(articleNo, title, empNo, regDate, content, hits, isNotice, userName));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

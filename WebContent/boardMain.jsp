@@ -2,33 +2,55 @@
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="work.model.dto.FreeBoard"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html lang="kr">
+<html>
 <head>
-<title><font face="조선일보명조">(주)동부 World 게시판 메인 페이지</title>
-<meta charset="utf-8"></meta>
-<style>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>template</title>
+<style type="text/css">
+#container {
+		background-color: #ffffff;
+		width: 100%;
+		height: 100%;
+		padding: 0px;
+		margin: 0px;
+}
+
+/* #sideinfo { */
+/* 		background-color: #cccccc; */
+/* 		float: left; */
+/* 		width: 300px; */
+/* 		height: 500px; */
+/* 		padding: 5px; */
+/* } */
+
 #nav {
 		width: 10%;
-		height: 800px;
+		height: 700px;
 		border: 1px solid black;
 		float: left;
 }
 
 #content {
-		width: 90%;
-		height: 800px;
-		border: 1px solid black;
-		float: right right;
+		background-color: #F5F5F5;
+		float: left;
+		width: 100%;
+		height: 750px;
+		padding: 3px;
+}
+
+#footer {
+		background-color: #ffffff;
+		clear: both;
+		height: 100px;
 }
 </style>
 </head>
-<body>
-		<header>
-		<h2>
-				<a href="index.jsp"> <font color="c#33B114" face="조선일보명조"><em>DONGBU</em></font><font color="c#1EB930" face="조선일보명조"><em> WORLD</em></font></a>
-		</h2>
-		</header>
-		<div id="wrapper">
+<body >
+		<div id="container">
+				<div id="header">
+					<jsp:include page="top.jsp"></jsp:include>
+				</div>
+				<div id="content">
 				<div id="nav">
 						<br>
 						<br>
@@ -53,7 +75,7 @@
 						<p align="center">
 								<a href='boardMain.jsp'>동부배움터</a>
 				</div>
-				<div id="content">
+				<div id="content_board">
 						<br>
 						<br>
 						<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value=" 일반게시판 "><br>
@@ -100,11 +122,11 @@
 						<input type="button" value="글등록" onclick="location.href='inputDataFree.jsp'" />
 						</form>
 				</div>
-</body>
-<!-- footer -->
-<hr>
-<div class="footer" align="center">
-		<font face="조선일보명조"> 개인정보처리방침 | 사이트맵 | 이메일무단수집거부 | 공시정보관리규정<br> 서울시 강남구 삼성로 96길 23(삼성동 154-17)TEL : 02-2136-6000FAX : 02-2136-6007<br> 사업자 등록 번호 : 211-81-19938 (C) 2015 Dongbu Inc. All Rights Reserved.<br>
-</div>
+				</div>
+<!-- 				<div id="sideinfo"></div> -->
+				<div id="footer">
+				<jsp:include page="footer.jsp"></jsp:include>
+				</div>
+		</div>
 </body>
 </html>
