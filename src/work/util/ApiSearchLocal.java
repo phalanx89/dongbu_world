@@ -18,7 +18,7 @@ public class ApiSearchLocal {
 	public static String search(String param) {
         String clientId = "xR22H5I3UVJVZ_m677sf";	//애플리케이션 클라이언트 아이디값";
         String clientSecret = "cCwJz0BFhR";				//애플리케이션 클라이언트 시크릿값";
-        
+        String result = null;
         try {
             String text = URLEncoder.encode(param, "UTF-8");
             //String apiURL = "https://openapi.naver.com/v1/search/blog?query="+ text; // json 결과
@@ -51,9 +51,10 @@ public class ApiSearchLocal {
             
             System.out.println(response.toString());
             
-            return response;
+            result = response.toString();
         } catch (Exception e) {
             System.out.println(e);
         }
+        return result;
     }
 }

@@ -25,8 +25,8 @@ public class FreeBoardService {
 		dao.insert(dto);
 	}
 	
-	public void register(int articleNo, String title, int empNo, String regDate, String content, int hits) {
-		dao.insert(articleNo, title, empNo, regDate, content, hits);
+	public void register(int articleNo, String title, int empNo, String regDate, String content, int hits, String userName) {
+		dao.insert(articleNo, title, empNo, regDate, content, hits, userName);
 	}
 	
 	/** ±Û °Ë»ö */
