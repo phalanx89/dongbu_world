@@ -16,6 +16,7 @@ public class FreeBoard {
 	private int hits;
 	private String isNotice;
 	private String userName;
+	private int countReply;
 
 	/**
 	 * 
@@ -183,7 +184,23 @@ public class FreeBoard {
 		this.userName = userName;
 	}
 
-	/* (non-Javadoc)
+	
+	
+	/**
+   * @return the countReply
+   */
+  public int getCountReply() {
+    return countReply;
+  }
+
+  /**
+   * @param countReply the countReply to set
+   */
+  public void setCountReply(int countReply) {
+    this.countReply = countReply;
+  }
+
+  /* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

@@ -21,6 +21,9 @@ public class MemberDAO {
 	private FactoryDAO factory = FactoryDAO.getInstance();
 
 	private static MemberDAO instance = new MemberDAO();
+	
+	/**/
+	private static HashMap<Integer, String> mapEmpNo = new HashMap<Integer, String>();
 
 	private MemberDAO() {
 	}
@@ -31,6 +34,35 @@ public class MemberDAO {
 
 	private Connection getConnection() throws SQLException {
 		return factory.getConnection();
+	}
+	
+	/**
+	 * 사번으로 이름 가져오기
+	 * @param empNo
+	 * @return
+	 */
+	public String getUserName(int empNo) {
+	  Connection conn = null;
+    PreparedStatement pstmt = null;
+    ResultSet rs = null;
+    String userName = null;
+
+    try {
+      conn = getConnection();
+      String sql = "select username from dw_member where emp_no = ?";
+      pstmt = conn.prepareStatement(sql);
+      pstmt.setInt(1, empNo);
+      rs = pstmt.executeQuery();
+
+      if (rs.next()) {
+        userName = rs.getString("username");
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      factory.close(rs, pstmt, conn);
+    }
+    return userName;
 	}
 
 	/** Member 전체 조회 */

@@ -11,6 +11,15 @@ import work.model.dto.Member;
 public class MemberService {
 	
 	private MemberDAO dao = MemberDAO.getInstance();
+	
+	/**
+	 * 사번으로 이름 가져오기
+	 * @param empNo
+	 * @return
+	 */
+	public String getUserName(int empNo) {
+	  return dao.getUserName(empNo);
+	}
 
 	/** 로그인 */
 	public HashMap<String, String> login(int empNo, String userPw) {

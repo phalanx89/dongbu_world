@@ -151,6 +151,7 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 														%> 일반 <%
 														  }
 														%>&nbsp;&nbsp; <a href='controller?action=articleReference&articleNo=<%=dto.getArticleNo()%>'><font face="조선일보명조"><%=dto.getTitle()%></a>
+														(<%=dto.getCountReply() %>)
 												</td>
 												<td><font face="조선일보명조"><%=dto.getUserName()%></td>
 												<td><font face="조선일보명조"><%=dto.getHits()%></td>

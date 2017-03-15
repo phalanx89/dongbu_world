@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
-<%@ page import="java.util.Date,java.text.SimpleDateFormat,work.model.dto.FreeBoard"%>
+<%@ page import="java.util.Date,java.text.SimpleDateFormat,work.model.dto.*,java.util.ArrayList"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -35,6 +35,7 @@
 		clear: both;
 		height: 100px;
 }
+
 #nav {
 		width: 10%;
 		height: 500px;
@@ -65,41 +66,41 @@ table {
 }
 
 input[type=text], input[type=password] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
+		width: 100%;
+		padding: 12px 20px;
+		margin: 8px 0;
+		display: inline-block;
+		border: 1px solid #ccc;
+		box-sizing: border-box;
 }
 
 /* Set a style for all buttons */
 button {
-    background-color: #7071B2;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 100%;
+		background-color: #7071B2;
+		color: white;
+		padding: 14px 20px;
+		margin: 8px 0;
+		border: none;
+		cursor: pointer;
+		width: 100%;
 }
 
 button:hover {
-    opacity: 0.8;
+		opacity: 0.8;
 }
 
 input[type=submit], input[type=reset], input[type=button] {
-    background-color: #7071B2;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 100%;
+		background-color: #7071B2;
+		color: white;
+		padding: 14px 20px;
+		margin: 8px 0;
+		border: none;
+		cursor: pointer;
+		width: 100%;
 }
 
 input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
-    opacity: 0.8;
+		opacity: 0.8;
 }
 </style>
 </head>
@@ -123,15 +124,12 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 								<%
 								  FreeBoard dto = (FreeBoard) request.getAttribute("dto");
 								%>
-								<input type="button" value=" 일반게시판 " style="width: auto;"> <input type="button" value="이전글"  style="width: auto;"/> 
-								<input type="button" value="다음글" style="width: auto;"/> 
-								<input type="button" value="글수정" style="width: auto;" onclick="location.href='controller?action=correctPage&articleNo=<%=dto.getArticleNo()%>&empNo=<%=dto.getEmpNo()%>'" /> 
-								<input type="button" value="글삭제" style="width: auto;" onclick="location.href='controller?action=deleteArticle&articleNo=<%=dto.getArticleNo()%>&empNo=<%=dto.getEmpNo()%>'" />
+								<input type="button" value=" 일반게시판 " style="width: auto;"> <input type="button" value="이전글" style="width: auto;" /> <input type="button" value="다음글" style="width: auto;" /> <input type="button" value="글수정" style="width: auto;" onclick="location.href='controller?action=correctPage&articleNo=<%=dto.getArticleNo()%>&empNo=<%=dto.getEmpNo()%>'" /> <input type="button" value="글삭제" style="width: auto;" onclick="location.href='controller?action=deleteArticle&articleNo=<%=dto.getArticleNo()%>&empNo=<%=dto.getEmpNo()%>'" />
 								<table id="td1" border="1" align="center">
 										<tr>
 												<th>
 														<%
-														String isAdmin = ((String) request.getSession(false).getAttribute("isAdmin"));
+														  String isAdmin = ((String) request.getSession(false).getAttribute("isAdmin"));
 														  if (isAdmin != null && isAdmin.equals("Y")) {
 														%> 공지 <%
 														  } else {
@@ -157,19 +155,36 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 														</tr>
 														<table id="td4" border="1" align="center">
 																<tr>
-																		<td align="center">댓글 <input type="button" value="등록" style="width: auto;"></td>
+																		<td align="center"><form method='post' action="controller?action=registerReply&articleNo=<%=dto.getArticleNo()%>">
+																						<input type="text" name="reply" id="text1" style="width: 50%;" /> <input type="submit" value="등록" style="width: auto;">
+																				</form></td>
 																</tr>
 																<table id="td5" border="1" align="center">
+																		<%
+																		  ArrayList<FreeReply> list = (ArrayList<FreeReply>) request.getAttribute("list");
+																		  if (list != null) {
+																		    for (FreeReply fr : list) {
+																		%>
+																		<tr>댓글</tr>
 																		<tr>
-																				<td align="center">1빠요~ㅋㅋㅋㅋㅋㅋㅋㅋ <input type="button" value="수정" style="width: auto;"> <input type="button" value="삭제" style="width: auto;"></td>
+																				<td align="center"><%=fr.getReplyNo()%></td>
+																				<td><%=fr.getUserName()%></td>
+																				<td><%=fr.getReply()%></td>
+																				<td><%=fr.getRegDate()%></td>
+																				<td align="right"><input type="button" value="수정" style="width: auto;">
+																				<input type="button" value="삭제" style="width: auto;" onclick="location.href='controller?action=deleteReply&replyNo=<%=fr.getReplyNo() %>&articleNo=<%=fr.getArticleNo() %>'" /></td>
 																		</tr>
+																		<%
+																		  }
+																		  }
+																		%>
 																</table>
 																</div>
-						</div>
-						<!-- 				<div id="sideinfo"></div> -->
-						<div id="footer">
-								<jsp:include page="footer.jsp"></jsp:include>
-						</div>
-				</div>
+																</div>
+																<!-- 				<div id="sideinfo"></div> -->
+																<div id="footer">
+																		<jsp:include page="footer.jsp"></jsp:include>
+																</div>
+																</div>
 </body>
 </html>
