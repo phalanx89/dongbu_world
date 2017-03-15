@@ -136,12 +136,7 @@ public class FreeBoardDAO {
     return row;
   }
   
-  /** 회원의 글 등록 */
-  public int insert(int articleNo, String title, int empNo, String regDate, String content, int hits, String userName) {
-    return insert(new FreeBoard(articleNo, title, empNo, regDate, content, hits, "N", userName));
-  }
-  
-  /** 관리자의 글 등록 */
+  /** 글 등록 */
   public int insert(FreeBoard dto) {
     Connection conn = null;
     PreparedStatement pstmt = null;
@@ -251,26 +246,26 @@ public class FreeBoardDAO {
     return no;
   }
   
-  /** 회원 본인 글 수정 */
-  public int update(int articleNo, String title, String content) {
-    return update(articleNo, title, content, "N");
-  }
+//  /** 회원 본인 글 수정 */
+//  public int update(int articleNo, String title, String content) {
+//    return update(articleNo, title, content, "N");
+//  }
   
   /** 관리자 글 수정 */
-  public int update(int articleNo, String title, String content, String isNotice) {
+  public int update(FreeBoard dto) {
     Connection conn = null;
     PreparedStatement pstmt = null;
     int row = 0;
     
     try {
       conn = getConnection();
-      String sql = "update " + TABLE_NAME + "set title = ?, content = ?, is_notice = ? where article_no = ?";
+      String sql = "update " + TABLE_NAME + " set title = ?, content = ?, is_notice = ? where article_no = ?";
       pstmt = conn.prepareStatement(sql);
       
-      pstmt.setString(1, title);
-      pstmt.setString(2, content);
-      pstmt.setString(3, isNotice);
-      pstmt.setInt(4, articleNo);
+      pstmt.setString(1, dto.getTitle());
+      pstmt.setString(2, dto.getContent());
+      pstmt.setString(3, dto.getIsNotice());
+      pstmt.setInt(4, dto.getArticleNo());
       
       row = pstmt.executeUpdate();
       

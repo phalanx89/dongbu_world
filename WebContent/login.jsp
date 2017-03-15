@@ -44,7 +44,7 @@
 						<form method="post" action="controller?action=login">
 								<fieldset>
 										<legend>로그인 정보입력</legend>
-										<label for="name">ID</label> <input type="text" name="empNo" id="text1" /><br /> <label for="password">패스워드</label> <input type="password" name="userPw" /><br />
+										<label for="name">ID</label> <input type="text" name="empNo" id="text1"/><br /> <label for="password">패스워드</label> <input type="password" name="userPw" /><br />
 								</fieldset>
 								<a href="index.html"> <input type="submit" name="submit" value="로그인" /></a>
 								<button>비밀번호 찾기</button>

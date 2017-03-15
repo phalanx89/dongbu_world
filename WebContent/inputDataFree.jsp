@@ -73,12 +73,16 @@
 														<br>
 														<tr>
 																<br>
-																<td><font face="조선일보명조">글제목 &nbsp;: <input type="text" name="title">&nbsp; <select name="isNotice">
+																<td><font face="조선일보명조">글제목 &nbsp;: <input type="text" name="title">&nbsp; <%
+   if (((String) request.getSession(false).getAttribute("isAdmin")).equals("Y")) {
+ %> <select name="isNotice">
 																						<option value="">=공지여부 선택=</option>
 																						<option value="Y">공지</option>
 																						<option value="N">일반</option>
-																		</select><br>
-																				<form enctype="multipart/form-data">
+																		</select> <%
+   }
+ %>
+																				<br><form enctype="multipart/form-data">
 																						파일첨부 : <input type="file" accept="image/jpeg" ,image/gif>
 																				</form></td>
 														</tr>
@@ -90,17 +94,16 @@
 																<table id="td3" border="0" align="center">
 																		<br>
 																		<tr>
-																				<td align="center"><input type="submit" value="등록" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-																				<input type="button" value="취소" onclick="location.href='controller?action=selectFreeList'" /></td>
+																				<td align="center"><input type="submit" value="등록" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="button" value="취소" onclick="location.href='controller?action=selectFreeList'" /></td>
 																		</tr>
 																</table>
 																</form>
 																</div>
-								</div>
-								<!-- 				<div id="sideinfo"></div> -->
-								<div id="footer">
-										<jsp:include page="footer.jsp"></jsp:include>
-								</div>
-						</div>
+																</div>
+																<!-- 				<div id="sideinfo"></div> -->
+																<div id="footer">
+																		<jsp:include page="footer.jsp"></jsp:include>
+																</div>
+																</div>
 </body>
 </html>

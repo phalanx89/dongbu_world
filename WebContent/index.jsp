@@ -47,19 +47,19 @@
 						<table>
 								<tr>
 										<td colspan="3">&nbsp;</td>
-										<td bgcolor="#cccccc" align="center"><a href=""> <img src="images/icon_rank.png" width="230px" height="230px"><br>맛집 랭킹
+										<td bgcolor="#7071B2" align="center"><a href=""> <img src="images/icon_rank.png" width="230px" height="230px"><br>맛집 랭킹
 										</a></td>
 								</tr>
 								<tr>
-										<td bgcolor="#cccccc" align="center"><a href="controller?action=selectFreeList"> <img src="images/icon_board.png" width="230px" height="230px"><br>게시판 메인
+										<td bgcolor="#A2A1FA" align="center"><a href="controller?action=selectFreeList"> <img src="images/icon_board.png" width="230px" height="230px"><br>게시판 메인
 										</a></td>
-										<td bgcolor="#cccccc" align="center"><a href="http://ep.dongbuinc.com/"><img src="images/icon_epdongbu.png" width="230px" height="230px"><br>구글 포르테</a></td>
-										<td bgcolor="#cccccc" align="center"><a href="index.jsp"><img src="images/icon_member.png" width="230px" height="230px"><br>회원정보조회</a></td>
-										<td bgcolor="#cccccc" align="center"><a href="restaurant_main.jsp"><img src="images/icon_restaurant.png" width="230px" height="230px"><br>맛집 메인</a></td>
+										<td bgcolor="#B3B3B3" align="center"><a href="http://ep.dongbuinc.com/"><img src="images/icon_epdongbu.png" width="230px" height="230px"><br>구글 포르테</a></td>
+										<td bgcolor="#A2A1FA" align="center"><a href="index.jsp"><img src="images/icon_member.png" width="230px" height="230px"><br>회원정보조회</a></td>
+										<td bgcolor="#B3B3B3" align="center"><a href="restaurant_main.jsp"><img src="images/icon_restaurant.png" width="230px" height="230px"><br>맛집 메인</a></td>
 								</tr>
 								<tr>
 										<td></td>
-										<td bgcolor="#cccccc" align="center"><a href="http://dbcni.benecafe.co.kr/"><img src="images/icon_bene.png" width="230px" height="230px"><br>Bene Cafe</a></td>
+										<td bgcolor="#7071B2" align="center"><a href="http://dbcni.benecafe.co.kr/"><img src="images/icon_bene.png" width="230px" height="230px"><br>Bene Cafe</a></td>
 										<td colspan="2"></td>
 								</tr>
 						</table>
@@ -69,19 +69,19 @@
 						<table>
 								<tr>
 										<td colspan="3">&nbsp;</td>
-										<td bgcolor="#cccccc" align="center"><a href=""> <img src="images/icon_rank.png" width="230px" height="230px"><br>맛집 랭킹
+										<td bgcolor="#7071B2" align="center"><a href=""> <img src="images/icon_rank.png" width="230px" height="230px"><br>맛집 랭킹
 										</a></td>
 								</tr>
 								<tr>
-										<td bgcolor="#cccccc" align="center"><a href="login.jsp"> <img src="images/icon_board.png" width="230px" height="230px"><br>게시판 메인
+										<td bgcolor="#A2A1FA" align="center"><a href="login.jsp"> <img src="images/icon_board.png" width="230px" height="230px"><br>게시판 메인
 										</a></td>
-										<td bgcolor="#cccccc" align="center"><a href="http://ep.dongbuinc.com/"><img src="images/icon_epdongbu.png" width="230px" height="230px"><br>구글 포르테</a></td>
-										<td bgcolor="#cccccc" align="center"><a href="login.jsp"><img src="images/icon_member.png" width="230px" height="230px"><br>회원정보조회</a></td>
-										<td bgcolor="#cccccc" align="center"><a href="login.jsp"><img src="images/icon_restaurant.png" width="230px" height="230px"><br>맛집 메인</a></td>
+										<td bgcolor="#B3B3B3" align="center"><a href="http://ep.dongbuinc.com/"><img src="images/icon_epdongbu.png" width="230px" height="230px"><br>구글 포르테</a></td>
+										<td bgcolor="#A2A1FA" align="center"><a href="login.jsp"><img src="images/icon_member.png" width="230px" height="230px"><br>회원정보조회</a></td>
+										<td bgcolor="#B3B3B3" align="center"><a href="login.jsp"><img src="images/icon_restaurant.png" width="230px" height="230px"><br>맛집 메인</a></td>
 								</tr>
 								<tr>
 										<td></td>
-										<td bgcolor="#cccccc" align="center"><a href="http://dbcni.benecafe.co.kr/"><img src="images/icon_bene.png" width="230px" height="230px"><br>Bene Cafe</a></td>
+										<td bgcolor="#7071B2" align="center"><a href="http://dbcni.benecafe.co.kr/"><img src="images/icon_bene.png" width="230px" height="230px"><br>Bene Cafe</a></td>
 										<td colspan="2"></td>
 								</tr>
 						</table>
