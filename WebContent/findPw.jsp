@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>로그인</title>
+<title>비밀번호 찾기</title>
 <style type="text/css">
 #container {
 		background-color: #ffffff;
@@ -79,13 +79,13 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 						<jsp:include page="top.jsp"></jsp:include>
 				</div>
 				<div id="content">
-						<form method="post" action="controller?action=login">
+						<form method="post" action="controller?action=findUserPw">
 								<fieldset>
-										<legend>로그인 정보입력</legend>
-										<label for="name">ID</label> <input type="text" name="empNo" id="text1" style="width: auto;"/><br /> <label for="password">PW</label> <input type="password" name="userPw" style="width: auto;" /><br />
+										<legend>비밀번호 찾기</legend>
+										<label for="name">입력하신 이메일로 임시 비밀번호가 발송됩니다</label><br />
+										<label for="name">EMAIL</label> <input type="text" name="email" id="text1" style="width: auto;"/><br /> 
 								</fieldset>
-								<input type="submit" name="submit" value="로그인" style="width: auto;"/>
-								<a href="findPw.jsp" style="text-decoration:none;">비밀번호 찾기</a>
+								<input type="submit" name="submit" value="전송" style="width: auto;"/>
 						</form>
 				</div>
 				<!-- 				<div id="sideinfo"></div> -->

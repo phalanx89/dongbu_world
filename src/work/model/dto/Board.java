@@ -7,7 +7,7 @@ package work.model.dto;
  * @author DB
  *
  */
-public class FreeBoard {
+public class Board {
 	private int articleNo;
 	private String title;
 	private int empNo;
@@ -16,11 +16,12 @@ public class FreeBoard {
 	private int hits;
 	private String isNotice;
 	private String userName;
+	private int countReply;
 
 	/**
 	 * 
 	 */
-	public FreeBoard() {
+	public Board() {
 		super();
 	}
 
@@ -33,7 +34,7 @@ public class FreeBoard {
 	 * @param isNotice
 	 * @param userName
 	 */
-	public FreeBoard(int articleNo, String title, int empNo, String regDate, int hits, String isNotice,
+	public Board(int articleNo, String title, int empNo, String regDate, int hits, String isNotice,
 			String userName) {
 		super();
 		this.articleNo = articleNo;
@@ -57,7 +58,7 @@ public class FreeBoard {
 	 * @param isNotice
 	 * @param userName
 	 */
-	public FreeBoard(int articleNo, String title, int empNo, String regDate, String content, int hits, String isNotice,
+	public Board(int articleNo, String title, int empNo, String regDate, String content, int hits, String isNotice,
 			String userName) {
 		this.articleNo = articleNo;
 		this.title = title;
@@ -183,7 +184,23 @@ public class FreeBoard {
 		this.userName = userName;
 	}
 
-	/* (non-Javadoc)
+	
+	
+	/**
+   * @return the countReply
+   */
+  public int getCountReply() {
+    return countReply;
+  }
+
+  /**
+   * @param countReply the countReply to set
+   */
+  public void setCountReply(int countReply) {
+    this.countReply = countReply;
+  }
+
+  /* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
-import work.model.dto.FreeBoard;
 import work.model.dto.Restaurant;
 
 /**
@@ -173,12 +172,12 @@ public class RestaurantDAO {
 		return aryRestaurant;
 	}
 	
-	/** 게시판 글 전체 조회 *//*
-	public ArrayList<FreeBoard> selectList() {
+	/** 게시판 글 전체 조회 */
+	/*public ArrayList<Restaurant> selectList() {
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
-		ArrayList<FreeBoard> list = new ArrayList<FreeBoard>();
+		ArrayList<Restaurant> list = new ArrayList<Restaurant>();
 
 		try {
 			conn = getConnection();
@@ -196,7 +195,7 @@ public class RestaurantDAO {
 				int hits = rs.getInt("hits");
 				String isNotice = rs.getString("is_notice");
 
-				FreeBoard dto = new FreeBoard(articleNo, title, empNo, regDate, content, hits, isNotice);
+				Restaurant dto = new Restaurant(articleNo, title, empNo, regDate, content, hits, isNotice);
 				list.add(dto);
 			}
 

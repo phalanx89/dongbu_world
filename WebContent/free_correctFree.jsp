@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page import="work.model.dto.Board" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -88,60 +89,64 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 				<div id="content">
 						<div id="wrapper">
 								<div id="nav">
-										<br> <br>
-										<p align="center">
-												<a href='controller?action=selectFreeList'>자유게시판</a>
-										</p>
-										<br> <br> <br>
-										<p align="center">
-												<a href='boardMain.jsp'>익명게시판</a>
-										</p>
-										<br> <br> <br>
-										<p align="center">
-												<a href='boardMain.jsp'>동부장터</a>
-										</p>
-										<br> <br> <br>
-										<p align="center">
-												<a href='boardMain.jsp'>동부배움터</a>
+										<div align="center">
+										<a href='controller?action=free_selectList'>자유게시판</a>
+								</div>
+								<div align="center">
+										<a href='controller?action=blind_selectList'>익명게시판</a>
+								</div>
+								<div align="center">
+										<a href='controller?action=market_selectList'>동부장터</a>
+								</div>	
+								<div align="center">
+										<a href='controller?action=study_selectList'>동부배움터</a>
+								</div>
 								</div>
 								<div id="content_right">
-										<br> <br> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value=" 일반게시판 ">
-										<form method="post" action="controller?action=registerFreeByAdmin">
+										<%
+										  Board dto = (Board) request.getAttribute("dto");
+										%>
+										<br> <br> <br><input type="button" value=" 일반게시판 " style="width: auto;">
+										<form method="post" action="controller?action=free_updateBoard&articleNo=<%=dto.getArticleNo()%>&hits=<%=dto.getHits()%>">
 												<table id="td1" border="1" align="center">
 														<br>
 														<tr>
 																<br>
-																<td><font face="조선일보명조">글제목 &nbsp;: <input type="text" name="title" style="width: auto;">&nbsp; <%
-   if (((String) request.getSession(false).getAttribute("isAdmin")).equals("Y")) {
- %> <select name="isNotice">
+																<td><font face="조선일보명조">글제목 &nbsp;: <input type="text" name="title" value="<%=dto.getTitle()%>">&nbsp; <select name="isNotice">
 																						<option value="">=공지여부 선택=</option>
-																						<option value="Y">공지</option>
-																						<option value="N">일반</option>
-																		</select> <%
-   }
- %>
-																				<br><form enctype="multipart/form-data">
+																						<%
+																						  if (dto.getIsNotice().equals("Y")) {
+																						    out.write("<option value='Y' selected='selected'>공지</option>");
+																						    out.write("<option value='N'>일반</option>");
+																						  } else {
+																						    out.write("<option value='Y'>공지</option>");
+																						    out.write("<option value='N' selected='selected'>일반</option>");
+																						  }
+																						%>
+																		</select><br>
+																				<form enctype="multipart/form-data">
 																						파일첨부 : <input type="file" accept="image/jpeg" ,image/gif>
 																				</form></td>
 														</tr>
 														<table id="td2" border="1" align="center">
 																<br>
 																<tr>
-																		<td align="center"><TEXTAREA ROWS="16" COLS="100" name='content'></TEXTAREA></td>
+																		<td align="center"><TEXTAREA ROWS="16" COLS="100" name='content'><%=dto.getContent()%></TEXTAREA></td>
 																</tr>
 																<table id="td3" border="0" align="center">
 																		<br>
 																		<tr>
-																				<td align="center"><input type="submit" value="등록" style="width: auto;" />  <input type="button" value="취소" style="width: auto;" onclick="location.href='controller?action=selectFreeList'" /></td>
+																				<td align="center"><input type="submit" value="등록" style="width: auto;"/>  <input type="button" value="취소" style="width: auto;" onclick="location.href='controller?action=free_selectList'" /></td>
 																		</tr>
 																</table>
 																</form>
 																</div>
-																</div>
-																<!-- 				<div id="sideinfo"></div> -->
-																<div id="footer">
-																		<jsp:include page="footer.jsp"></jsp:include>
-																</div>
-																</div>
+								</div>
+								
+								<!-- 				<div id="sideinfo"></div> -->
+								<div id="footer">
+										<jsp:include page="footer.jsp"></jsp:include>
+								</div>
+						</div>
 </body>
 </html>

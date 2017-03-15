@@ -103,9 +103,9 @@ a:hover {
 										<td align="center"> <button style="background-color:#7071B2; width:220px; height:230px;">맛집 랭킹</button></td>
 								</tr>
 								<tr>
-										<td align="center"><button style="background-color:#A2A1FA; width:220px; height:230px;" onclick="location.href='controller?action=selectFreeList'">게시판 메인</button></td>
+										<td align="center"><button style="background-color:#A2A1FA; width:220px; height:230px;" onclick="location.href='controller?action=free_selectList'">게시판 메인</button></td>
 										<td align="center"><button style="background-color:#B3B3B3; width:220px; height:230px;" onclick="location.href='http://ep.dongbuinc.com/'">구글 포르테</button></td>
-										<td align="center"><button style="background-color:#A2A1FA; width:220px; height:230px;" onclick="location.href='index.jsp'">회원정보조회</button></td>
+										<td align="center"><button style="background-color:#A2A1FA; width:220px; height:230px;" onclick="location.href='controller?action=myInfo'">회원정보조회</button></td>
 										<td align="center"><button style="background-color:#B3B3B3; width:220px; height:230px;" onclick="location.href='restaurant_main.jsp'">맛집 메인</button></td>
 								</tr>
 								<tr>

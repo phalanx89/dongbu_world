@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
-<%@ page import="work.model.dto.FreeBoard" %>
+<%@ page import="work.model.dto.Board" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -89,28 +89,25 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 				<div id="content">
 						<div id="wrapper">
 								<div id="nav">
-										<br> <br>
-										<p align="center">
-												<a href='controller?action=selectFreeList'>자유게시판</a>
-										</p>
-										<br> <br> <br>
-										<p align="center">
-												<a href='boardMain.jsp'>익명게시판</a>
-										</p>
-										<br> <br> <br>
-										<p align="center">
-												<a href='boardMain.jsp'>동부장터</a>
-										</p>
-										<br> <br> <br>
-										<p align="center">
-												<a href='boardMain.jsp'>동부배움터</a>
+										<div align="center">
+										<a href='controller?action=free_selectList'>자유게시판</a>
+								</div>
+								<div align="center">
+										<a href='controller?action=blind_selectList'>익명게시판</a>
+								</div>
+								<div align="center">
+										<a href='controller?action=market_selectList'>동부장터</a>
+								</div>	
+								<div align="center">
+										<a href='controller?action=study_selectList'>동부배움터</a>
+								</div>
 								</div>
 								<div id="content_right">
 										<%
-										  FreeBoard dto = (FreeBoard) request.getAttribute("dto");
+										  Board dto = (Board) request.getAttribute("dto");
 										%>
 										<br> <br> <br><input type="button" value=" 일반게시판 " style="width: auto;">
-										<form method="post" action="controller?action=updateBoard&articleNo=<%=dto.getArticleNo()%>&hits=<%=dto.getHits()%>">
+										<form method="post" action="controller?action=blind_updateBoard&articleNo=<%=dto.getArticleNo()%>&hits=<%=dto.getHits()%>">
 												<table id="td1" border="1" align="center">
 														<br>
 														<tr>
@@ -139,7 +136,7 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 																<table id="td3" border="0" align="center">
 																		<br>
 																		<tr>
-																				<td align="center"><input type="submit" value="등록" style="width: auto;"/>  <input type="button" value="취소" style="width: auto;" onclick="location.href='controller?action=selectFreeList'" /></td>
+																				<td align="center"><input type="submit" value="등록" style="width: auto;"/>  <input type="button" value="취소" style="width: auto;" onclick="location.href='controller?action=blind_selectList'" /></td>
 																		</tr>
 																</table>
 																</form>
