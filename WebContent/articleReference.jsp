@@ -18,6 +18,7 @@
 /* 		background-color: #cccccc; */
 /* 		float: left; */
 /* 		width: 300px; */
+
 /* 		height: 500px; */
 /* 		padding: 5px; */
 /* } */
@@ -71,19 +72,12 @@ table {
 				</div>
 				<div id="content">
 						<div id="nav">
-								<br> <br>
 								<p align="center">
 										<a href='controller?action=selectFreeList'>자유게시판</a>
-								</p>
-								<br> <br> <br>
 								<p align="center">
 										<a href='boardMain.jsp'>익명게시판</a>
-								</p>
-								<br> <br> <br>
 								<p align="center">
 										<a href='boardMain.jsp'>동부장터</a>
-								</p>
-								<br> <br> <br>
 								<p align="center">
 										<a href='boardMain.jsp'>동부배움터</a>
 						</div>
@@ -91,14 +85,13 @@ table {
 								<%
 								  FreeBoard dto = (FreeBoard) request.getAttribute("dto");
 								%>
-								<br> <br> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value=" 일반게시판 "><br> <br>
-								<p>
-										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="이전글" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="다음글" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="button" value="글수정" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="글삭제" onclick="location.href='controller?action=deleteArticle&articleNo=<%=dto.getArticleNo()%>&empNo=<%=dto.getEmpNo()%>'" /><br>
+								<input type="button" value=" 일반게시판 "> <input type="button" value="이전글" /> <input type="button" value="다음글" /> <input type="button" value="글수정" /> <input type="button" value="글삭제" onclick="location.href='controller?action=deleteArticle&articleNo=<%=dto.getArticleNo()%>&empNo=<%=dto.getEmpNo()%>'" />
 								<table id="td1" border="1" align="center">
 										<tr>
 												<th>
 														<%
-														  if (((String) request.getSession(false).getAttribute("isAdmin")).equals("Y")) {
+														String isAdmin = ((String) request.getSession(false).getAttribute("isAdmin"));
+														  if (isAdmin != null && isAdmin.equals("Y")) {
 														%> 공지 <%
 														  } else {
 														%> 일반 <%
@@ -118,19 +111,16 @@ table {
 														<td align="right">조회수 : <%=dto.getHits()%>
 												</tr>
 												<table id="td3" border="1" align="center">
-														<br>
 														<tr>
 																<td align="center"><%=dto.getContent()%></td>
 														</tr>
 														<table id="td4" border="1" align="center">
-																<br>
 																<tr>
-																		<td align="center">댓글&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="등록"></td>
+																		<td align="center">댓글 <input type="button" value="등록"></td>
 																</tr>
 																<table id="td5" border="1" align="center">
-																		<br>
 																		<tr>
-																				<td align="center">1빠요~ㅋㅋㅋㅋㅋㅋㅋㅋ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="수정">&nbsp;&nbsp;<input type="button" value="삭제"></td>
+																				<td align="center">1빠요~ㅋㅋㅋㅋㅋㅋㅋㅋ <input type="button" value="수정"> <input type="button" value="삭제"></td>
 																		</tr>
 																</table>
 																</div>
