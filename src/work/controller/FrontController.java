@@ -504,39 +504,6 @@ public class FrontController extends HttpServlet {
     request.setAttribute("dto", dto);
     request.setAttribute("messageSuccess", "변경사항이 저장되었습니다. 메인화면으로 이동합니다.");
     request.getRequestDispatcher("index.jsp").forward(request, response);
-    
-    // int empNo = Integer.valueOf((request.getSession(false).getAttribute("empNo").toString()));
-    // String userName = (String) request.getSession(false).getAttribute("userName");
-    
-    // int articleNo = Integer.valueOf(request.getParameter("articleNo"));
-    // String title = request.getParameter("title");
-    // String regDate = "sysdate";// = Utility.getTodayDate();
-    // String content = request.getParameter("content");
-    // int hits = Integer.valueOf(request.getParameter("hits"));
-    // String isNotice = request.getParameter("isNotice");
-    //
-    // if (title == null || title.trim().length() == 0) {
-    // // 실패 페이지 이동전에 오류메세지 속성 설정
-    // request.setAttribute("message", "제목을 입력하세요");
-    //
-    // // 설정정보를 가지고 페이지 포워드(이동)
-    // RequestDispatcher nextView = request.getRequestDispatcher("fail.jsp");
-    // nextView.forward(request, response);
-    // return;
-    // }
-    //
-    // if (isNotice == null || isNotice.trim().length() == 0) {
-    // request.setAttribute("message", "공지여부를 입력하세요");
-    //
-    // RequestDispatcher nextView = request.getRequestDispatcher("fail.jsp");
-    // nextView.forward(request, response);
-    // return;
-    // }
-    //
-    // FreeBoard dto = new FreeBoard(articleNo, title, empNo, regDate, content, hits, isNotice, userName);
-    // fbservice.update(dto);
-    // request.setAttribute("dto", dto);
-    // request.getRequestDispatcher("articleReference.jsp").forward(request, response);
   }
   
   /**
@@ -625,45 +592,19 @@ public class FrontController extends HttpServlet {
    * @throws IOException
    */
   protected void findUserPw(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    // 2. 요청 데이터 추출 => 요청페이지 : login.jsp
-    String userId = request.getParameter("userId");
-    String username = request.getParameter("username");
-    String mobile = request.getParameter("mobile");
+    String userPw = Utility.getSecurityCode(6);
+    String email = request.getParameter("email");
     
-    // 3. 요청 데이터 검증 : null, trim, length
-    // 아이디: 필수, 6자리 이상
-    if (userId == null || userId.trim().length() < 6) {
-      // 실패 페이지 이동전에 오류메세지 속성 설정
-      request.setAttribute("message", "아이디는 6자리 이상입니다");
-      
-      // 설정정보를 가지고 페이지 포워드(이동)
+    if (email == null || email.trim().length() == 0) {
+      request.setAttribute("message", "이메일을 입력하세요");
       RequestDispatcher nextView = request.getRequestDispatcher("fail.jsp");
       nextView.forward(request, response);
       return;
     }
-    
-    // 이름 : 필수
-    if (username == null || username.trim().length() == 0) {
-      request.setAttribute("message", "이름을 입력하세요");
-      RequestDispatcher nextView = request.getRequestDispatcher("fail.jsp");
-      nextView.forward(request, response);
-      return;
-    }
-    
-    // 전화번호 : 필수
-    if (mobile == null || mobile.trim().length() == 0) {
-      // 실패 페이지 이동전에 오류메세지 속성 설정
-      request.setAttribute("message", "전화번호를 바르게 입력하세요");
-      
-      // 설정정보를 가지고 페이지 포워드(이동)
-      RequestDispatcher nextView = request.getRequestDispatcher("fail.jsp");
-      nextView.forward(request, response);
-      return;
-    }
-    
-    // 요청데이터 검증 성공 : success.jsp
-    request.setAttribute("message", userId + "님 비밀번호찾기 성공");
-    request.getRequestDispatcher("success.jsp").forward(request, response);
+    mservice.changePw(userPw, email);
+    request.setAttribute("userPw", userPw);
+    //request.setAttribute("message", userId + "님 비밀번호찾기 성공");
+    request.getRequestDispatcher("ShowTempPw.jsp").forward(request, response);
   }
   
   /**

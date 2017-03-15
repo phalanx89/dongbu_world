@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>로그인</title>
+<title>임시 비밀번호</title>
 <style type="text/css">
 #container {
 		background-color: #ffffff;
@@ -79,13 +79,13 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 						<jsp:include page="top.jsp"></jsp:include>
 				</div>
 				<div id="content">
-						<form method="post" action="controller?action=login">
+						<form method="post" action="login.jsp">
 								<fieldset>
-										<legend>로그인 정보입력</legend>
-										<label for="name">ID</label> <input type="text" name="empNo" id="text1" style="width: auto;"/><br /> <label for="password">PW</label> <input type="password" name="userPw" style="width: auto;" /><br />
+										<legend>임시비밀번호 발급</legend>
+										
+										<label for="name">발급된 임시 비밀번호는 <%= request.getAttribute("userPw") %> 입니다. 로그인 후 비밀번호를 변경해주세요.</label><br />
 								</fieldset>
-								<input type="submit" name="submit" value="로그인" style="width: auto;"/>
-								<a href="findPw.jsp" style="text-decoration:none;">비밀번호 찾기</a>
+								<input type="submit" name="submit" value="확인" style="width: auto;"/>
 						</form>
 				</div>
 				<!-- 				<div id="sideinfo"></div> -->

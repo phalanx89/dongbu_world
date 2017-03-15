@@ -34,6 +34,16 @@ public class MemberService {
 		return dao.update(dto);
 	}
 	
+	/**
+	 * 임시비밀번호로 비밀번호 변경
+	 * @param empNo
+	 * @param userPw
+	 * @return
+	 */
+	public int changePw(String userPw, String email) {
+	  return dao.changePw(userPw, email);
+	}
+	
 	/** 사번(아이디)으로 정보 조회(내정보 조회) */
 	public Member myInfo(int empNo) {
 		Member dto = dao.selectOne(empNo);

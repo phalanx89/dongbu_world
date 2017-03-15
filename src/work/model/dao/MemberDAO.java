@@ -208,6 +208,34 @@ public class MemberDAO {
 		}
 		return row;
 	}
+	
+	/**
+	 * 임시비밀번호로 비밀번호 변경
+	 * @param userPw
+	 * @return
+	 */
+	public int changePw(String userPw, String email) {
+	  String sql = "update dw_member set userpw = ? where email = ?";
+	  Connection conn = null;
+    PreparedStatement pstmt = null;
+    int row = 0;
+
+    try {
+      conn = getConnection();
+      pstmt = conn.prepareStatement(sql);
+
+      pstmt.setString(1, userPw);
+      pstmt.setString(2, email);
+
+      row = pstmt.executeUpdate();
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      factory.close(pstmt, conn);
+    }
+    return row;
+	}
 
 	
 	/** 회원 삭제 */
