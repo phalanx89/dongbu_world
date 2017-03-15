@@ -69,9 +69,6 @@ public class FrontController extends HttpServlet {
         case "selectList":
           selectList(request, response);
           break;
-        case "selectOne":
-          selectOne(request, response);
-          break;
         case "delete":
           delete(request, response);
           break;
@@ -432,18 +429,29 @@ public class FrontController extends HttpServlet {
    * @throws IOException
    */
   protected void myInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    HttpSession session = request.getSession(false);
-    Member dto = mservice.myInfo((int) session.getAttribute("empNo"));
-    session.setAttribute("empNo", dto.getEmpNo());
-    session.setAttribute("userPw", dto.getUserPw());
-    session.setAttribute("userName", dto.getUserName());
-    session.setAttribute("email", dto.getEmail());
-    session.setAttribute("mobile", dto.getMobile());
-    session.setAttribute("dept", dto.getDept());
-    session.setAttribute("position", dto.getPosition());
-    session.setAttribute("isAdmin", dto.getIsAdmin());
+    //HttpSession session = request.getSession(false);
+    //Member dto = mservice.myInfo((int) session.getAttribute("empNo"));
+//    session.setAttribute("empNo", dto.getEmpNo());
+//    session.setAttribute("userPw", dto.getUserPw());
+//    session.setAttribute("userName", dto.getUserName());
+//    session.setAttribute("email", dto.getEmail());
+//    session.setAttribute("mobile", dto.getMobile());
+//    session.setAttribute("dept", dto.getDept());
+//    session.setAttribute("position", dto.getPosition());
+//    session.setAttribute("isAdmin", dto.getIsAdmin());
+//    
+//    response.sendRedirect("myInfo.jsp"); // jsp 페이지 안만들었음
     
-    response.sendRedirect("myInfo.jsp"); // jsp 페이지 안만들었음
+    if (isAuth(request, response)) { // 로그인 사용자 권한 체크
+      int empNo = Integer.valueOf((request.getSession(false).getAttribute("empNo").toString()));
+      //int empNo = Integer.valueOf(request.getParameter("empNo"));
+      Member dto = mservice.myInfo(empNo);
+      request.setAttribute("dto", dto);
+      request.getRequestDispatcher("articleReference.jsp").forward(request, response);
+    } else {
+      request.setAttribute("message", "회원전용서비스입니다.<p>로그인후 이용하시기 바랍니다.");
+      request.getRequestDispatcher("fail.jsp").forward(request, response);
+    }
   }
   
   /**
@@ -464,7 +472,7 @@ public class FrontController extends HttpServlet {
   }
   
   /**
-   * 로그인 요청 서비스 메서드 요청페이지 : login.jsp
+   * 로그인
    * 
    * @param request
    * @param response
@@ -523,72 +531,7 @@ public class FrontController extends HttpServlet {
     
   }
   
-  /**
-   * 회원가입
-   * 
-   * @param request
-   * @param response
-   * @throws ServletException
-   * @throws IOException
-   */
-  // protected void join(HttpServletRequest request, HttpServletResponse
-  // response) throws ServletException, IOException {
-  // // 2. 요청 데이터 추출 => 요청페이지 : join.jsp
-  // String userId = request.getParameter("userId");
-  // String userPw = request.getParameter("userPw");
-  // String username = request.getParameter("username");
-  // String mobile = request.getParameter("mobile");
-  // String email = request.getParameter("email");
-  //
-  // // 3. 요청 데이터 검증 : null, trim, length
-  // // 아이디: 필수, 6자리 이상
-  // if (userId == null || userId.trim().length() < 6 || userPw == null ||
-  // userPw.trim().length() < 6
-  // || username == null || username.trim().length() == 0 || mobile == null ||
-  // mobile.trim().length() == 0
-  // || email == null || email.trim().length() == 0) {
-  // // 실패 페이지 이동전에 오류메세지 속성 설정
-  // request.setAttribute("message", "아이디는 6자리 이상으로 입력하세요");
-  //
-  // // 설정정보를 가지고 페이지 포워드(이동)
-  // RequestDispatcher nextView = request.getRequestDispatcher("fail.jsp");
-  // nextView.forward(request, response);
-  // }
-  //
-  // service.join(userId, userPw, username, mobile, email);
-  //
-  // HttpSession session = request.getSession(); //true
-  // //2. 세션객체 필요한 상태정보 설정 : 아이디, 이름, 등급
-  // session.setAttribute("userId", userId);
-  // session.setAttribute("username", username);
-  // session.setAttribute("mobile", mobile);
-  // session.setAttribute("email", email);
-  //
-  // response.sendRedirect("joinSuccess.jsp");
-  // // else {
-  // // System.out.println(userId + ", " + userPw + ", " + username + ", " +
-  // mobile + ", " + email);
-  // // servlet으로 view 페이지
-  // // 자바코드안에 html 태그 => 분리설계
-  // // 서블릿 => controller
-  // // jsp = html tag 기반의 view 담당
-  // // 응답위한 mime-type 및 한글인코딩 설정
-  // // response.setContentType("text/html;charset=euc-kr");
-  // // 응답위한 출력스트림 생성
-  // // PrintWriter out = response.getWriter();
-  // //
-  // // out.println("<html><head><title></title></head><body>");
-  // // out.println("<h3>회원가입성공</h3>");
-  // // out.println("로그인후 회원전용 서비스를 이용하시기 바랍니다.");
-  // // out.println("</body></html>");
-  // // }
-  //
-  // //요청데이터 검증 성공 : success.jsp
-  // // request.setAttribute("message", userId + "님 회원가입 성공");
-  // // request.getRequestDispatcher("success.jsp").forward(request,
-  // response);
-  //
-  // }
+
   
   /**
    * 비밀번호 찾기
@@ -656,52 +599,6 @@ public class FrontController extends HttpServlet {
     response.sendRedirect("showAll.jsp");
   }
   
-  /**
-   * 회원정보 상세조회
-   * 
-   * @param request
-   * @param response
-   * @throws ServletException
-   * @throws IOException
-   */
-  protected void selectOne(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    String userId = request.getParameter("userId");
-    
-    // 3. 요청 데이터 검증 : null, trim, length
-    // 아이디: 필수, 6자리 이상
-    if (userId == null || userId.trim().length() < 6) {
-      // 실패 페이지 이동전에 오류메세지 속성 설정
-      request.setAttribute("message", "아이디는 6자리 이상입니다");
-      
-      // 설정정보를 가지고 페이지 포워드(이동)
-      RequestDispatcher nextView = request.getRequestDispatcher("fail.jsp");
-      nextView.forward(request, response);
-      return;
-    }
-    // 요청데이터 검증 성공 : success.jsp
-    request.setAttribute("message", userId + "님 상세 정보 조회 성공");
-    request.getRequestDispatcher("success.jsp").forward(request, response);
-  }
-  
-  // protected void update(HttpServletRequest request, HttpServletResponse
-  // response)
-  // throws ServletException, IOException {
-  // String userId = request.getParameter("userId");
-  // String userPw = request.getParameter("userPw");
-  // String username = request.getParameter("username");
-  // String mobile = request.getParameter("mobile");
-  // String email = request.getParameter("email");
-  // String grade = request.getParameter("grade");
-  // int mileage = Integer.valueOf(request.getParameter("mileage"));
-  // String manager = request.getParameter("manager");
-  //
-  // Member dto = new Member(userId, userPw, username, mobile, email, grade,
-  // mileage, manager);
-  // System.out.println(service.update(dto) + "rows");
-  // response.sendRedirect("update.jsp");
-  //
-  //
-  // }
   
   /**
    * 암호 변경

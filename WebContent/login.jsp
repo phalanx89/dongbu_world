@@ -46,8 +46,8 @@
 										<legend>로그인 정보입력</legend>
 										<label for="name">ID</label> <input type="text" name="empNo" id="text1"/><br /> <label for="password">패스워드</label> <input type="password" name="userPw" /><br />
 								</fieldset>
-								<a href="index.html"> <input type="submit" name="submit" value="로그인" /></a>
-								<button>비밀번호 찾기</button>
+								<input type="submit" name="submit" value="로그인" />
+								<a href="findPw.jsp">비밀번호 찾기</a>
 						</form>
 				</div>
 				<!-- 				<div id="sideinfo"></div> -->
