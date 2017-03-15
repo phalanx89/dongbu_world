@@ -7,9 +7,10 @@
 				<%
 				  if (session != null && session.getAttribute("empNo") != null && session.getAttribute("userName") != null) {
 				%>
-				<div style="position:absolute; top: 35px; left: 1700px" >
-					<%= request.getSession(false).getAttribute("userName") %>´Ô  
-					<a href="controller?action=logout">·Î±×¾Æ¿ô</a>
+				<div style="position:absolute; top: 35px; left: 1600px" >
+					<a href="controller?action=myInfo" style="text-decoration:none;"><%= request.getSession(false).getAttribute("userName") %>´Ô</a>  
+					&nbsp;<input type="button" name="logout" value="·Î±×¾Æ¿ô" style="width:80px;height:30px;padding:1px;" onclick="location.href='controller?action=logout'" />
+					
 				</div>
 				<%
 				  }

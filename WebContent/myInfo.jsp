@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page import="work.model.dto.Member" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -20,7 +21,6 @@
 /* 		height: 500px; */
 /* 		padding: 5px; */
 /* } */
-
 #content {
 		background-color: #F5F5F5;
 		float: left;
@@ -34,19 +34,72 @@
 		clear: both;
 		height: 100px;
 }
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+button {
+    background-color: #7071B2;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+input[type=submit], input[type=reset], input[type=button] {
+    background-color: #7071B2;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
+    opacity: 0.8;
+}
 </style>
 </head>
-<body >
+<body>
 		<div id="container">
 				<div id="header">
-					<jsp:include page="top.jsp"></jsp:include>
+						<jsp:include page="top.jsp"></jsp:include>
 				</div>
 				<div id="content">
-				
+						<form method="post" action="controller?action=correctInfo">
+								<fieldset>
+										<legend>나의 정보</legend>
+										<%
+										  Member dto = (Member) request.getAttribute("dto");
+										%>
+										<label for="name">ID</label> <input type="text" name="empNo" id="text1" style="width: auto;" value="<%= dto.getEmpNo() %>" readonly="readonly" /><br /> 
+										<label for="password">PW</label> <input type="password" name="userPw" style="width: auto;" value="<%= dto.getUserPw() %>"/><br />
+										<label for="name">이름</label> <input type="text" name="userName" id="text1" style="width: auto;" value="<%= dto.getUserName() %>"/><br />
+										<label for="name">EMAIL</label> <input type="text" name="email" id="text1" style="width: auto;" value="<%= dto.getEmail() %>"/><br />
+										<label for="name">휴대폰</label> <input type="text" name="mobile" id="text1" style="width: auto;" value="<%= dto.getMobile() %>"/><br />
+										<label for="name">부서</label> <input type="text" name="dept" id="text1" style="width: auto;" value="<%= dto.getDept() %>"/><br />
+										<label for="name">직위</label> <input type="text" name="position" id="text1" style="width: auto;" value="<%= dto.getPosition() %>"/><br />
+								</fieldset>
+								<input type="submit" name="submit" value="수정" style="width: auto;"/>
+						</form>
 				</div>
-<!-- 				<div id="sideinfo"></div> -->
+				<!-- 				<div id="sideinfo"></div> -->
 				<div id="footer">
-				<jsp:include page="footer.jsp"></jsp:include>
+						<jsp:include page="footer.jsp"></jsp:include>
 				</div>
 		</div>
 </body>
@@ -54,69 +107,3 @@
 
 
 
-
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<%@ page 
-import="java.util.ArrayList"
-import="work.model.dto.*"
- %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>내 정보 조회</title>
-</head>
-<body>
-	<%
-	session = request.getSession(false);
-	if (session != null) {
-		ArrayList<Member> list = (ArrayList<Member>) session.getAttribute("list"); 
-		
-		Member dto;
-		
-		for (int i = 0; i < list.size(); i++) {
-			dto = list.get(i);
-		%>
-	<table border='1'>
-		<tr>
-			<td>사번</td>
-			<td><%= dto.getEmp_no() %></td>
-		</tr>
-		<tr>
-			<td>비밀번호</td>
-			<td><%= dto.getUserpw() %></td>
-		</tr>
-		<tr>
-			<td>이름</td>
-			<td><%= dto.getUsername() %></td>
-		</tr>
-		<tr>
-			<td>E-mail</td>
-			<td><%= dto.getEmail() %></td>
-		</tr>
-		<tr>
-			<td>전화번호</td>
-			<td><%= dto.getMobile() %></td>
-		</tr>
-		<tr>
-			<td>부서</td>
-			<td><%= dto.getDept() %></td>
-		</tr>
-		<tr>
-			<td>직위</td>
-			<td><%= dto.getPosition() %></td>
-		</tr>
-	</table>
-	<hr>
-	<%
-		}
-	} else {
-		
-	}
-%>
-<form method="post" action="controller?action=insertInfo">
-	<input type="submit" value="신규회원 중 정보제공 동의자 추가">
-</form>
-</body>
-</html>
