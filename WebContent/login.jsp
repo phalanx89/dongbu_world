@@ -33,6 +33,44 @@
 		clear: both;
 		height: 100px;
 }
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+button {
+    background-color: #7071B2;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+input[type=submit], input[type=reset], input[type=button] {
+    background-color: #7071B2;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
+    opacity: 0.8;
+}
 </style>
 </head>
 <body>
@@ -44,10 +82,10 @@
 						<form method="post" action="controller?action=login">
 								<fieldset>
 										<legend>로그인 정보입력</legend>
-										<label for="name">ID</label> <input type="text" name="empNo" id="text1"/><br /> <label for="password">패스워드</label> <input type="password" name="userPw" /><br />
+										<label for="name">ID</label> <input type="text" name="empNo" id="text1" style="width: auto;"/><br /> <label for="password">패스워드</label> <input type="password" name="userPw" style="width: auto;" /><br />
 								</fieldset>
-								<a href="index.html"> <input type="submit" name="submit" value="로그인" /></a>
-								<button>비밀번호 찾기</button>
+								<a href="index.html"> <input type="submit" name="submit" value="로그인" style="width: auto;"/></a>
+								<button style="width: auto;">비밀번호 찾기</button>
 						</form>
 				</div>
 				<!-- 				<div id="sideinfo"></div> -->
