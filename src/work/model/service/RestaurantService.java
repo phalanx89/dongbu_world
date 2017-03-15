@@ -47,4 +47,8 @@ public class RestaurantService {
 
 		return query;
 	}
+	
+	public int insert(Restaurant dto) {
+	  return dao.insert(dto);
+	}
 }

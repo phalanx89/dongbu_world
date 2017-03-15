@@ -173,7 +173,7 @@ public class RestaurantDAO {
 		return aryRestaurant;
 	}
 	
-	/** 게시판 글 전체 조회 */
+	/** 게시판 글 전체 조회 *//*
 	public ArrayList<FreeBoard> selectList() {
 		Connection conn = null;
 		Statement stmt = null;
@@ -207,36 +207,80 @@ public class RestaurantDAO {
 			factory.close(rs, stmt, conn);
 		}
 		return list;
-	}
+	}*/
 
-	/** 회원의 글 등록 */
-	public int insert(int articleNo, String title, int empNo, String regDate, String content, int hits) {
-		return insert(new FreeBoard(articleNo, title, empNo, regDate, content, hits, "N"));
-	}
+	
+	 /**
+   * 맛집글 상세 조회
+   * @return
+   */
+  public Restaurant selectOne(int articleNo) {
+    Connection conn = null;
+    PreparedStatement pstmt = null;
+    ResultSet rs = null;
+    Restaurant dto = new Restaurant();
+    
+    try {
+      conn = getConnection();
+      String sql = "select * from " + TABLE_NAME + " where article_no = ?";
+      pstmt = conn.prepareStatement(sql);
+      pstmt.setInt(1, articleNo);
+      rs = pstmt.executeQuery();
 
-	/** 관리자의 글 등록 */
-	public int insert(FreeBoard dto) {
-		Connection conn = null;
+      if (rs.next()) {
+        dto = new Restaurant(rs.getInt("article_no"), rs.getString("restaurant"), rs.getString("title"), rs.getInt("emp_no"),
+            rs.getString("menu_type"), rs.getString("price"), rs.getInt("rate"), rs.getString("address"), rs.getString("reg_date"), 
+            rs.getString("content"), rs.getString("image1"), rs.getString("image2"), rs.getString("image3"), rs.getString("image4"), 
+            rs.getString("image5"), rs.getInt("take_min"), rs.getString("coords"));
+      }
+    } catch (SQLException e) {
+      System.out.println("글 상세 조회 오류: " + e.getMessage());
+      e.printStackTrace();
+    } finally {
+      factory.close(rs, pstmt, conn);
+    }
+    return dto;
+  }
+	
+	/**
+	 * restaurant 등록
+	 * @param dto
+	 * @return
+	 */
+	public int insert(Restaurant dto) {
+	  String sql = null;
+	  Connection conn = null;
 		PreparedStatement pstmt = null;
 		int row = 0;
 
 		try {
 			conn = getConnection();
-			String sql = "insert into " + TABLE_NAME + " values(?, ?, ?, ?, ?, ?, ?)";
+			sql = "insert into " + TABLE_NAME + " values(?, ?, ?, ?, ?, ?, ?, ?, sysdate, ?, ?, ?, ?, ?, ?, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setInt(1, dto.getArticleNo());
-			pstmt.setString(2, dto.getTitle());
-			pstmt.setInt(3, dto.getEmpNo());
-			pstmt.setString(4, dto.getRegDate());
-			pstmt.setString(5, dto.getContent());
-			pstmt.setInt(6, dto.getHits());
-			pstmt.setString(7, dto.getIsNotice());
-
+			
+			dto.setArticle_no(selectMaxNo());
+			
+			pstmt.setInt(1, dto.getArticle_no());
+			pstmt.setString(2, dto.getRestaurant());
+			pstmt.setString(3, dto.getTitle());
+			pstmt.setInt(4, dto.getEmp_no());
+			pstmt.setString(5, dto.getMenuType());
+			pstmt.setString(6, dto.getPrice());
+			pstmt.setInt(7, dto.getRate());
+			pstmt.setString(8, dto.getAddress());
+			pstmt.setString(9, dto.getContent());
+			pstmt.setString(10, dto.getImage1());
+			pstmt.setString(11, dto.getImage2());
+			pstmt.setString(12, dto.getImage3());
+			pstmt.setString(13, dto.getImage4());
+			pstmt.setString(14, dto.getImage5());
+			pstmt.setInt(15, dto.getTakeMin());
+			pstmt.setString(16, dto.getCoords());
+			
 			row = pstmt.executeUpdate();
 
 		} catch (SQLException e) {
-			System.out.println("Error : 글 등록 오류");
+			System.out.println("Error : insert..  sql : " + sql);
 			e.printStackTrace();
 		} finally {
 			factory.close(pstmt, conn);
@@ -245,7 +289,7 @@ public class RestaurantDAO {
 	}
 
 	/**
-	 * 게시판 글 검색
+	 * 맛집글 검색
 	 * 
 	 * @param columnName
 	 *            검색할 컬럼명
@@ -253,47 +297,69 @@ public class RestaurantDAO {
 	 *            검색 키워드
 	 * @return
 	 */
-	public ArrayList<FreeBoard> selectListByColumn(String columnName, String keyword) {
-		String sql = String.format("select * from %s where %s = '%s'", TABLE_NAME, columnName, keyword);
-
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		ArrayList<FreeBoard> list = new ArrayList<FreeBoard>();
-
-		try {
-			conn = FactoryDAO.getInstance().getConnection();
-			pstmt = conn.prepareStatement(sql);
-
-			rs = pstmt.executeQuery(sql);
-
-			int articleNo;
-			String title;
-			int empNo;
-			String regDate;
-			String content;
-			int hits;
-			String isNotice;
-
-			while (rs.next()) {
-				articleNo = rs.getInt(1);
-				title = rs.getString(2);
-				empNo = rs.getInt(3);
-				regDate = rs.getString(4);
-				content = rs.getString(5);
-				hits = rs.getInt(6);
-				isNotice = rs.getString(7);
-
-				list.add(new FreeBoard(articleNo, title, empNo, regDate, content, hits, isNotice));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			factory.close(rs, pstmt, conn);
-		}
-		return list;
-	}
+  public ArrayList<Restaurant> selectListByColumn(String columnName, String keyword) {
+    String sql = String.format("select * from %s where %s like '%%%s%%'", TABLE_NAME, columnName, keyword);
+    
+    System.out.println(sql);
+    
+    Connection conn = null;
+    PreparedStatement pstmt = null;
+    ResultSet rs = null;
+    
+    ArrayList<Restaurant> list = new ArrayList<Restaurant>();
+    
+    try {
+      conn = FactoryDAO.getInstance().getConnection();
+      pstmt = conn.prepareStatement(sql);
+      
+      rs = pstmt.executeQuery(sql);
+      
+      int articleNo = 0;
+      String restaurant = null;
+      String title = null;
+      int empNo = 0;
+      String menuType = null;
+      String price = null;
+      int rate = 0;
+      String address = null;
+      String regDate = null;
+      String content = null;
+      String image1 = null;
+      String image2 = null;
+      String image3 = null;
+      String image4 = null;
+      String image5 = null;
+      int takeMin = 0;
+      String coords = null;
+      
+      while (rs.next()) {
+        articleNo = rs.getInt(1);
+        restaurant = rs.getString(2);
+        title = rs.getString(3);
+        empNo = rs.getInt(4);
+        menuType = rs.getString(5);
+        price = rs.getString(6);
+        rate = rs.getInt(7);
+        address = rs.getString(8);
+        regDate = rs.getString(9);
+        content = rs.getString(10);
+        image1 = rs.getString(11);
+        image2 = rs.getString(12);
+        image3 = rs.getString(13);
+        image4 = rs.getString(14);
+        image5 = rs.getString(15);
+        takeMin = rs.getInt(16);
+        coords = rs.getString(17);
+        
+        list.add(new Restaurant(articleNo, restaurant, title, empNo, menuType, price, rate, address, regDate, content, image1, image2, image3, image4, image5, takeMin, coords));
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      factory.close(rs, pstmt, conn);
+    }
+    return list;
+  }
 
 	/** 글번호 최댓값+1 가져오기 */
 	public int selectMaxNo() {
@@ -312,7 +378,7 @@ public class RestaurantDAO {
 				no = rs.getInt(1) + 1;
 			}
 		} catch (SQLException e) {
-			System.out.println("Error : 전체 조회 오류");
+			System.out.println("Error : 글번호 설정 오류");
 			e.printStackTrace();
 		} finally {
 			factory.close(rs, stmt, conn);
@@ -320,27 +386,35 @@ public class RestaurantDAO {
 		return no;
 	}
 
-	/** 회원 본인 글 수정 */
-	public int update(int articleNo, String title, String content) {
-		return update(articleNo, title, content, "N");
-	}
-
-	/** 관리자 글 수정 */
-	public int update(int articleNo, String title, String content, String isNotice) {
+	/** 맛집글 수정 */
+	public int update(Restaurant dto) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int row = 0;
 
 		try {
 			conn = getConnection();
-			String sql = "update " + TABLE_NAME + "set title = ?, content = ?, is_notice = ? where article_no = ?";
+			String sql = "update " + TABLE_NAME + "set restaurant = ?, title = ?, menuType = ?, price = ?, rate = ?, "
+			    + "address = ?, regDate = ?, content = ?, image1 = ?, image2 = ?, image3 = ?, image4 = ?, image5 = ?, takeMin = ?, coords = ? where article_no = ?";
 			pstmt = conn.prepareStatement(sql);
 
-			pstmt.setString(1, title);
-			pstmt.setString(2, content);
-			pstmt.setString(3, isNotice);
-			pstmt.setInt(4, articleNo);
-
+			pstmt.setString(1, dto.getRestaurant());
+			pstmt.setString(2, dto.getTitle());
+			pstmt.setString(3, dto.getMenuType());
+			pstmt.setString(4, dto.getPrice());
+			pstmt.setInt(5, dto.getRate());
+			pstmt.setString(6, dto.getAddress());
+			pstmt.setString(7, dto.getRegDate());
+			pstmt.setString(8, dto.getContent());
+			pstmt.setString(9, dto.getImage1());
+			pstmt.setString(10, dto.getImage2());
+			pstmt.setString(11, dto.getImage3());
+			pstmt.setString(12, dto.getImage4());
+			pstmt.setString(13, dto.getImage5());
+			pstmt.setInt(14, dto.getTakeMin());
+			pstmt.setString(15, dto.getCoords());
+			pstmt.setInt(16, dto.getArticle_no());
+			
 			row = pstmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -375,5 +449,4 @@ public class RestaurantDAO {
 		}
 		return row;
 	}
-
 }

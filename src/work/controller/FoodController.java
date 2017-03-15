@@ -11,10 +11,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import work.data.Define;
 import work.model.dto.Restaurant;
 import work.model.service.RestaurantService;
+import work.util.Utility;
 
 /**
  * 咐笼 包访 夸没 贸府 Controller
@@ -22,6 +24,7 @@ import work.model.service.RestaurantService;
  *
  */
 public class FoodController extends HttpServlet {
+  private RestaurantService mRestaurantService = new RestaurantService();
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -60,6 +63,9 @@ public class FoodController extends HttpServlet {
 			case Define.ACTION_SEARCH_RESTAURANT:
 				searchRestaurant(request, response);
 				break;
+			case Define.ACTION_REGISTER_RESTAURANT:
+			  registerRestaurant(request, response);
+			  break;
 			default:
 				
 				break;
@@ -91,13 +97,44 @@ public class FoodController extends HttpServlet {
 			forwardPage("restaurant_main.jsp", request, response);
 			return;
 		}
-		
-		RestaurantService service = new RestaurantService();
-		ArrayList<Restaurant> aryRestaurants = service.selectRestaurantList(aryMenus);
+				
+		ArrayList<Restaurant> aryRestaurants = mRestaurantService.selectRestaurantList(aryMenus);
 		request.setAttribute("aryRestaurants", aryRestaurants);
 		forwardPage("restaurant_main.jsp", request, response);
 		return;
 	}
+
+	private void registerRestaurant(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+    HttpSession session = request.getSession(false);
+	  Restaurant dto = new Restaurant();
+    
+	  if (session == null) {
+	    System.out.println("session is expired. Please login.");
+	    forwardPage("fail.jsp", request, response);
+	    return;
+	  }
+	  
+	  dto.setRestaurant(request.getParameter("restaurant"));
+    dto.setTitle(request.getParameter("title"));
+    dto.setEmp_no(Integer.valueOf((session.getAttribute("empNo").toString())));
+    dto.setMenuType(request.getParameter("menuType"));
+    dto.setPrice(request.getParameter("price"));
+    dto.setRate(0);
+    dto.setRegDate("");
+    dto.setAddress(request.getParameter("address"));
+    dto.setContent(request.getParameter("content"));
+    dto.setCoords(request.getParameter("coords"));
+    String[] latlng = Utility.getLatLng(dto.getCoords());
+    int takeMin = Utility.getTimeWithCoords(Define.COORDS_DONGBU, latlng);
+    dto.setTakeMin(takeMin);
+    
+    mRestaurantService.insert(dto);
+    
+    System.out.println(dto.toString());
+    
+    forwardPage("restaurant_main.jsp", request, response);
+  }
 	
 	private void forwardPage(String url, HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {

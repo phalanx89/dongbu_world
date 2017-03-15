@@ -215,7 +215,7 @@ public class Restaurant {
 	/**
 	 * @return the content
 	 */
-	public String geContent() {
+	public String getContent() {
 		return content;
 	}
 
@@ -323,7 +323,9 @@ public class Restaurant {
 	public void setCoords(String coords) {
 		this.coords = coords;
 	}
-
 	
-
+  @Override
+  public String toString() {
+    return "Restaurant [article_no=" + article_no + ", restaurant=" + restaurant + ", title=" + title + ", emp_no=" + emp_no + ", menuType=" + menuType + ", price=" + price + ", rate=" + rate + ", address=" + address + ", regDate=" + regDate + ", content=" + content + ", image1=" + image1 + ", image2=" + image2 + ", image3=" + image3 + ", image4=" + image4 + ", image5=" + image5 + ", takeMin=" + takeMin + ", coords=" + coords + "]";
+  }
 }
