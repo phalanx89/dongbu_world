@@ -193,7 +193,7 @@ to {
 				</div>
 				<div id="content">
 						<%
-						  ArrayList<Restaurant> aryRestaurants = (ArrayList<Restaurant>) request.getAttribute("aryRestaurants");
+						  ArrayList<Restaurant> list = (ArrayList<Restaurant>) request.getAttribute("list");
 						%>
 						<div id="map"></div>
 						<script>
@@ -219,6 +219,10 @@ to {
               map : map
               });
 
+              // 마커 (기등록된 맛집들)
+              var markers = new Array();
+              loadMarkers();
+
               // 인포윈도우를 생성합니다
               var infowindow = new daum.maps.InfoWindow({
                 content : '<div style="padding:5px;" align="center">짠!</div>'
@@ -238,7 +242,7 @@ to {
                     detailAddr += '<div>지번 주소 : ' + result[0].jibunAddress.name + '</div>';
 
                     var content = '<div class="bAddr">' + detailAddr + '</div>';
-					console.log(detailAddr);
+                    console.log(detailAddr);
                     curAddress = result[0].jibunAddress.name;
                   }
                 });
@@ -247,7 +251,7 @@ to {
               daum.maps.event.addListener(map, 'rightclick', function(mouseEvent) {
                 // 마커에 우클릭 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
                 //infowindow.open(map, markerUser);
-                
+
               });
 
               daum.maps.event.addListener(markerUser, 'rightclick', function(mouseEvent) {
@@ -281,6 +285,59 @@ to {
                 document.getElementById('coords').value = curLatLng.getLat() + "/" + curLatLng.getLng();
               }
 
+              function loadMarkers() {
+                var aryTmp;
+                var lat, lng;
+            <%String restaurant = "";
+			String[] coords;
+			String lat = "";
+			String lng = "";
+			if (list != null) {
+				for (int i = 0; i < list.size(); i++) {
+					Restaurant dto = list.get(i);
+					restaurant = dto.getRestaurant();
+					coords = dto.getCoords().split("/");
+					lat = coords[0];
+					lng = coords[1];%>
+              var marker = new daum.maps.Marker({
+                position : new daum.maps.LatLng(
+            <%=lat%>
+              ,
+            <%=lng%>
+              ),
+                map : map
+                });
+
+                // 마커에 표시할 인포윈도우를 생성합니다 
+                var infowindow = new daum.maps.InfoWindow({
+                  content : '<div><%=restaurant%></div>'
+                });
+
+                // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+                // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+                // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+                daum.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+                daum.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+
+                markers.push(marker);
+            <%}
+			}%>
+              }
+
+              // 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
+              function makeOverListener(map, marker, infowindow) {
+                return function() {
+                  infowindow.open(map, marker);
+                };
+              }
+
+              // 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+              function makeOutListener(infowindow) {
+                return function() {
+                  infowindow.close();
+                };
+              }
+
               /*new window for restaurant registration*/
               // Get the modal
               var modal = document.getElementById('registerRestaurant');
@@ -297,11 +354,11 @@ to {
 								<form method="post" action="http://localhost:8090/dongbu_world/food_controller?action=<%=Define.ACTION_SEARCH_RESTAURANT%>">
 										<div wdith="100%" align="center">검색 조건 설정</div>
 										<hr>
-										<div id="frm_search" align="center" >
-												<select name="columnName" style="width:75px;height:42px;">
-													<option value="restaurant">식당명</option>
-													<option value="empNo">작성자</option>
-												</select><input type="text" name="restaurant" style="width:220px;"/> <input type="button" name="btnRestaurant" value="검색" style="width: auto;" />
+										<div id="frm_search" align="center">
+												<select name="columnName" style="width: 75px; height: 42px;">
+														<option value="restaurant">식당명</option>
+														<option value="empNo">작성자</option>
+												</select><input type="text" name="restaurant" style="width: 220px;" /> <input type="button" name="btnRestaurant" value="검색" style="width: auto;" />
 										</div>
 										<hr>
 										<div id="frm_cbx">
@@ -348,27 +405,9 @@ to {
 						<div id="registerRestaurant" class="modal">
 								<form class="modal-content animate" method="post" action="http://localhost:8090/dongbu_world/food_controller?action=<%=Define.ACTION_REGISTER_RESTAURANT%>">
 										<div class="container2">
-												<label><b>제목</b></label> <input type="text" placeholder="제목을 입력하세요!" name="title" required> 
-												<label><b>음식점 이름</b></label> <input type="text" placeholder="음식점 이름을 입력하세요!" name="restaurant" required> 
-												<label><b>음식종류</b></label><br> 
-												<input type="radio" name="menuType" value="한식">한식</input> 
-												<input type="radio" name="menuType" value="일식">일식</input> 
-												<input type="radio" name="menuType" value="분식">분식</input> 
-												<input type="radio" name="menuType" value="중식">중식</input> 
-												<input type="radio" name="menuType" value="양식">양식</input> 
-												<input type="radio" name="menuType" value="아시안">아시안</input> 
-												<input type="radio" name="menuType" value="술집">술집</input> 
-												<input type="radio" name="menuType" value="퓨전음식">퓨전음식</input> 
-												<input type="radio" name="menuType" value="치킨">치킨</input> 
-												<input type="radio" name="menuType" value="족발/보쌈">족발/보쌈</input> 
-												<input type="radio" name="menuType" value="피자/버거">피자/버거</input><br> 
-												<label><b>가격대</b></label><br> 
-												<input type="radio" name="price" value="1">~1만원</input> 
-												<input type="radio" name="price" value="2">~2만원</input> 
-												<input type="radio" name="price" value="3">~3만원</input><br> 
-												<label><b>주소</b></label> <input type="text" placeholder="" id="address" 	name="address" readonly="readonly" required> 
-												<label><b>내용</b></label> <input type="text" placeholder="상세한 내용을 입력하세요!" name="content" required>
-												<label><b>좌표</b></label> <input type="text" placeholder="" id="coords" 	name="coords" readonly="readonly" required>
+												<label><b>제목</b></label> <input type="text" placeholder="제목을 입력하세요!" name="title" required> <label><b>음식점 이름</b></label> <input type="text" placeholder="음식점 이름을 입력하세요!" name="restaurant" required> <label><b>음식종류</b></label><br> <input type="radio" name="menuType" value="한식">한식</input> <input type="radio" name="menuType" value="일식">일식</input> <input type="radio" name="menuType" value="분식">분식</input> <input type="radio" name="menuType" value="중식">중식</input> <input type="radio" name="menuType" value="양식">양식</input> <input type="radio" name="menuType" value="아시안">아시안</input> <input type="radio" name="menuType" value="술집">술집</input> <input type="radio" name="menuType" value="퓨전음식">퓨전음식</input> <input type="radio" name="menuType" value="치킨">치킨</input> <input type="radio" name="menuType" value="족발/보쌈">족발/보쌈</input> <input type="radio" name="menuType" value="피자/버거">피자/버거</input><br> <label><b>가격대</b></label><br> <input type="radio" name="price"
+														value="1"
+												>~1만원</input> <input type="radio" name="price" value="2">~2만원</input> <input type="radio" name="price" value="3">~3만원</input><br> <label><b>주소</b></label> <input type="text" placeholder="" id="address" name="address" readonly="readonly" required> <label><b>내용</b></label> <input type="text" placeholder="상세한 내용을 입력하세요!" name="content" required> <label><b>좌표</b></label> <input type="text" placeholder="" id="coords" name="coords" readonly="readonly" required>
 												<button type="submit">등록!</button>
 										</div>
 										<div class="container2" style="background-color: #f1f1f1">

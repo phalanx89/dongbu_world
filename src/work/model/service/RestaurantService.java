@@ -19,6 +19,10 @@ public class RestaurantService {
 		
 	}
 
+	public ArrayList<Restaurant> selectRestaurantList() {
+    return dao.selectRestaurantList();
+  }
+	
 	public ArrayList<Restaurant> selectRestaurantList(String[] params) {
 		return dao.selectRestaurantListUsingWhere(getWhereQuery("menu_type", params, "or"));
 	}

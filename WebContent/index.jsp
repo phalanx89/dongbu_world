@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page import="work.data.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="kr">
 <head>
@@ -106,7 +107,7 @@ a:hover {
 										<td align="center"><button style="background-color:#A2A1FA; width:220px; height:230px;" onclick="location.href='controller?action=free_selectList'">게시판 메인</button></td>
 										<td align="center"><button style="background-color:#B3B3B3; width:220px; height:230px;" onclick="location.href='http://ep.dongbuinc.com/'">구글 포르테</button></td>
 										<td align="center"><button style="background-color:#A2A1FA; width:220px; height:230px;" onclick="location.href='controller?action=myInfo'">회원정보조회</button></td>
-										<td align="center"><button style="background-color:#B3B3B3; width:220px; height:230px;" onclick="location.href='restaurant_main.jsp'">맛집 메인</button></td>
+										<td align="center"><button style="background-color:#B3B3B3; width:220px; height:230px;" onclick="location.href='food_controller?action=<%= Define.ACTION_SELECT_RESTAURANT_LIST%>'">맛집 메인</button></td>
 								</tr>
 								<tr>
 										<td></td>
