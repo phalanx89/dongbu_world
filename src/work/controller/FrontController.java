@@ -63,6 +63,9 @@ public class FrontController extends HttpServlet {
         case "login":
           login(request, response);
           break;
+        case "correctInfo":
+          correctInfo(request, response);
+          break;
         case "findUserPw":
           findUserPw(request, response);
           break;
@@ -202,7 +205,7 @@ public class FrontController extends HttpServlet {
     }
     FreeBoard dto = new FreeBoard(articleNo, title, empNo, regDate, content, hits, isNotice, userName);
     fbservice.register(dto);
-    //request.setAttribute("message", userName + "님 글이 등록되었습니다.");
+    // request.setAttribute("message", userName + "님 글이 등록되었습니다.");
     request.setAttribute("dto", dto);
     request.getRequestDispatcher("articleReference.jsp").forward(request, response);
   }
@@ -238,7 +241,7 @@ public class FrontController extends HttpServlet {
     
     FreeBoard dto = new FreeBoard(articleNo, title, empNo, regDate, content, hits, isNotice, userName);
     fbservice.register(dto);
-    //request.setAttribute("message", userName + "님 글이 등록되었습니다.");
+    // request.setAttribute("message", userName + "님 글이 등록되었습니다.");
     request.setAttribute("dto", dto);
     request.getRequestDispatcher("articleReference.jsp").forward(request, response);
   }
@@ -268,7 +271,7 @@ public class FrontController extends HttpServlet {
       return;
     }
     // 본인의 글인지 권한 확인
-    int sessionEmpNo = Integer.valueOf((String)session.getAttribute("empNo"));
+    int sessionEmpNo = Integer.valueOf((String) session.getAttribute("empNo"));
     int requestEmpNo = Integer.valueOf(request.getParameter("empNo"));
     if (sessionEmpNo != requestEmpNo) {
       request.setAttribute("message", "수정 권한이 없습니다.");
@@ -284,6 +287,7 @@ public class FrontController extends HttpServlet {
   
   /**
    * 관리자의 자유게시판 글 수정
+   * 
    * @param request
    * @param response
    * @throws ServletException
@@ -339,6 +343,7 @@ public class FrontController extends HttpServlet {
   
   /**
    * 회원의 자유게시판 글 수정
+   * 
    * @param request
    * @param response
    * @throws ServletException
@@ -377,7 +382,6 @@ public class FrontController extends HttpServlet {
     request.setAttribute("dto", dto);
     request.getRequestDispatcher("articleReference.jsp").forward(request, response);
   }
-  
   
   /**
    * 글 검색(글번호, 제목, 내용, 작성자)
@@ -429,29 +433,110 @@ public class FrontController extends HttpServlet {
    * @throws IOException
    */
   protected void myInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    //HttpSession session = request.getSession(false);
-    //Member dto = mservice.myInfo((int) session.getAttribute("empNo"));
-//    session.setAttribute("empNo", dto.getEmpNo());
-//    session.setAttribute("userPw", dto.getUserPw());
-//    session.setAttribute("userName", dto.getUserName());
-//    session.setAttribute("email", dto.getEmail());
-//    session.setAttribute("mobile", dto.getMobile());
-//    session.setAttribute("dept", dto.getDept());
-//    session.setAttribute("position", dto.getPosition());
-//    session.setAttribute("isAdmin", dto.getIsAdmin());
-//    
-//    response.sendRedirect("myInfo.jsp"); // jsp 페이지 안만들었음
+    // HttpSession session = request.getSession(false);
+    // Member dto = mservice.myInfo((int) session.getAttribute("empNo"));
+    // session.setAttribute("empNo", dto.getEmpNo());
+    // session.setAttribute("userPw", dto.getUserPw());
+    // session.setAttribute("userName", dto.getUserName());
+    // session.setAttribute("email", dto.getEmail());
+    // session.setAttribute("mobile", dto.getMobile());
+    // session.setAttribute("dept", dto.getDept());
+    // session.setAttribute("position", dto.getPosition());
+    // session.setAttribute("isAdmin", dto.getIsAdmin());
+    //
+    // response.sendRedirect("myInfo.jsp"); // jsp 페이지 안만들었음
     
     if (isAuth(request, response)) { // 로그인 사용자 권한 체크
       int empNo = Integer.valueOf((request.getSession(false).getAttribute("empNo").toString()));
-      //int empNo = Integer.valueOf(request.getParameter("empNo"));
+      // int empNo = Integer.valueOf(request.getParameter("empNo"));
       Member dto = mservice.myInfo(empNo);
       request.setAttribute("dto", dto);
-      request.getRequestDispatcher("articleReference.jsp").forward(request, response);
+      request.getRequestDispatcher("myInfo.jsp").forward(request, response);
     } else {
       request.setAttribute("message", "회원전용서비스입니다.<p>로그인후 이용하시기 바랍니다.");
       request.getRequestDispatcher("fail.jsp").forward(request, response);
     }
+  }
+  
+  /**
+   * 내 정보 수정
+   * 
+   * @param request
+   * @param response
+   * @throws ServletException
+   * @throws IOException
+   */
+  protected void correctInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    // 로그인 하지 않은 사용자 오류 처리
+    if (!isAuth(request, response)) {
+      request.setAttribute("message", "회원전용서비스입니다.<p>로그인후 이용하시기 바랍니다.");
+      request.getRequestDispatcher("fail.jsp").forward(request, response);
+      return;
+    }
+    
+    int empNo = Integer.valueOf(request.getParameter("empNo"));
+    String userPw = request.getParameter("userPw");
+    String userName = request.getParameter("userName");
+    String email = request.getParameter("email");
+    String mobile = request.getParameter("mobile");
+    String dept = request.getParameter("dept");
+    String position = request.getParameter("position");
+    String isAdmin = (String) request.getSession(false).getAttribute("isAdmin");
+    
+    if (userPw == null || userPw.trim().length() < 6) {
+      request.setAttribute("message", "비밀번호는 6자리 이상입니다");
+      RequestDispatcher nextView = request.getRequestDispatcher("fail.jsp");
+      nextView.forward(request, response);
+      return;
+    }
+    
+    if (userName == null || userName.trim().length() == 0 || email == null || email.trim().length() == 0 
+     || mobile == null || mobile.trim().length() == 0 || dept == null || dept.trim().length() == 0 
+     || position == null || position.trim().length() == 0) {
+      request.setAttribute("message", "정보를 모두 입력하세요.");
+      RequestDispatcher nextView = request.getRequestDispatcher("fail.jsp");
+      nextView.forward(request, response);
+      return;
+    }
+    
+    Member dto = new Member(empNo, userPw, userName, email, mobile, dept, position, isAdmin);
+    mservice.update(dto);
+    request.setAttribute("dto", dto);
+    request.setAttribute("messageSuccess", "변경사항이 저장되었습니다. 메인화면으로 이동합니다.");
+    request.getRequestDispatcher("index.jsp").forward(request, response);
+    
+    // int empNo = Integer.valueOf((request.getSession(false).getAttribute("empNo").toString()));
+    // String userName = (String) request.getSession(false).getAttribute("userName");
+    
+    // int articleNo = Integer.valueOf(request.getParameter("articleNo"));
+    // String title = request.getParameter("title");
+    // String regDate = "sysdate";// = Utility.getTodayDate();
+    // String content = request.getParameter("content");
+    // int hits = Integer.valueOf(request.getParameter("hits"));
+    // String isNotice = request.getParameter("isNotice");
+    //
+    // if (title == null || title.trim().length() == 0) {
+    // // 실패 페이지 이동전에 오류메세지 속성 설정
+    // request.setAttribute("message", "제목을 입력하세요");
+    //
+    // // 설정정보를 가지고 페이지 포워드(이동)
+    // RequestDispatcher nextView = request.getRequestDispatcher("fail.jsp");
+    // nextView.forward(request, response);
+    // return;
+    // }
+    //
+    // if (isNotice == null || isNotice.trim().length() == 0) {
+    // request.setAttribute("message", "공지여부를 입력하세요");
+    //
+    // RequestDispatcher nextView = request.getRequestDispatcher("fail.jsp");
+    // nextView.forward(request, response);
+    // return;
+    // }
+    //
+    // FreeBoard dto = new FreeBoard(articleNo, title, empNo, regDate, content, hits, isNotice, userName);
+    // fbservice.update(dto);
+    // request.setAttribute("dto", dto);
+    // request.getRequestDispatcher("articleReference.jsp").forward(request, response);
   }
   
   /**
@@ -531,8 +616,6 @@ public class FrontController extends HttpServlet {
     
   }
   
-
-  
   /**
    * 비밀번호 찾기
    * 
@@ -598,7 +681,6 @@ public class FrontController extends HttpServlet {
     
     response.sendRedirect("showAll.jsp");
   }
-  
   
   /**
    * 암호 변경

@@ -42,7 +42,7 @@ public class MemberDAO {
 		try {
 			conn = getConnection();
 			stmt = conn.createStatement();
-			String sql = "select * from member";
+			String sql = "select * from dw_member";
 			rs = stmt.executeQuery(sql);
 
 			while (rs.next()) {
@@ -74,7 +74,7 @@ public class MemberDAO {
 
 		try {
 			conn = getConnection();
-			String sql = "select * from member where emp_no = ?";
+			String sql = "select * from dw_member where emp_no = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, empNo);
 			rs = pstmt.executeQuery();
@@ -132,7 +132,7 @@ public class MemberDAO {
 
 		try {
 			conn = getConnection();
-			String sql = "select email from member where email=?";
+			String sql = "select email from dw_member where email=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, param);
 			rs = pstmt.executeQuery();
@@ -156,7 +156,7 @@ public class MemberDAO {
 
 		try {
 			conn = getConnection();
-			String sql = "insert into member " + "values(?, ?, ?, ?, ?, ?, ?, ?)";
+			String sql = "insert into dw_member " + "values(?, ?, ?, ?, ?, ?, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, dto.getEmpNo());
 			pstmt.setString(2, dto.getUserPw());
@@ -178,43 +178,10 @@ public class MemberDAO {
 		return row;
 	}
 
-	/** 관리자의 회원 정보변경 */
-	public int update(Member dto) {
-		String sql = "update member set emp_no = ?, userpw = ?, username = ?, email = ?, "
-				+ "mobile = ?, dept = ?, position = ?, is_admin = ? where emp_no = ?";
-
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		int row = 0;
-
-		try {
-			conn = getConnection();
-			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setInt(1, dto.getEmpNo());
-			pstmt.setString(2, dto.getUserPw());
-			pstmt.setString(3, dto.getUserName());
-			pstmt.setString(4, dto.getEmail());
-			pstmt.setString(5, dto.getMobile());
-			pstmt.setString(6, dto.getDept());
-			pstmt.setString(7, dto.getPosition());
-			pstmt.setString(8, dto.getIsAdmin());
-			pstmt.setInt(9, dto.getEmpNo());
-
-			row = pstmt.executeUpdate();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			factory.close(pstmt, conn);
-		}
-		return row;
-	}
-
 	/** 회원 정보변경 */
-	public int update(int empNo, String userPw, String userName, String mobile, String dept, String position) {
-		String sql = "update member set userpw = ?, username = ?, mobile = ?, dept = ?, "
-				+ "position = ? where emp_no = ?";
+	public int update(Member dto) {
+		String sql = "update dw_member set userpw = ?, username = ?, email = ?, "
+				+ "mobile = ?, dept = ?, position = ? where emp_no = ?";
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -224,12 +191,14 @@ public class MemberDAO {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
 
-			pstmt.setString(1, userPw);
-			pstmt.setString(2, userName);
-			pstmt.setString(3, mobile);
-			pstmt.setString(4, dept);
-			pstmt.setString(5, position);
-			pstmt.setInt(6, empNo);
+			pstmt.setString(1, dto.getUserPw());
+			pstmt.setString(2, dto.getUserName());
+			pstmt.setString(3, dto.getEmail());
+			pstmt.setString(4, dto.getMobile());
+			pstmt.setString(5, dto.getDept());
+			pstmt.setString(6, dto.getPosition());
+			pstmt.setInt(7, dto.getEmpNo());
+
 			row = pstmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -240,6 +209,7 @@ public class MemberDAO {
 		return row;
 	}
 
+	
 	/** 회원 삭제 */
 	public int deleteMember(int empNo) {
 		Connection conn = null;
@@ -248,7 +218,7 @@ public class MemberDAO {
 
 		try {
 			conn = getConnection();
-			String sql = "delete member where emp_no = ?";
+			String sql = "delete dw_member where emp_no = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, empNo);
 			row = pstmt.executeUpdate();

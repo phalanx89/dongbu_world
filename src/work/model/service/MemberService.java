@@ -29,7 +29,7 @@ public class MemberService {
 	}
 	
 	
-	/** 관리자의 회원정보 변경 */
+	/** 회원정보 변경 */
 	public int update(Member dto) {
 		return dao.update(dto);
 	}
