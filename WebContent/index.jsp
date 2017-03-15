@@ -87,6 +87,14 @@ a:hover {
 				</div>
 				<div id="content" align="center">
 						<%
+							String message = (String) request.getAttribute("messageSuccess");
+							if (message != null) {
+							  %>
+							  <script type="text/javascript">
+							  	alert("<%= message%>");
+							  </script>
+							  <%
+							}
 						  if (session != null && session.getAttribute("empNo") != null && session.getAttribute("userName") != null) {
 						%>
 						<table>
