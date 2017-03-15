@@ -111,20 +111,24 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 				</div>
 				<div id="content">
 						<div id="nav">
-								<p align="center">
+								<div align="center">
 										<a href='controller?action=free_selectList'>자유게시판</a>
-								<p align="center">
-										<a href='free_boardMain.jsp'>익명게시판</a>
-								<p align="center">
-										<a href='free_boardMain.jsp'>동부장터</a>
-								<p align="center">
-										<a href='free_boardMain.jsp'>동부배움터</a>
+								</div>
+								<div align="center">
+										<a href='controller?action=blind_selectList'>익명게시판</a>
+								</div>
+								<div align="center">
+										<a href='controller?action=market_selectList'>동부장터</a>
+								</div>	
+								<div align="center">
+										<a href='controller?action=study_selectList'>동부배움터</a>
+								</div>
 						</div>
 						<div id="content_board">
 								<%
-								  MarketBoard dto = (MarketBoard) request.getAttribute("dto");
+								  Board dto = (Board) request.getAttribute("dto");
 								%>
-								<input type="button" value=" 일반게시판 " style="width: auto;"> <input type="button" value="이전글" style="width: auto;" /> <input type="button" value="다음글" style="width: auto;" /> <input type="button" value="글수정" style="width: auto;" onclick="location.href='controller?action=free_correctPage&articleNo=<%=dto.getArticleNo()%>&empNo=<%=dto.getEmpNo()%>'" /> <input type="button" value="글삭제" style="width: auto;" onclick="location.href='controller?action=free_deleteArticle&articleNo=<%=dto.getArticleNo()%>&empNo=<%=dto.getEmpNo()%>'" />
+								<input type="button" value=" 일반게시판 " style="width: auto;"> <input type="button" value="이전글" style="width: auto;" /> <input type="button" value="다음글" style="width: auto;" /> <input type="button" value="글수정" style="width: auto;" onclick="location.href='controller?action=market_correctPage&articleNo=<%=dto.getArticleNo()%>&empNo=<%=dto.getEmpNo()%>'" /> <input type="button" value="글삭제" style="width: auto;" onclick="location.href='controller?action=market_deleteArticle&articleNo=<%=dto.getArticleNo()%>&empNo=<%=dto.getEmpNo()%>'" />
 								<table id="td1" border="1" align="center">
 										<tr>
 												<th>
@@ -155,15 +159,15 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 														</tr>
 														<table id="td4" border="1" align="center">
 																<tr>
-																		<td align="center"><form method='post' action="controller?action=free_registerReply&articleNo=<%=dto.getArticleNo()%>">
+																		<td align="center"><form method='post' action="controller?action=market_registerReply&articleNo=<%=dto.getArticleNo()%>">
 																						<input type="text" name="reply" id="text1" style="width: 50%;" /> <input type="submit" value="등록" style="width: auto;">
 																				</form></td>
 																</tr>
 																<table id="td5" border="1" align="center">
 																		<%
-																		  ArrayList<MarketReply> list = (ArrayList<MarketReply>) request.getAttribute("list");
+																		  ArrayList<FreeReply> list = (ArrayList<FreeReply>) request.getAttribute("list");
 																		  if (list != null) {
-																		    for (MarketReply fr : list) {
+																		    for (FreeReply fr : list) {
 																		%>
 																		<tr>댓글
 																		</tr>
@@ -172,7 +176,7 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 																				<td><%=fr.getUserName()%></td>
 																				<td><%=fr.getReply()%></td>
 																				<td><%=fr.getRegDate()%></td>
-																				<td align="right"><input type="button" value="수정" style="width: auto;"> <input type="button" value="삭제" style="width: auto;" onclick="location.href='controller?action=free_deleteReply&replyNo=<%=fr.getReplyNo()%>&articleNo=<%=fr.getArticleNo()%>'" /></td>
+																				<td align="right"><input type="button" value="수정" style="width: auto;"> <input type="button" value="삭제" style="width: auto;" onclick="location.href='controller?action=market_deleteReply&replyNo=<%=fr.getReplyNo()%>&articleNo=<%=fr.getArticleNo()%>'" /></td>
 																		</tr>
 																		<%
 																		  }

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
-import work.model.dto.FreeBoard;
+import work.model.dto.Board;
 import work.model.dto.Restaurant;
 
 /**
@@ -174,11 +174,11 @@ public class RestaurantDAO {
 	}
 	
 	/** 게시판 글 전체 조회 */
-	public ArrayList<FreeBoard> selectList() {
+	public ArrayList<Board> selectList() {
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
-		ArrayList<FreeBoard> list = new ArrayList<FreeBoard>();
+		ArrayList<Board> list = new ArrayList<Board>();
 
 		try {
 			conn = getConnection();
@@ -196,7 +196,7 @@ public class RestaurantDAO {
 				int hits = rs.getInt("hits");
 				String isNotice = rs.getString("is_notice");
 
-				FreeBoard dto = new FreeBoard(articleNo, title, empNo, regDate, content, hits, isNotice);
+				Board dto = new Board(articleNo, title, empNo, regDate, content, hits, isNotice);
 				list.add(dto);
 			}
 
@@ -211,11 +211,11 @@ public class RestaurantDAO {
 
 	/** 회원의 글 등록 */
 	public int insert(int articleNo, String title, int empNo, String regDate, String content, int hits) {
-		return insert(new FreeBoard(articleNo, title, empNo, regDate, content, hits, "N"));
+		return insert(new Board(articleNo, title, empNo, regDate, content, hits, "N"));
 	}
 
 	/** 관리자의 글 등록 */
-	public int insert(FreeBoard dto) {
+	public int insert(Board dto) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int row = 0;
@@ -253,14 +253,14 @@ public class RestaurantDAO {
 	 *            검색 키워드
 	 * @return
 	 */
-	public ArrayList<FreeBoard> selectListByColumn(String columnName, String keyword) {
+	public ArrayList<Board> selectListByColumn(String columnName, String keyword) {
 		String sql = String.format("select * from %s where %s = '%s'", TABLE_NAME, columnName, keyword);
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
-		ArrayList<FreeBoard> list = new ArrayList<FreeBoard>();
+		ArrayList<Board> list = new ArrayList<Board>();
 
 		try {
 			conn = FactoryDAO.getInstance().getConnection();
@@ -285,7 +285,7 @@ public class RestaurantDAO {
 				hits = rs.getInt(6);
 				isNotice = rs.getString(7);
 
-				list.add(new FreeBoard(articleNo, title, empNo, regDate, content, hits, isNotice));
+				list.add(new Board(articleNo, title, empNo, regDate, content, hits, isNotice));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

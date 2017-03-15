@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import work.model.dto.FreeBoard;
+import work.model.dto.Board;
 import work.model.dto.Member;
 
 public class FreeBoardDAO {
@@ -38,11 +38,11 @@ public class FreeBoardDAO {
    * 
    * @return
    */
-  public ArrayList<FreeBoard> selectList() {
+  public ArrayList<Board> selectList() {
     Connection conn = null;
     Statement stmt = null;
     ResultSet rs = null;
-    ArrayList<FreeBoard> list = new ArrayList<FreeBoard>();
+    ArrayList<Board> list = new ArrayList<Board>();
     
     try {
       conn = getConnection();
@@ -50,7 +50,7 @@ public class FreeBoardDAO {
       String sql = "select * from " + TABLE_NAME + " order by is_notice desc, reg_date desc";
       
       rs = stmt.executeQuery(sql);
-      FreeBoard dto = null;
+      Board dto = null;
       while (rs.next()) {
         int articleNo = rs.getInt("article_no");
         String title = rs.getString("title");
@@ -61,7 +61,7 @@ public class FreeBoardDAO {
         String isNotice = rs.getString("is_notice");
         String userName = rs.getString("username");
         
-        dto = new FreeBoard(articleNo, title, empNo, regDate, content, hits, isNotice, userName);
+        dto = new Board(articleNo, title, empNo, regDate, content, hits, isNotice, userName);
         list.add(dto);
       }
       
@@ -78,11 +78,11 @@ public class FreeBoardDAO {
    * 게시판 글 상세 조회
    * @return
    */
-  public FreeBoard selectOne(int articleNo) {
+  public Board selectOne(int articleNo) {
     Connection conn = null;
     PreparedStatement pstmt = null;
     ResultSet rs = null;
-    FreeBoard dto = new FreeBoard();
+    Board dto = new Board();
     
     try {
       conn = getConnection();
@@ -92,7 +92,7 @@ public class FreeBoardDAO {
       rs = pstmt.executeQuery();
 
       if (rs.next()) {
-        dto = new FreeBoard(rs.getInt("article_no"), rs.getString("title"), rs.getInt("emp_no"),
+        dto = new Board(rs.getInt("article_no"), rs.getString("title"), rs.getInt("emp_no"),
             rs.getString("reg_date"), rs.getString("content"), rs.getInt("hits"), rs.getString("is_notice"),
             rs.getString("username"));
       }
@@ -137,7 +137,7 @@ public class FreeBoardDAO {
   }
   
   /** 글 등록 */
-  public int insert(FreeBoard dto) {
+  public int insert(Board dto) {
     Connection conn = null;
     PreparedStatement pstmt = null;
     int row = 0;
@@ -175,7 +175,7 @@ public class FreeBoardDAO {
    *          검색 키워드
    * @return
    */
-  public ArrayList<FreeBoard> selectListByColumn(String columnName, String keyword) {
+  public ArrayList<Board> selectListByColumn(String columnName, String keyword) {
     String sql = String.format("select * from %s where %s like '%%%s%%'", TABLE_NAME, columnName, keyword);
     
     System.out.println(sql);
@@ -184,7 +184,7 @@ public class FreeBoardDAO {
     PreparedStatement pstmt = null;
     ResultSet rs = null;
     
-    ArrayList<FreeBoard> list = new ArrayList<FreeBoard>();
+    ArrayList<Board> list = new ArrayList<Board>();
     
     try {
       conn = FactoryDAO.getInstance().getConnection();
@@ -211,7 +211,7 @@ public class FreeBoardDAO {
         isNotice = rs.getString(7);
         userName = rs.getString(8);
         
-        list.add(new FreeBoard(articleNo, title, empNo, regDate, content, hits, isNotice, userName));
+        list.add(new Board(articleNo, title, empNo, regDate, content, hits, isNotice, userName));
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -252,7 +252,7 @@ public class FreeBoardDAO {
 //  }
   
   /** 관리자 글 수정 */
-  public int update(FreeBoard dto) {
+  public int update(Board dto) {
     Connection conn = null;
     PreparedStatement pstmt = null;
     int row = 0;
@@ -301,5 +301,4 @@ public class FreeBoardDAO {
     }
     return row;
   }
-  
 }

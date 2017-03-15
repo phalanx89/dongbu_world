@@ -11,12 +11,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import work.model.dto.FreeBoard;
+import work.model.dto.Board;
 import work.model.dto.FreeReply;
 import work.model.dto.Member;
+import work.model.service.BlindBoardService;
+import work.model.service.BlindReplyService;
+import work.model.service.BoardService;
 import work.model.service.FreeBoardService;
 import work.model.service.FreeReplyService;
+import work.model.service.MarketBoardService;
+import work.model.service.MarketReplyService;
 import work.model.service.MemberService;
+import work.model.service.ReplyService;
+import work.model.service.StudyBoardService;
+import work.model.service.StudyReplyService;
 import work.util.Utility;
 
 /**
@@ -25,8 +33,16 @@ import work.util.Utility;
 public class FrontController extends HttpServlet {
   
   public MemberService mservice = new MemberService();
+  public BoardService bservice;
   public FreeBoardService fbservice = new FreeBoardService();
+  public BlindBoardService bbservice = new BlindBoardService();
+  public MarketBoardService mbservice = new MarketBoardService();
+  public StudyBoardService sbservice = new StudyBoardService();
+  public ReplyService rservice;
   public FreeReplyService frservice = new FreeReplyService();
+  public BlindReplyService brservice = new BlindReplyService();
+  public MarketReplyService mrservice = new MarketReplyService();
+  public StudyReplyService srservice = new StudyReplyService();
   private String prefix = "";
   
   /**
@@ -46,6 +62,27 @@ public class FrontController extends HttpServlet {
         action = action.split("_")[1];
         
         System.out.println("\n### action : " + action + ", prefix : " + prefix);
+        
+        switch (prefix) {
+          case "free":
+            bservice = fbservice;
+            rservice = frservice;
+            break;
+          case "blind":
+            bservice = bbservice;
+            rservice = brservice;
+            break;
+          case "market":
+            bservice = mbservice;
+            rservice = mrservice;
+            break;
+          case "study":
+            bservice = sbservice;
+            rservice = srservice;
+            break;
+          default:
+            break;
+        }
       } else {
         prefix = "";
         System.out.println("\n### action : " + action);
@@ -119,9 +156,9 @@ public class FrontController extends HttpServlet {
   /** 자유게시판 글 목록 조회 */
   protected void selectFreeList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     if (isAuth(request, response)) { // 로그인 사용자 권한 체크
-      ArrayList<FreeBoard> list = fbservice.selectList();
-      for (FreeBoard fb : list) {
-        fb.setCountReply(frservice.countReply(fb.getArticleNo()));
+      ArrayList<Board> list = bservice.selectList();
+      for (Board fb : list) {
+        fb.setCountReply(rservice.countReply(fb.getArticleNo()));
       }
       request.setAttribute("list", list);
       forwardPage("boardMain.jsp", request, response);
@@ -143,9 +180,9 @@ public class FrontController extends HttpServlet {
   protected void articleReference(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     if (isAuth(request, response)) { // 로그인 사용자 권한 체크
       int articleNo = Integer.valueOf(request.getParameter("articleNo"));
-      fbservice.plusHits(articleNo);
-      FreeBoard dto = fbservice.selectOne(articleNo);
-      ArrayList<FreeReply> list = frservice.selectList();
+      bservice.plusHits(articleNo);
+      Board dto = bservice.selectOne(articleNo);
+      ArrayList<FreeReply> list = rservice.selectList();
       for (FreeReply fr : list) {
         fr.setUserName(mservice.getUserName(fr.getEmpNo()));
       }
@@ -176,7 +213,7 @@ public class FrontController extends HttpServlet {
       }
     }
     int articleNo = Integer.valueOf(request.getParameter("articleNo"));
-    fbservice.delete(articleNo);
+    bservice.delete(articleNo);
     selectFreeList(request, response);
   }
   
@@ -198,7 +235,7 @@ public class FrontController extends HttpServlet {
     int empNo = Integer.valueOf((request.getSession(false).getAttribute("empNo").toString()));
     String userName = (String) request.getSession(false).getAttribute("userName");
     
-    int articleNo = fbservice.selectMaxNo();
+    int articleNo = bservice.selectMaxNo();
     String title = request.getParameter("title");
     String regDate = "sysdate";// = Utility.getTodayDate();
     String content = request.getParameter("content");
@@ -222,8 +259,8 @@ public class FrontController extends HttpServlet {
       nextView.forward(request, response);
       return;
     }
-    FreeBoard dto = new FreeBoard(articleNo, title, empNo, regDate, content, hits, isNotice, userName);
-    fbservice.register(dto);
+    Board dto = new Board(articleNo, title, empNo, regDate, content, hits, isNotice, userName);
+    bservice.register(dto);
     // request.setAttribute("message", userName + "님 글이 등록되었습니다.");
     request.setAttribute("dto", dto);
     forwardPage("articleReference.jsp", request, response);
@@ -241,7 +278,7 @@ public class FrontController extends HttpServlet {
     int empNo = Integer.valueOf((request.getSession(false).getAttribute("empNo").toString()));
     String userName = (String) request.getSession(false).getAttribute("userName");
     
-    int articleNo = fbservice.selectMaxNo();
+    int articleNo = bservice.selectMaxNo();
     String title = request.getParameter("title");
     String regDate = "sysdate";// = Utility.getTodayDate();
     String content = request.getParameter("content");
@@ -258,8 +295,8 @@ public class FrontController extends HttpServlet {
       return;
     }
     
-    FreeBoard dto = new FreeBoard(articleNo, title, empNo, regDate, content, hits, isNotice, userName);
-    fbservice.register(dto);
+    Board dto = new Board(articleNo, title, empNo, regDate, content, hits, isNotice, userName);
+    bservice.register(dto);
     // request.setAttribute("message", userName + "님 글이 등록되었습니다.");
     request.setAttribute("dto", dto);
     forwardPage("articleReference.jsp", request, response);
@@ -299,9 +336,9 @@ public class FrontController extends HttpServlet {
     }
     
     int articleNo = Integer.valueOf(request.getParameter("articleNo"));
-    FreeBoard dto = fbservice.selectOne(articleNo);
+    Board dto = bservice.selectOne(articleNo);
     request.setAttribute("dto", dto);
-    forwardPage("correcFree.jsp", request, response);
+    forwardPage("correctFree.jsp", request, response);
   }
   
   /**
@@ -354,8 +391,8 @@ public class FrontController extends HttpServlet {
       return;
     }
     
-    FreeBoard dto = new FreeBoard(articleNo, title, empNo, regDate, content, hits, isNotice, userName);
-    fbservice.update(dto);
+    Board dto = new Board(articleNo, title, empNo, regDate, content, hits, isNotice, userName);
+    bservice.update(dto);
     request.setAttribute("dto", dto);
     forwardPage("articleReference.jsp", request, response);
   }
@@ -396,8 +433,8 @@ public class FrontController extends HttpServlet {
       return;
     }
     
-    FreeBoard dto = new FreeBoard(articleNo, title, empNo, regDate, content, hits, isNotice, userName);
-    fbservice.update(dto);
+    Board dto = new Board(articleNo, title, empNo, regDate, content, hits, isNotice, userName);
+    bservice.update(dto);
     request.setAttribute("dto", dto);
     forwardPage("articleReference.jsp", request, response);
   }
@@ -437,7 +474,7 @@ public class FrontController extends HttpServlet {
       return;
     }
     
-    ArrayList<FreeBoard> list = fbservice.search(column, keyword);
+    ArrayList<Board> list = bservice.search(column, keyword);
     request.setAttribute("list", list);
     forwardPage("boardMain.jsp", request, response);
   }
@@ -495,9 +532,7 @@ public class FrontController extends HttpServlet {
       return;
     }
     
-    if (userName == null || userName.trim().length() == 0 || email == null || email.trim().length() == 0 
-     || mobile == null || mobile.trim().length() == 0 || dept == null || dept.trim().length() == 0 
-     || position == null || position.trim().length() == 0) {
+    if (userName == null || userName.trim().length() == 0 || email == null || email.trim().length() == 0 || mobile == null || mobile.trim().length() == 0 || dept == null || dept.trim().length() == 0 || position == null || position.trim().length() == 0) {
       request.setAttribute("message", "정보를 모두 입력하세요.");
       RequestDispatcher nextView = request.getRequestDispatcher("fail.jsp");
       nextView.forward(request, response);
@@ -611,23 +646,24 @@ public class FrontController extends HttpServlet {
     request.setAttribute("userPw", userPw);
     forwardPage("ShowTempPw.jsp", request, response);
   }
-
+  
   /**
    * 댓글 등록
+   * 
    * @param request
    * @param response
    * @throws ServletException
    * @throws IOException
    */
   protected void registerReply(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
- // 로그인 하지 않은 사용자 오류 처리
+    // 로그인 하지 않은 사용자 오류 처리
     if (!isAuth(request, response)) {
       request.setAttribute("message", "회원전용서비스입니다.<p>로그인후 이용하시기 바랍니다.");
       request.getRequestDispatcher("fail.jsp").forward(request, response);
       return;
     }
     
-    int replyNo = frservice.selectMaxNo();
+    int replyNo = rservice.selectMaxNo();
     int articleNo = Integer.valueOf(request.getParameter("articleNo"));
     int empNo = Integer.valueOf((request.getSession(false).getAttribute("empNo").toString()));
     String regDate = "sysdate";// = Utility.getTodayDate();
@@ -642,20 +678,21 @@ public class FrontController extends HttpServlet {
     }
     
     FreeReply dto = new FreeReply(replyNo, articleNo, empNo, regDate, reply);
-    frservice.register(dto);
+    rservice.register(dto);
     request.setAttribute("dto", dto);
     articleReference(request, response);
   }
   
   /**
    * 댓글 삭제
+   * 
    * @param request
    * @param response
    * @throws ServletException
    * @throws IOException
    */
   protected void deleteReply(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
- // 로그인 하지 않은 사용자 오류 처리
+    // 로그인 하지 않은 사용자 오류 처리
     if (!isAuth(request, response)) {
       request.setAttribute("message", "회원전용서비스입니다.<p>로그인후 이용하시기 바랍니다.");
       request.getRequestDispatcher("fail.jsp").forward(request, response);
@@ -671,10 +708,9 @@ public class FrontController extends HttpServlet {
       }
     }
     int replyNo = Integer.valueOf(request.getParameter("replyNo"));
-    frservice.delete(replyNo);
+    rservice.delete(replyNo);
     articleReference(request, response);
   }
-
   
   /**
    * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -700,8 +736,7 @@ public class FrontController extends HttpServlet {
    * @throws ServletException
    * @throws IOException
    */
-  private void forwardPage(String url, HttpServletRequest request, HttpServletResponse response) 
-      throws ServletException, IOException {
+  private void forwardPage(String url, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     RequestDispatcher nextView = request.getRequestDispatcher(prefix + "_" + url);
     nextView.forward(request, response);
   }

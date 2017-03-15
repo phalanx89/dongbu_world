@@ -128,7 +128,7 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 								<%
 								  Board dto = (Board) request.getAttribute("dto");
 								%>
-								<input type="button" value=" 일반게시판 " style="width: auto;"> <input type="button" value="이전글" style="width: auto;" /> <input type="button" value="다음글" style="width: auto;" /> <input type="button" value="글수정" style="width: auto;" onclick="location.href='controller?action=free_correctPage&articleNo=<%=dto.getArticleNo()%>&empNo=<%=dto.getEmpNo()%>'" /> <input type="button" value="글삭제" style="width: auto;" onclick="location.href='controller?action=free_deleteArticle&articleNo=<%=dto.getArticleNo()%>&empNo=<%=dto.getEmpNo()%>'" />
+								<input type="button" value=" 일반게시판 " style="width: auto;"> <input type="button" value="이전글" style="width: auto;" /> <input type="button" value="다음글" style="width: auto;" /> <input type="button" value="글수정" style="width: auto;" onclick="location.href='controller?action=study_correctPage&articleNo=<%=dto.getArticleNo()%>&empNo=<%=dto.getEmpNo()%>'" /> <input type="button" value="글삭제" style="width: auto;" onclick="location.href='controller?action=study_deleteArticle&articleNo=<%=dto.getArticleNo()%>&empNo=<%=dto.getEmpNo()%>'" />
 								<table id="td1" border="1" align="center">
 										<tr>
 												<th>
@@ -159,7 +159,7 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 														</tr>
 														<table id="td4" border="1" align="center">
 																<tr>
-																		<td align="center"><form method='post' action="controller?action=free_registerReply&articleNo=<%=dto.getArticleNo()%>">
+																		<td align="center"><form method='post' action="controller?action=study_registerReply&articleNo=<%=dto.getArticleNo()%>">
 																						<input type="text" name="reply" id="text1" style="width: 50%;" /> <input type="submit" value="등록" style="width: auto;">
 																				</form></td>
 																</tr>
@@ -176,7 +176,7 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 																				<td><%=fr.getReply()%></td>
 																				<td><%=fr.getRegDate()%></td>
 																				<td align="right"><input type="button" value="수정" style="width: auto;">
-																				<input type="button" value="삭제" style="width: auto;" onclick="location.href='controller?action=free_deleteReply&replyNo=<%=fr.getReplyNo() %>&articleNo=<%=fr.getArticleNo() %>'" /></td>
+																				<input type="button" value="삭제" style="width: auto;" onclick="location.href='controller?action=study_deleteReply&replyNo=<%=fr.getReplyNo() %>&articleNo=<%=fr.getArticleNo() %>'" /></td>
 																		</tr>
 																		<%
 																		  }

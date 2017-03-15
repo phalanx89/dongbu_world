@@ -107,7 +107,7 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 										  Board dto = (Board) request.getAttribute("dto");
 										%>
 										<br> <br> <br><input type="button" value=" 일반게시판 " style="width: auto;">
-										<form method="post" action="controller?action=free_updateBoard&articleNo=<%=dto.getArticleNo()%>&hits=<%=dto.getHits()%>">
+										<form method="post" action="controller?action=study_updateBoard&articleNo=<%=dto.getArticleNo()%>&hits=<%=dto.getHits()%>">
 												<table id="td1" border="1" align="center">
 														<br>
 														<tr>

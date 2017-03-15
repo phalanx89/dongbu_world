@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
 <%@ page import="java.util.ArrayList"%>
-<%@ page import="work.model.dto.FreeBoard"%>
+<%@ page import="work.model.dto.Board"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -116,13 +116,13 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 										<a href='controller?action=free_selectList'>자유게시판</a>
 								</div>
 								<div align="center">
-										<a href='free_boardMain.jsp'>익명게시판</a>
+										<a href='controller?action=blind_selectList'>익명게시판</a>
 								</div>
 								<div align="center">
-										<a href='free_boardMain.jsp'>동부장터</a>
+										<a href='controller?action=market_selectList'>동부장터</a>
 								</div>
 								<div align="center">
-										<a href='free_boardMain.jsp'>동부배움터</a>
+										<a href='controller?action=study_selectList'>동부배움터</a>
 								</div>
 						</div>
 						<div id="content_board">
@@ -136,10 +136,10 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 										</tr>
 										<!-- 공지 리스트 설정 크기만큼 반복행 -->
 										<%
-										  ArrayList<FreeBoard> list = (ArrayList<FreeBoard>) request.getAttribute("list");
+										  ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list");
 										  if (list != null) {
 										    
-										    for (FreeBoard dto : list) {
+										    for (Board dto : list) {
 										%>
 										<tr>
 												<td><font face="조선일보명조"><%=dto.getArticleNo()%></font></td>

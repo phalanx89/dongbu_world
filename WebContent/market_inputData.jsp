@@ -88,25 +88,22 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 				<div id="content">
 						<div id="wrapper">
 								<div id="nav">
-										<br> <br>
-										<p align="center">
-												<a href='controller?action=free_selectList'>자유게시판</a>
-										</p>
-										<br> <br> <br>
-										<p align="center">
-												<a href='free_boardMain.jsp'>익명게시판</a>
-										</p>
-										<br> <br> <br>
-										<p align="center">
-												<a href='free_boardMain.jsp'>동부장터</a>
-										</p>
-										<br> <br> <br>
-										<p align="center">
-												<a href='free_boardMain.jsp'>동부배움터</a>
+										<div align="center">
+										<a href='controller?action=free_selectList'>자유게시판</a>
+								</div>
+								<div align="center">
+										<a href='controller?action=blind_selectList'>익명게시판</a>
+								</div>
+								<div align="center">
+										<a href='controller?action=market_selectList'>동부장터</a>
+								</div>	
+								<div align="center">
+										<a href='controller?action=study_selectList'>동부배움터</a>
+								</div>
 								</div>
 								<div id="content_right">
 										<br> <br> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value=" 일반게시판 ">
-										<form method="post" action="controller?action=free_registerByAdmin">
+										<form method="post" action="controller?action=market_registerByAdmin">
 												<table id="td1" border="1" align="center">
 														<br>
 														<tr>
@@ -132,7 +129,7 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 																<table id="td3" border="0" align="center">
 																		<br>
 																		<tr>
-																				<td align="center"><input type="submit" value="등록" style="width: auto;" />  <input type="button" value="취소" style="width: auto;" onclick="location.href='controller?action=free_selectList'" /></td>
+																				<td align="center"><input type="submit" value="등록" style="width: auto;" />  <input type="button" value="취소" style="width: auto;" onclick="location.href='controller?action=market_selectList'" /></td>
 																		</tr>
 																</table>
 																</form>

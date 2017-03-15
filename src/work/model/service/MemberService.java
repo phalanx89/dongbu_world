@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 import work.model.dao.FactoryDAO;
 import work.model.dao.MemberDAO;
-import work.model.dto.FreeBoard;
+import work.model.dto.Board;
 import work.model.dto.Member;
 
 public class MemberService {

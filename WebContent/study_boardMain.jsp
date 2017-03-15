@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
 <%@ page import="java.util.ArrayList"%>
-<%@ page import="work.model.dto.*"%>
+<%@ page import="work.model.dto.Board"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -120,7 +120,7 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 								</div>
 								<div align="center">
 										<a href='controller?action=market_selectList'>동부장터</a>
-								</div>	
+								</div>
 								<div align="center">
 										<a href='controller?action=study_selectList'>동부배움터</a>
 								</div>
@@ -150,7 +150,7 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 														  } else {
 														%> 일반 <%
 														  }
-														%>&nbsp;&nbsp; <a href='controller?action=market_articleReference&articleNo=<%=dto.getArticleNo()%>' style="text-decoration:none;"><font face="조선일보명조"><%=dto.getTitle()%></a>
+														%>&nbsp;&nbsp; <a href='controller?action=study_articleReference&articleNo=<%=dto.getArticleNo()%>' style="text-decoration:none;"><font face="조선일보명조"><%=dto.getTitle()%></a>
 														(<%=dto.getCountReply() %>)
 												</td>
 												<td><font face="조선일보명조"><%=dto.getUserName()%></td>
@@ -162,13 +162,13 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 										%>
 								</table>
 								<br> <br>
-								<form method='post' action="controller?action=market_selectListByColumn">
+								<form method='post' action="controller?action=study_selectListByColumn">
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select name="column">
 												<option value="title">제목</option>
 												<option value="userName">작성자</option>
 												<option value="content">내용</option>
 												<option value="articleNo">글번호</option>
-										</select> <input type="text" name="keyword" id="text1" style="width: auto;" /><input type="submit" value="글검색" style="width: auto;" /> <input type="button" value="글등록" style="width: auto;" onclick="location.href='market_inputData.jsp'" />
+										</select> <input type="text" name="keyword" id="text1" style="width: auto;" /><input type="submit" value="글검색" style="width: auto;" /> <input type="button" value="글등록" style="width: auto;" onclick="location.href='study_inputData.jsp'" />
 								</form>
 						</div>
 				</div>

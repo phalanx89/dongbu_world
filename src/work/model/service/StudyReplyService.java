@@ -2,11 +2,11 @@ package work.model.service;
 
 import java.util.ArrayList;
 
-import work.model.dao.FreeReplyDAO;
+import work.model.dao.StudyReplyDAO;
 import work.model.dto.FreeReply;
 
-public class FreeReplyService extends ReplyService {
-  private FreeReplyDAO dao = FreeReplyDAO.getInstance();
+public class StudyReplyService extends ReplyService {
+  private StudyReplyDAO dao = StudyReplyDAO.getInstance();
   
   /**
    * 댓글 목록 조회

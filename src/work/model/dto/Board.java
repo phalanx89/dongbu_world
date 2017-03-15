@@ -7,7 +7,7 @@ package work.model.dto;
  * @author DB
  *
  */
-public class FreeBoard {
+public class Board {
 	private int articleNo;
 	private String title;
 	private int empNo;
@@ -21,7 +21,7 @@ public class FreeBoard {
 	/**
 	 * 
 	 */
-	public FreeBoard() {
+	public Board() {
 		super();
 	}
 
@@ -34,7 +34,7 @@ public class FreeBoard {
 	 * @param isNotice
 	 * @param userName
 	 */
-	public FreeBoard(int articleNo, String title, int empNo, String regDate, int hits, String isNotice,
+	public Board(int articleNo, String title, int empNo, String regDate, int hits, String isNotice,
 			String userName) {
 		super();
 		this.articleNo = articleNo;
@@ -58,7 +58,7 @@ public class FreeBoard {
 	 * @param isNotice
 	 * @param userName
 	 */
-	public FreeBoard(int articleNo, String title, int empNo, String regDate, String content, int hits, String isNotice,
+	public Board(int articleNo, String title, int empNo, String regDate, String content, int hits, String isNotice,
 			String userName) {
 		this.articleNo = articleNo;
 		this.title = title;
