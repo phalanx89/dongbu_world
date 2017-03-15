@@ -1,7 +1,6 @@
 package work.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -28,6 +27,7 @@ public class FrontController extends HttpServlet {
   public MemberService mservice = new MemberService();
   public FreeBoardService fbservice = new FreeBoardService();
   public FreeReplyService frservice = new FreeReplyService();
+  private String prefix = "";
   
   /**
    * 웹의 모든 요청을 담당하는 서비스 메서드
@@ -39,10 +39,20 @@ public class FrontController extends HttpServlet {
    */
   protected void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     String action = request.getParameter("action");
-    System.out.println("\n###action : " + action);
+    
     if (action != null) {
+      if (action.contains("_")) {
+        prefix = action.split("_")[0];
+        action = action.split("_")[1];
+        
+        System.out.println("\n### action : " + action + ", prefix : " + prefix);
+      } else {
+        prefix = "";
+        System.out.println("\n### action : " + action);
+      }
+      
       switch (action) {
-        case "selectFreeList":
+        case "selectList":
           selectFreeList(request, response);
           break;
         case "deleteArticle":
@@ -51,7 +61,7 @@ public class FrontController extends HttpServlet {
         case "articleReference":
           articleReference(request, response);
           break;
-        case "registerFreeByAdmin":
+        case "registerByAdmin":
           registerFreeByAdmin(request, response);
           break;
         case "selectListByColumn":
@@ -86,7 +96,7 @@ public class FrontController extends HttpServlet {
           break;
       }
     } else {
-      System.out.println("지원하지 않는 요청입니다.");
+      System.out.println("Error>> action is null.");
     }
   }
   
@@ -114,7 +124,8 @@ public class FrontController extends HttpServlet {
         fb.setCountReply(frservice.countReply(fb.getArticleNo()));
       }
       request.setAttribute("list", list);
-      request.getRequestDispatcher("boardMain.jsp").forward(request, response);
+      forwardPage("boardMain.jsp", request, response);
+      
     } else {
       request.setAttribute("message", "회원전용서비스입니다.<p>로그인후 이용하시기 바랍니다.");
       request.getRequestDispatcher("fail.jsp").forward(request, response);
@@ -140,7 +151,7 @@ public class FrontController extends HttpServlet {
       }
       request.setAttribute("dto", dto);
       request.setAttribute("list", list);
-      request.getRequestDispatcher("articleReference.jsp").forward(request, response);
+      forwardPage("articleReference.jsp", request, response);
     } else {
       request.setAttribute("message", "회원전용서비스입니다.<p>로그인후 이용하시기 바랍니다.");
       request.getRequestDispatcher("fail.jsp").forward(request, response);
@@ -215,7 +226,7 @@ public class FrontController extends HttpServlet {
     fbservice.register(dto);
     // request.setAttribute("message", userName + "님 글이 등록되었습니다.");
     request.setAttribute("dto", dto);
-    request.getRequestDispatcher("articleReference.jsp").forward(request, response);
+    forwardPage("articleReference.jsp", request, response);
   }
   
   /** 회원의 자유게시판 글 등록 */
@@ -251,7 +262,7 @@ public class FrontController extends HttpServlet {
     fbservice.register(dto);
     // request.setAttribute("message", userName + "님 글이 등록되었습니다.");
     request.setAttribute("dto", dto);
-    request.getRequestDispatcher("articleReference.jsp").forward(request, response);
+    forwardPage("articleReference.jsp", request, response);
   }
   
   /**
@@ -290,7 +301,7 @@ public class FrontController extends HttpServlet {
     int articleNo = Integer.valueOf(request.getParameter("articleNo"));
     FreeBoard dto = fbservice.selectOne(articleNo);
     request.setAttribute("dto", dto);
-    request.getRequestDispatcher("correctFree.jsp").forward(request, response);
+    forwardPage("correcFree.jsp", request, response);
   }
   
   /**
@@ -346,7 +357,7 @@ public class FrontController extends HttpServlet {
     FreeBoard dto = new FreeBoard(articleNo, title, empNo, regDate, content, hits, isNotice, userName);
     fbservice.update(dto);
     request.setAttribute("dto", dto);
-    request.getRequestDispatcher("articleReference.jsp").forward(request, response);
+    forwardPage("articleReference.jsp", request, response);
   }
   
   /**
@@ -388,7 +399,7 @@ public class FrontController extends HttpServlet {
     FreeBoard dto = new FreeBoard(articleNo, title, empNo, regDate, content, hits, isNotice, userName);
     fbservice.update(dto);
     request.setAttribute("dto", dto);
-    request.getRequestDispatcher("articleReference.jsp").forward(request, response);
+    forwardPage("articleReference.jsp", request, response);
   }
   
   /**
@@ -428,8 +439,7 @@ public class FrontController extends HttpServlet {
     
     ArrayList<FreeBoard> list = fbservice.search(column, keyword);
     request.setAttribute("list", list);
-    request.getRequestDispatcher("boardMain.jsp").forward(request, response);
-    
+    forwardPage("boardMain.jsp", request, response);
   }
   
   /**
@@ -441,25 +451,12 @@ public class FrontController extends HttpServlet {
    * @throws IOException
    */
   protected void myInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    // HttpSession session = request.getSession(false);
-    // Member dto = mservice.myInfo((int) session.getAttribute("empNo"));
-    // session.setAttribute("empNo", dto.getEmpNo());
-    // session.setAttribute("userPw", dto.getUserPw());
-    // session.setAttribute("userName", dto.getUserName());
-    // session.setAttribute("email", dto.getEmail());
-    // session.setAttribute("mobile", dto.getMobile());
-    // session.setAttribute("dept", dto.getDept());
-    // session.setAttribute("position", dto.getPosition());
-    // session.setAttribute("isAdmin", dto.getIsAdmin());
-    //
-    // response.sendRedirect("myInfo.jsp"); // jsp 페이지 안만들었음
-    
     if (isAuth(request, response)) { // 로그인 사용자 권한 체크
       int empNo = Integer.valueOf((request.getSession(false).getAttribute("empNo").toString()));
-      // int empNo = Integer.valueOf(request.getParameter("empNo"));
       Member dto = mservice.myInfo(empNo);
       request.setAttribute("dto", dto);
       request.getRequestDispatcher("myInfo.jsp").forward(request, response);
+      forwardPage("myInfo.jsp", request, response);
     } else {
       request.setAttribute("message", "회원전용서비스입니다.<p>로그인후 이용하시기 바랍니다.");
       request.getRequestDispatcher("fail.jsp").forward(request, response);
@@ -512,6 +509,7 @@ public class FrontController extends HttpServlet {
     request.setAttribute("dto", dto);
     request.setAttribute("messageSuccess", "변경사항이 저장되었습니다. 메인화면으로 이동합니다.");
     request.getRequestDispatcher("index.jsp").forward(request, response);
+    forwardPage("index.jsp", request, response);
   }
   
   /**
@@ -611,8 +609,7 @@ public class FrontController extends HttpServlet {
     }
     mservice.changePw(userPw, email);
     request.setAttribute("userPw", userPw);
-    //request.setAttribute("message", userId + "님 비밀번호찾기 성공");
-    request.getRequestDispatcher("ShowTempPw.jsp").forward(request, response);
+    forwardPage("ShowTempPw.jsp", request, response);
   }
 
   /**
@@ -695,4 +692,17 @@ public class FrontController extends HttpServlet {
     process(request, response);
   }
   
+  /**
+   * 
+   * @param url
+   * @param request
+   * @param response
+   * @throws ServletException
+   * @throws IOException
+   */
+  private void forwardPage(String url, HttpServletRequest request, HttpServletResponse response) 
+      throws ServletException, IOException {
+    RequestDispatcher nextView = request.getRequestDispatcher(prefix + "_" + url);
+    nextView.forward(request, response);
+  }
 }

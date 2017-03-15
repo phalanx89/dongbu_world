@@ -112,19 +112,19 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 				<div id="content">
 						<div id="nav">
 								<p align="center">
-										<a href='controller?action=selectFreeList'>자유게시판</a>
+										<a href='controller?action=free_selectList'>자유게시판</a>
 								<p align="center">
-										<a href='boardMain.jsp'>익명게시판</a>
+										<a href='free_boardMain.jsp'>익명게시판</a>
 								<p align="center">
-										<a href='boardMain.jsp'>동부장터</a>
+										<a href='free_boardMain.jsp'>동부장터</a>
 								<p align="center">
-										<a href='boardMain.jsp'>동부배움터</a>
+										<a href='free_boardMain.jsp'>동부배움터</a>
 						</div>
 						<div id="content_board">
 								<%
-								  FreeBoard dto = (FreeBoard) request.getAttribute("dto");
+								  MarketBoard dto = (MarketBoard) request.getAttribute("dto");
 								%>
-								<input type="button" value=" 일반게시판 " style="width: auto;"> <input type="button" value="이전글" style="width: auto;" /> <input type="button" value="다음글" style="width: auto;" /> <input type="button" value="글수정" style="width: auto;" onclick="location.href='controller?action=correctPage&articleNo=<%=dto.getArticleNo()%>&empNo=<%=dto.getEmpNo()%>'" /> <input type="button" value="글삭제" style="width: auto;" onclick="location.href='controller?action=deleteArticle&articleNo=<%=dto.getArticleNo()%>&empNo=<%=dto.getEmpNo()%>'" />
+								<input type="button" value=" 일반게시판 " style="width: auto;"> <input type="button" value="이전글" style="width: auto;" /> <input type="button" value="다음글" style="width: auto;" /> <input type="button" value="글수정" style="width: auto;" onclick="location.href='controller?action=free_correctPage&articleNo=<%=dto.getArticleNo()%>&empNo=<%=dto.getEmpNo()%>'" /> <input type="button" value="글삭제" style="width: auto;" onclick="location.href='controller?action=free_deleteArticle&articleNo=<%=dto.getArticleNo()%>&empNo=<%=dto.getEmpNo()%>'" />
 								<table id="td1" border="1" align="center">
 										<tr>
 												<th>
@@ -155,24 +155,24 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 														</tr>
 														<table id="td4" border="1" align="center">
 																<tr>
-																		<td align="center"><form method='post' action="controller?action=registerReply&articleNo=<%=dto.getArticleNo()%>">
+																		<td align="center"><form method='post' action="controller?action=free_registerReply&articleNo=<%=dto.getArticleNo()%>">
 																						<input type="text" name="reply" id="text1" style="width: 50%;" /> <input type="submit" value="등록" style="width: auto;">
 																				</form></td>
 																</tr>
 																<table id="td5" border="1" align="center">
 																		<%
-																		  ArrayList<FreeReply> list = (ArrayList<FreeReply>) request.getAttribute("list");
+																		  ArrayList<MarketReply> list = (ArrayList<MarketReply>) request.getAttribute("list");
 																		  if (list != null) {
-																		    for (FreeReply fr : list) {
+																		    for (MarketReply fr : list) {
 																		%>
-																		<tr>댓글</tr>
+																		<tr>댓글
+																		</tr>
 																		<tr>
 																				<td align="center"><%=fr.getReplyNo()%></td>
 																				<td><%=fr.getUserName()%></td>
 																				<td><%=fr.getReply()%></td>
 																				<td><%=fr.getRegDate()%></td>
-																				<td align="right"><input type="button" value="수정" style="width: auto;">
-																				<input type="button" value="삭제" style="width: auto;" onclick="location.href='controller?action=deleteReply&replyNo=<%=fr.getReplyNo() %>&articleNo=<%=fr.getArticleNo() %>'" /></td>
+																				<td align="right"><input type="button" value="수정" style="width: auto;"> <input type="button" value="삭제" style="width: auto;" onclick="location.href='controller?action=free_deleteReply&replyNo=<%=fr.getReplyNo()%>&articleNo=<%=fr.getArticleNo()%>'" /></td>
 																		</tr>
 																		<%
 																		  }
