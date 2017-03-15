@@ -85,7 +85,10 @@ table {
 								<%
 								  FreeBoard dto = (FreeBoard) request.getAttribute("dto");
 								%>
-								<input type="button" value=" 일반게시판 "> <input type="button" value="이전글" /> <input type="button" value="다음글" /> <input type="button" value="글수정" /> <input type="button" value="글삭제" onclick="location.href='controller?action=deleteArticle&articleNo=<%=dto.getArticleNo()%>&empNo=<%=dto.getEmpNo()%>'" />
+								<input type="button" value=" 일반게시판 "> <input type="button" value="이전글" /> 
+								<input type="button" value="다음글" /> 
+								<input type="button" value="글수정" onclick="location.href='controller?action=correctPage&articleNo=<%=dto.getArticleNo()%>&empNo=<%=dto.getEmpNo()%>'" /> 
+								<input type="button" value="글삭제" onclick="location.href='controller?action=deleteArticle&articleNo=<%=dto.getArticleNo()%>&empNo=<%=dto.getEmpNo()%>'" />
 								<table id="td1" border="1" align="center">
 										<tr>
 												<th>

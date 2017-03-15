@@ -57,6 +57,9 @@ public class FrontController extends HttpServlet {
         case "correctPage":
           correctPage(request, response);
           break;
+        case "updateBoard":
+          updateBoard(request, response);
+          break;
         case "login":
           login(request, response);
           break;
@@ -202,16 +205,8 @@ public class FrontController extends HttpServlet {
     }
     FreeBoard dto = new FreeBoard(articleNo, title, empNo, regDate, content, hits, isNotice, userName);
     fbservice.register(dto);
-    request.setAttribute("message", userName + "님 글이 등록되었습니다.");
+    //request.setAttribute("message", userName + "님 글이 등록되었습니다.");
     request.setAttribute("dto", dto);
-    // request.setAttribute("ArticleNo", articleNo);
-    // request.setAttribute("title", title);
-    // request.setAttribute("empNo", empNo);
-    // request.setAttribute("regDate", regDate);
-    // request.setAttribute("content", content);
-    // request.setAttribute("hits", hits);
-    // request.setAttribute("isNotice", isNotice);
-    // request.setAttribute("userName", userName);
     request.getRequestDispatcher("articleReference.jsp").forward(request, response);
   }
   
@@ -244,16 +239,10 @@ public class FrontController extends HttpServlet {
       return;
     }
     
-    fbservice.register(new FreeBoard(articleNo, title, empNo, regDate, content, hits, isNotice, userName));
-    request.setAttribute("message", userName + "님 글이 등록되었습니다.");
-    request.setAttribute("ArticleNo", articleNo);
-    request.setAttribute("title", title);
-    request.setAttribute("empNo", empNo);
-    request.setAttribute("regDate", regDate);
-    request.setAttribute("content", content);
-    request.setAttribute("hits", hits);
-    request.setAttribute("isNotice", isNotice);
-    request.setAttribute("userName", userName);
+    FreeBoard dto = new FreeBoard(articleNo, title, empNo, regDate, content, hits, isNotice, userName);
+    fbservice.register(dto);
+    //request.setAttribute("message", userName + "님 글이 등록되었습니다.");
+    request.setAttribute("dto", dto);
     request.getRequestDispatcher("articleReference.jsp").forward(request, response);
   }
   
@@ -295,6 +284,103 @@ public class FrontController extends HttpServlet {
     request.setAttribute("dto", dto);
     request.getRequestDispatcher("correctFree.jsp").forward(request, response);
   }
+  
+  /**
+   * 관리자의 자유게시판 글 수정
+   * @param request
+   * @param response
+   * @throws ServletException
+   * @throws IOException
+   */
+  protected void updateBoard(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    // 로그인 하지 않은 사용자 오류 처리
+    if (!isAuth(request, response)) {
+      request.setAttribute("message", "회원전용서비스입니다.<p>로그인후 이용하시기 바랍니다.");
+      request.getRequestDispatcher("fail.jsp").forward(request, response);
+      return;
+    }
+    
+    // 관리자가 아니면 회원의 글 수정 메서드로 보내기
+    if (!((String) request.getSession(false).getAttribute("isAdmin")).equals("Y")) {
+      updateBoardByMember(request, response);
+      return;
+    }
+    
+    int empNo = Integer.valueOf((request.getSession(false).getAttribute("empNo").toString()));
+    String userName = (String) request.getSession(false).getAttribute("userName");
+    
+    int articleNo = Integer.valueOf(request.getParameter("articleNo"));
+    String title = request.getParameter("title");
+    String regDate = "sysdate";// = Utility.getTodayDate();
+    String content = request.getParameter("content");
+    int hits = Integer.valueOf(request.getParameter("hits"));
+    String isNotice = request.getParameter("isNotice");
+    
+    if (title == null || title.trim().length() == 0) {
+      // 실패 페이지 이동전에 오류메세지 속성 설정
+      request.setAttribute("message", "제목을 입력하세요");
+      
+      // 설정정보를 가지고 페이지 포워드(이동)
+      RequestDispatcher nextView = request.getRequestDispatcher("fail.jsp");
+      nextView.forward(request, response);
+      return;
+    }
+    
+    if (isNotice == null || isNotice.trim().length() == 0) {
+      request.setAttribute("message", "공지여부를 입력하세요");
+      
+      RequestDispatcher nextView = request.getRequestDispatcher("fail.jsp");
+      nextView.forward(request, response);
+      return;
+    }
+    
+    FreeBoard dto = new FreeBoard(articleNo, title, empNo, regDate, content, hits, isNotice, userName);
+    fbservice.update(dto);
+    request.setAttribute("dto", dto);
+    request.getRequestDispatcher("articleReference.jsp").forward(request, response);
+  }
+  
+  /**
+   * 회원의 자유게시판 글 수정
+   * @param request
+   * @param response
+   * @throws ServletException
+   * @throws IOException
+   */
+  protected void updateBoardByMember(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    // 로그인 하지 않은 사용자 오류 처리
+    if (!isAuth(request, response)) {
+      request.setAttribute("message", "회원전용서비스입니다.<p>로그인후 이용하시기 바랍니다.");
+      request.getRequestDispatcher("fail.jsp").forward(request, response);
+      return;
+    }
+    
+    int empNo = Integer.valueOf((request.getSession(false).getAttribute("empNo").toString()));
+    String userName = (String) request.getSession(false).getAttribute("userName");
+    
+    int articleNo = Integer.valueOf(request.getParameter("articleNo"));
+    String title = request.getParameter("title");
+    String regDate = "sysdate";// = Utility.getTodayDate();
+    String content = request.getParameter("content");
+    int hits = Integer.valueOf(request.getParameter("hits"));
+    String isNotice = "N";
+    
+    if (title == null || title.trim().length() == 0) {
+      // 실패 페이지 이동전에 오류메세지 속성 설정
+      request.setAttribute("message", "제목을 입력하세요");
+      
+      // 설정정보를 가지고 페이지 포워드(이동)
+      RequestDispatcher nextView = request.getRequestDispatcher("fail.jsp");
+      nextView.forward(request, response);
+      return;
+    }
+    
+    FreeBoard dto = new FreeBoard(articleNo, title, empNo, regDate, content, hits, isNotice, userName);
+    fbservice.update(dto);
+    request.setAttribute("dto", dto);
+    request.getRequestDispatcher("articleReference.jsp").forward(request, response);
+  }
+  
   
   /**
    * 글 검색(글번호, 제목, 내용, 작성자)

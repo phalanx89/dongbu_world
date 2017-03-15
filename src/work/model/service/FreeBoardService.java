@@ -37,19 +37,29 @@ public class FreeBoardService {
 	  dao.plusHits(articleNo);
 	}
 	
-	/** 관리자의 글 등록 */
+	/** 글 등록 */
 	public void register(FreeBoard dto) {
 		dao.insert(dto);
 	}
 	
-	public void register(int articleNo, String title, int empNo, String regDate, String content, int hits, String userName) {
-		if (userName != null && userName.length() > 14) {
-			System.out.println("userName's length is too long>> " + userName);
-			userName = userName.substring(0, 14);			
-			System.out.println("converted userName is >> " + userName);
-		}
-		dao.insert(articleNo, title, empNo, regDate, content, hits, userName);
-	}
+//	/**
+//	 * 회원의 글 등록
+//	 * @param articleNo
+//	 * @param title
+//	 * @param empNo
+//	 * @param regDate
+//	 * @param content
+//	 * @param hits
+//	 * @param userName
+//	 */
+//	public void registerByMember(FreeBoard dto) {
+//		if (userName != null && userName.length() > 14) {
+//			System.out.println("userName's length is too long>> " + userName);
+//			userName = userName.substring(0, 14);			
+//			System.out.println("converted userName is >> " + userName);
+//		}
+//		dao.insertByMember(dto);
+//	}
 	
 	/** 글 검색 */
 	public ArrayList<FreeBoard> search(String columnName, String keyword) {
@@ -62,14 +72,14 @@ public class FreeBoardService {
 	}
 	
 	/** 관리자의 글 수정 */
-	public int update(int articleNo, String title, String content, String isNotice) {
-		return dao.update(articleNo, title, content, isNotice);
+	public int update(FreeBoard dto) {
+		return dao.update(dto);
 	}
 	
-	/** 회원의 본인 글 수정 */
-	public int update(int articleNo, String title, String content) {
-		return dao.update(articleNo, title, content);
-	}
+//	/** 회원의 본인 글 수정 */
+//	public int update(int articleNo, String title, String content) {
+//		return dao.update(articleNo, title, content);
+//	}
 	
 	/** 글 삭제 */
 	public int delete(int articleNo) {
