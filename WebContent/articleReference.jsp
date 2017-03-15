@@ -63,6 +63,44 @@ table {
 		width: 70%;
 		vertical-align: inherit;
 }
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+button {
+    background-color: #7071B2;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+input[type=submit], input[type=reset], input[type=button] {
+    background-color: #7071B2;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
+    opacity: 0.8;
+}
 </style>
 </head>
 <body>
@@ -85,10 +123,10 @@ table {
 								<%
 								  FreeBoard dto = (FreeBoard) request.getAttribute("dto");
 								%>
-								<input type="button" value=" 일반게시판 "> <input type="button" value="이전글" /> 
-								<input type="button" value="다음글" /> 
-								<input type="button" value="글수정" onclick="location.href='controller?action=correctPage&articleNo=<%=dto.getArticleNo()%>&empNo=<%=dto.getEmpNo()%>'" /> 
-								<input type="button" value="글삭제" onclick="location.href='controller?action=deleteArticle&articleNo=<%=dto.getArticleNo()%>&empNo=<%=dto.getEmpNo()%>'" />
+								<input type="button" value=" 일반게시판 " style="width: auto;"> <input type="button" value="이전글"  style="width: auto;"/> 
+								<input type="button" value="다음글" style="width: auto;"/> 
+								<input type="button" value="글수정" style="width: auto;" onclick="location.href='controller?action=correctPage&articleNo=<%=dto.getArticleNo()%>&empNo=<%=dto.getEmpNo()%>'" /> 
+								<input type="button" value="글삭제" style="width: auto;" onclick="location.href='controller?action=deleteArticle&articleNo=<%=dto.getArticleNo()%>&empNo=<%=dto.getEmpNo()%>'" />
 								<table id="td1" border="1" align="center">
 										<tr>
 												<th>
@@ -119,11 +157,11 @@ table {
 														</tr>
 														<table id="td4" border="1" align="center">
 																<tr>
-																		<td align="center">댓글 <input type="button" value="등록"></td>
+																		<td align="center">댓글 <input type="button" value="등록" style="width: auto;"></td>
 																</tr>
 																<table id="td5" border="1" align="center">
 																		<tr>
-																				<td align="center">1빠요~ㅋㅋㅋㅋㅋㅋㅋㅋ <input type="button" value="수정"> <input type="button" value="삭제"></td>
+																				<td align="center">1빠요~ㅋㅋㅋㅋㅋㅋㅋㅋ <input type="button" value="수정" style="width: auto;"> <input type="button" value="삭제" style="width: auto;"></td>
 																		</tr>
 																</table>
 																</div>

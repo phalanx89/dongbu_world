@@ -43,6 +43,44 @@
 		clear: both;
 		height: 100px;
 }
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+button {
+    background-color: #7071B2;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+input[type=submit], input[type=reset], input[type=button] {
+    background-color: #7071B2;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
+    opacity: 0.8;
+}
 </style>
 </head>
 <body >
@@ -78,7 +116,7 @@
 				<div id="content_board">
 						<br>
 						<br>
-						<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value=" 일반게시판 "><br>
+						<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value=" 일반게시판 " style="width: auto;"><br>
 						<table border="1" align="center">
 								<!-- 제목행 -->
 								<tr align="center">
@@ -118,8 +156,8 @@
 								<option value="content">내용</option>
 								<option value="articleNo">글번호</option>
 						</select>
-						<input type="text" name="keyword" id="text1" /><input type="submit" value="글검색" />
-						<input type="button" value="글등록" onclick="location.href='inputDataFree.jsp'" />
+						<input type="text" name="keyword" id="text1" style="width: auto;" /><input type="submit" value="글검색" style="width: auto;" />
+						<input type="button" value="글등록" style="width: auto;" onclick="location.href='inputDataFree.jsp'" />
 						</form>
 				</div>
 				</div>

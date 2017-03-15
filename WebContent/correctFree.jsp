@@ -41,6 +41,44 @@
 		clear: both;
 		height: 100px;
 }
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+button {
+    background-color: #7071B2;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+input[type=submit], input[type=reset], input[type=button] {
+    background-color: #7071B2;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
+    opacity: 0.8;
+}
 </style>
 </head>
 <body>
@@ -71,7 +109,7 @@
 										<%
 										  FreeBoard dto = (FreeBoard) request.getAttribute("dto");
 										%>
-										<br> <br> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value=" 일반게시판 ">
+										<br> <br> <br><input type="button" value=" 일반게시판 " style="width: auto;">
 										<form method="post" action="controller?action=updateBoard&articleNo=<%=dto.getArticleNo()%>&hits=<%=dto.getHits()%>">
 												<table id="td1" border="1" align="center">
 														<br>
@@ -101,7 +139,7 @@
 																<table id="td3" border="0" align="center">
 																		<br>
 																		<tr>
-																				<td align="center"><input type="submit" value="등록" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="button" value="취소" onclick="location.href='controller?action=selectFreeList'" /></td>
+																				<td align="center"><input type="submit" value="등록" style="width: auto;"/>  <input type="button" value="취소" style="width: auto;" onclick="location.href='controller?action=selectFreeList'" /></td>
 																		</tr>
 																</table>
 																</form>
