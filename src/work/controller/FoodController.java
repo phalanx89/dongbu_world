@@ -88,14 +88,14 @@ public class FoodController extends HttpServlet {
 		
 		if (aryMenus.length == 0) {
 			System.out.println("cbxMenus.length == 0");
-			forwardPage("restuarant_main.jsp", request, response);
+			forwardPage("restaurant_main.jsp", request, response);
 			return;
 		}
 		
 		RestaurantService service = new RestaurantService();
 		ArrayList<Restaurant> aryRestaurants = service.selectRestaurantList(aryMenus);
 		request.setAttribute("aryRestaurants", aryRestaurants);
-		forwardPage("restuarant_main.jsp", request, response);
+		forwardPage("restaurant_main.jsp", request, response);
 		return;
 	}
 	

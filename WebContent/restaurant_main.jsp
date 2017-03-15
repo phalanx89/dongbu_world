@@ -48,6 +48,128 @@
 		clear: both;
 		height: 100px;
 }
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+button {
+    background-color: #7071B2;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+input[type=submit], input[type=reset], input[type=button] {
+    background-color: #7071B2;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
+    opacity: 0.8;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #f44336;
+}
+
+/* Center the image and position the close button */
+.container2 {
+    padding: 16px;
+}
+
+span.psw {
+    float: right;
+    padding-top: 16px;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button (x) */
+.close {
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #000;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: red;
+    cursor: pointer;
+}
+
+/* Add Zoom Animation */
+.animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)} 
+    to {-webkit-transform: scale(1)}
+}
+    
+@keyframes animatezoom {
+    from {transform: scale(0)} 
+    to {transform: scale(1)}
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+    span.psw {
+       display: block;
+       float: none;
+    }
+    .cancelbtn {
+       width: 100%;
+    }
+}
 </style>
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=fd96bb5ffbbe3c54d0416e62bee493f5&libraries=services "></script>
 <script type="text/javascript">
@@ -120,11 +242,11 @@
               });
 
               daum.maps.event.addListener(markerUser, 'rightclick', function(mouseEvent) {
-                var content = '<div style="width:100%; padding:3px" align="center"> 여기에 새로운 맛집을 등록할래요? <button type="button" onclick="moveRegister()";>등록!</button>&nbsp;</div>';
+                var content = '<div style="width:100%; padding:3px" align="center"> 여기에 새로운 맛집을 등록할래요? <br><button type="button" style="width: auto;" onclick="moveRegister()";>등록!</button>&nbsp;</div>';
                 infowindow.setContent(content);
                 infowindow.open(map, markerUser);
               });
-              
+
               //set custom function
               function addMarker(location) {
                 var markerPosition = new daum.maps.LatLng(location.getLat(), location.getLng()); // 마커가 표시될 위치입니다
@@ -142,9 +264,21 @@
                 // 좌표로 법정동 상세 주소 정보를 요청합니다
                 geocoder.coord2detailaddr(coords, callback);
               }
-              
+
               function moveRegister() {
-                location.href="restaurantRegister.jsp"; //좌표정보 담아서 넘겨줄까?
+                location.href = "restaurantRegister.jsp"; //좌표정보 담아서 넘겨줄까?
+              }
+
+              /*new window for restaurant registration*/
+              // Get the modal
+              var modal = document.getElementById('registerRestaurant');
+
+              // When the user clicks anywhere outside of the modal, close it
+              window.onclick = function(event) {
+                console.log("click!!");
+                if (event.target == modal) {
+                  modal.style.display = "none";
+                }
               }
             </script>
 						<div id="side_map">
@@ -152,7 +286,7 @@
 										<div wdith="100%" align="center">검색 조건 설정</div>
 										<hr>
 										<div id="frm_search" align="center">
-												<input type="text" name="restaurant" size="15" max /> <input type="button" name="btnRestaurant" value="검색" />
+												<input type="text" name="restaurant" size="15"  /> <input type="button" name="btnRestaurant" value="검색" style="width: auto;"/>
 										</div>
 										<hr>
 										<div id="frm_cbx">
@@ -188,9 +322,23 @@
 										</div>
 										<hr>
 										<div id="frm_submit" align="center">
-												<input type="submit" value="검색"> <input type="reset" value="초기화">
+												<input type="submit" value="검색" style="width: 100px;"> <input type="reset" value="초기화" style="width: 100px;">
 										</div>
 										<hr>
+								</form>
+						</div>
+						<button onclick="document.getElementById('registerRestaurant').style.display='block'" style="width: auto;">test</button>
+						<div id="registerRestaurant" class="modal">
+								<form class="modal-content animate" action="/action_page.php">
+										<div class="container2">
+												<label><b>Username</b></label> <input type="text" placeholder="Enter Username" name="uname" required> <label><b>Password</b></label> <input type="password" placeholder="Enter Password" name="psw" required>
+												<button type="submit">Login</button>
+												<input type="checkbox" checked="checked"> Remember me
+										</div>
+										<div class="container2" style="background-color: #f1f1f1">
+												<button type="button" onclick="document.getElementById('registerRestaurant').style.display='none'" class="cancelbtn">Cancel</button>
+												<span class="psw">Forgot <a href="#">password?</a></span>
+										</div>
 								</form>
 						</div>
 						<!-- 				<div id="sideinfo"></div> -->
