@@ -21,7 +21,7 @@
 /* 		padding: 5px; */
 /* } */
 #content {
-		background-color: #F5F5F5;
+		background-color: #ffffff;
 		float: left;
 		width: 100%;
 		height: 750px;
@@ -47,6 +47,8 @@ input[type=text], input[type=password] {
 button {
     background-color: #7071B2;
     color: white;
+    font-weight: bold;
+    font-size: 20px;
     padding: 5px 5px;
     margin: 0px 0;
     border: none;
@@ -70,6 +72,11 @@ input[type=submit], input[type=reset], input[type=button] {
 
 input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
     opacity: 0.8;
+}
+
+a:hover {
+	color: #ff0000;
+	font-style: italic;
 }
 </style>
 </head>

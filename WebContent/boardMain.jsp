@@ -22,16 +22,16 @@
 /* 		height: 500px; */
 /* 		padding: 5px; */
 /* } */
-
 #nav {
 		width: 10%;
-		height: 700px;
-		border: 1px solid black;
+		height: 100%;
+		background-color: #eeeeee;
+		padding: 3px;
 		float: left;
 }
 
 #content {
-		background-color: #F5F5F5;
+		background-color: #ffffff;
 		float: left;
 		width: 100%;
 		height: 750px;
@@ -45,125 +45,135 @@
 }
 
 input[type=text], input[type=password] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
+		width: 100%;
+		padding: 12px 20px;
+		margin: 8px 0;
+		display: inline-block;
+		border: 1px solid #ccc;
+		box-sizing: border-box;
 }
 
 /* Set a style for all buttons */
 button {
-    background-color: #7071B2;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 100%;
+		background-color: #7071B2;
+		color: white;
+		padding: 14px 20px;
+		margin: 8px 0;
+		border: none;
+		cursor: pointer;
+		width: 100%;
 }
 
 button:hover {
-    opacity: 0.8;
+		opacity: 0.8;
 }
 
 input[type=submit], input[type=reset], input[type=button] {
-    background-color: #7071B2;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 100%;
+		background-color: #7071B2;
+		color: white;
+		padding: 14px 20px;
+		margin: 8px 0;
+		border: none;
+		cursor: pointer;
+		width: 100%;
 }
 
 input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
-    opacity: 0.8;
+		opacity: 0.8;
+}
+
+#myTable {
+    border-collapse: collapse; /* Collapse borders */
+    width: 1200px; /* Full-width */
+    border: 1px solid #ddd; /* Add a grey border */
+    font-size: 13px; /* Increase font-size */
+}
+
+#myTable th, #myTable td {
+    text-align: left; /* Left-align text */
+    padding: 12px; /* Add padding */
+}
+
+#myTable tr {
+    /* Add a bottom border to all table rows */
+    border-bottom: 1px solid #ddd; 
+}
+
+#myTable tr.header, #myTable tr:hover {
+    /* Add a grey background color to the table header and on hover */
+    background-color: #f1f1f1;
 }
 </style>
 </head>
-<body >
+<body>
 		<div id="container">
 				<div id="header">
-					<jsp:include page="top.jsp"></jsp:include>
+						<jsp:include page="top.jsp"></jsp:include>
 				</div>
 				<div id="content">
-				<div id="nav">
-						<br>
-						<br>
-						<p align="center">
-								<a href='controller?action=selectFreeList'>자유게시판</a>
-						</p>
-						<br>
-						<br>
-						<br>
-						<p align="center">
-								<a href='boardMain.jsp'>익명게시판</a>
-						</p>
-						<br>
-						<br>
-						<br>
-						<p align="center">
-								<a href='boardMain.jsp'>동부장터</a>
-						</p>
-						<br>
-						<br>
-						<br>
-						<p align="center">
-								<a href='boardMain.jsp'>동부배움터</a>
+						<div id="nav">
+								<div align="center">
+										<a href='controller?action=selectFreeList'>자유게시판</a>
+								</div>
+								<div align="center">
+										<a href='boardMain.jsp'>익명게시판</a>
+								</div>
+								<div align="center">
+										<a href='boardMain.jsp'>동부장터</a>
+								</div>
+								<div align="center">
+										<a href='boardMain.jsp'>동부배움터</a>
+								</div>
+						</div>
+						<div id="content_board">
+								<table id="myTable">
+										<!-- 제목행 -->
+										<tr class="header">
+												<th><font face="조선일보명조">글번호 </th>
+												<th><font face="조선일보명조">글제목 </th>
+												<th><font face="조선일보명조">작성자 </th>
+												<th><font face="조선일보명조">조회수 </th>
+										</tr>
+										<!-- 공지 리스트 설정 크기만큼 반복행 -->
+										<%
+										  ArrayList<FreeBoard> list = (ArrayList<FreeBoard>) request.getAttribute("list");
+										  if (list != null) {
+										    
+										    for (FreeBoard dto : list) {
+										%>
+										<tr>
+												<td><font face="조선일보명조"><%=dto.getArticleNo()%></font></td>
+												<td width="600px">
+														<%
+														  if (dto.getIsNotice().equals("Y")) {
+														%> 공지 <%
+														  } else {
+														%> 일반 <%
+														  }
+														%>&nbsp;&nbsp; <a href='controller?action=articleReference&articleNo=<%=dto.getArticleNo()%>'><font face="조선일보명조"><%=dto.getTitle()%></a>
+												</td>
+												<td><font face="조선일보명조"><%=dto.getUserName()%></td>
+												<td><font face="조선일보명조"><%=dto.getHits()%></td>
+										</tr>
+										<%
+										  }
+										  }
+										%>
+								</table>
+								<br> <br>
+								<form method='post' action="controller?action=selectListByColumn">
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select name="column">
+												<option value="title">제목</option>
+												<option value="userName">작성자</option>
+												<option value="content">내용</option>
+												<option value="articleNo">글번호</option>
+										</select> <input type="text" name="keyword" id="text1" style="width: auto;" /><input type="submit" value="글검색" style="width: auto;" /> <input type="button" value="글등록" style="width: auto;" onclick="location.href='inputDataFree.jsp'" />
+								</form>
+						</div>
 				</div>
-				<div id="content_board">
-						<br>
-						<br>
-						<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value=" 일반게시판 " style="width: auto;"><br>
-						<table border="1" align="center">
-								<!-- 제목행 -->
-								<tr align="center">
-										<th><font face="조선일보명조">글번호 </th>
-										<th><font face="조선일보명조">글제목 </th>
-										<th><font face="조선일보명조">작성자 </th>
-										<th><font face="조선일보명조">조회수 </th>
-								</tr>
-								<!-- 공지 리스트 설정 크기만큼 반복행 -->
-								<%
-								  ArrayList<FreeBoard> list = (ArrayList<FreeBoard>) request.getAttribute("list");
-								  if (list != null) {
-								    
-								    for (FreeBoard dto : list) {
-								%>
-								<tr>
-										<td><font face="조선일보명조"><%=dto.getArticleNo()%></font></td>
-										<td width="600px"><% if (dto.getIsNotice().equals("Y")) { %>
-										공지 <% } else { %>
-										일반 <% } %>&nbsp;&nbsp;
-										<a href='controller?action=articleReference&articleNo=<%=dto.getArticleNo()%>'><font face="조선일보명조"><%=dto.getTitle()%></a></td>
-										<td><font face="조선일보명조"><%=dto.getUserName()%></td>
-										<td><font face="조선일보명조"><%=dto.getHits()%></td>
-								</tr>
-								<%
-								  	}
-								  }
-								%>
-						</table>
-						<br>
-						<br>  
-						<form method='post' action="controller?action=selectListByColumn">
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<select name="column">
-								<option value="title">제목</option>
-								<option value="userName">작성자</option>
-								<option value="content">내용</option>
-								<option value="articleNo">글번호</option>
-						</select>
-						<input type="text" name="keyword" id="text1" style="width: auto;" /><input type="submit" value="글검색" style="width: auto;" />
-						<input type="button" value="글등록" style="width: auto;" onclick="location.href='inputDataFree.jsp'" />
-						</form>
-				</div>
-				</div>
-<!-- 				<div id="sideinfo"></div> -->
+				<!-- 				<div id="sideinfo"></div> -->
 				<div id="footer">
-				<jsp:include page="footer.jsp"></jsp:include>
+						<jsp:include page="footer.jsp"></jsp:include>
 				</div>
 		</div>
 </body>
