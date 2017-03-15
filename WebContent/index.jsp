@@ -47,8 +47,8 @@ input[type=text], input[type=password] {
 button {
     background-color: #7071B2;
     color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
+    padding: 5px 5px;
+    margin: 0px 0;
     border: none;
     cursor: pointer;
     width: 100%;
@@ -85,19 +85,17 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 						<table>
 								<tr>
 										<td colspan="3">&nbsp;</td>
-										<td bgcolor="#7071B2" align="center"><a href=""> <img src="images/icon_rank.png" width="230px" height="230px"><br>맛집 랭킹
-										</a></td>
+										<td align="center"> <button style="background-color:#7071B2; width:220px; height:230px;">맛집 랭킹</button></td>
 								</tr>
 								<tr>
-										<td bgcolor="#A2A1FA" align="center"><a href="controller?action=selectFreeList"> <img src="images/icon_board.png" width="230px" height="230px"><br>게시판 메인
-										</a></td>
-										<td bgcolor="#B3B3B3" align="center"><a href="http://ep.dongbuinc.com/"><img src="images/icon_epdongbu.png" width="230px" height="230px"><br>구글 포르테</a></td>
-										<td bgcolor="#A2A1FA" align="center"><a href="index.jsp"><img src="images/icon_member.png" width="230px" height="230px"><br>회원정보조회</a></td>
-										<td bgcolor="#B3B3B3" align="center"><a href="restaurant_main.jsp"><img src="images/icon_restaurant.png" width="230px" height="230px"><br>맛집 메인</a></td>
+										<td align="center"><button style="background-color:#A2A1FA; width:220px; height:230px;" onclick="location.href='controller?action=selectFreeList'">게시판 메인</button></td>
+										<td align="center"><button style="background-color:#B3B3B3; width:220px; height:230px;" onclick="location.href='http://ep.dongbuinc.com/'">구글 포르테</button></td>
+										<td align="center"><button style="background-color:#A2A1FA; width:220px; height:230px;" onclick="location.href='index.jsp'">회원정보조회</button></td>
+										<td align="center"><button style="background-color:#B3B3B3; width:220px; height:230px;" onclick="location.href='restaurant_main.jsp'">맛집 메인</button></td>
 								</tr>
 								<tr>
 										<td></td>
-										<td bgcolor="#7071B2" align="center"><a href="http://dbcni.benecafe.co.kr/"><img src="images/icon_bene.png" width="230px" height="230px"><br>Bene Cafe</a></td>
+										<td align="center"><button style="background-color:#7071B2; width:220px; height:230px;" onclick="location.href='http://dbcni.benecafe.co.kr/'">Bene Cafe</button></td>
 										<td colspan="2"></td>
 								</tr>
 						</table>
@@ -107,19 +105,17 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 						<table>
 								<tr>
 										<td colspan="3">&nbsp;</td>
-										<td bgcolor="#7071B2" align="center"><a href=""> <img src="images/icon_rank.png" width="230px" height="230px"><br>맛집 랭킹
-										</a></td>
+										<td align="center"><button style="background-color:#7071B2; width:220px; height:230px;" onclick="">맛집 랭킹</button></td>
 								</tr>
 								<tr>
-										<td bgcolor="#A2A1FA" align="center"><a href="login.jsp"> <img src="images/icon_board.png" width="230px" height="230px"><br>게시판 메인
-										</a></td>
-										<td bgcolor="#B3B3B3" align="center"><a href="http://ep.dongbuinc.com/"><img src="images/icon_epdongbu.png" width="230px" height="230px"><br>구글 포르테</a></td>
-										<td bgcolor="#A2A1FA" align="center"><a href="login.jsp"><img src="images/icon_member.png" width="230px" height="230px"><br>회원정보조회</a></td>
-										<td bgcolor="#B3B3B3" align="center"><a href="login.jsp"><img src="images/icon_restaurant.png" width="230px" height="230px"><br>맛집 메인</a></td>
+										<td align="center"><button style="background-color:#A2A1FA; width:220px; height:230px;" onclick="location.href='login.jsp'">게시판 메인</button></td>
+										<td align="center"><button style="background-color:#B3B3B3; width:220px; height:230px;" onclick="location.href='http://ep.dongbuinc.com/'">구글 포르테</button></td>
+										<td align="center"><button style="background-color:#A2A1FA; width:220px; height:230px;" onclick="location.href='login.jsp'">회원정보조회</button></td>
+										<td align="center"><button style="background-color:#B3B3B3; width:220px; height:230px;" onclick="location.href='login.jsp'">맛집 메인</button></td>
 								</tr>
 								<tr>
 										<td></td>
-										<td bgcolor="#7071B2" align="center"><a href="http://dbcni.benecafe.co.kr/"><img src="images/icon_bene.png" width="230px" height="230px"><br>Bene Cafe</a></td>
+										<td align="center"><button style="background-color:#7071B2; width:220px; height:230px;" onclick="location.href='http://dbcni.benecafe.co.kr/'">Bene Cafe</button></td>
 										<td colspan="2"></td>
 								</tr>
 						</table>
