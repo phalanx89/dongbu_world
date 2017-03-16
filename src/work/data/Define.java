@@ -15,8 +15,8 @@ public class Define {
 	public static final String[] COORDS_DONGBU = {"37.5093347", "127.057700"}; 
 	
 	public static final String[] ARY_MENUS = {"한식", "일식", "분식", "중식", "양식", "아시안", "술집", "퓨전음식", "치킨", "족발/보쌈", "피자/버거"};
-	public static final String[] ARY_PRICES = {"~10000", "~20000", "~30000"};
-	public static final String[] ARY_DISTANCES = {"100M 이내", "200M 이내", "300M 이내", "500M 이내"};
+	public static final String[] ARY_PRICES = {"1", "2", "3"};
+	public static final String[] ARY_DISTANCES = {"1", "3", "5", "10"};
 	public static final String[] ARY_RATES = {"1", "2", "3", "4", "5"};
 	
 	public static final String ACTION_SEARCH_RESTAURANT = "searchRestaurant";

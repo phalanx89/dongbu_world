@@ -84,21 +84,18 @@ public class FoodController extends HttpServlet {
    */
   private void searchRestaurant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     String[] aryMenus = request.getParameterValues("cbxMenus");
+    String[] aryPrices = request.getParameterValues("cbxPrices");
+    String[] aryDistances = request.getParameterValues("cbxDistances");
+    String[] aryRates = request.getParameterValues("cbxRates");
     
-    if (aryMenus == null) {
-      System.out.println("'cbxMenus' is not exist in request");
-      // forwardPage("error.jsp", request, response);
+    if (aryMenus == null && aryPrices == null && aryDistances == null && aryRates == null) {
+      System.out.println("parameter is not exist in request");
+      forwardPage("fail.jsp", request, response);
       return;
     }
     
-    if (aryMenus.length == 0) {
-      System.out.println("cbxMenus.length == 0");
-      forwardPage("restaurant_main.jsp", request, response);
-      return;
-    }
-    
-    ArrayList<Restaurant> aryRestaurants = mRestaurantService.selectRestaurantList(aryMenus);
-    request.setAttribute("aryRestaurants", aryRestaurants);
+    ArrayList<Restaurant> aryRestaurants = mRestaurantService.selectRestaurantList(aryMenus, aryPrices, aryDistances, aryRates);
+    request.setAttribute("list", aryRestaurants);
     forwardPage("restaurant_main.jsp", request, response);
     return;
   }

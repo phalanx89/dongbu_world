@@ -422,8 +422,8 @@ to {
               }
             </script>
 						<div id="side_map">
-								<form method="post" action="http://localhost:8090/dongbu_world/food_controller?action=<%=Define.ACTION_SEARCH_RESTAURANT%>">
-										<div wdith="100%" align="center"><label><b>음식점 이름 검색</b></label></div>
+								<form method="post" action="food_controller?action=<%=Define.ACTION_SEARCH_RESTAURANT%>">
+										<div width="100%" align="center"><label><b>음식점 이름 검색</b></label></div>
 										<hr>
 										<div id="frm_search" align="center">
 												<select name="columnName" style="width: 75px; height: 42px;">
@@ -437,7 +437,7 @@ to {
 										<div id="frm_cbx">
 												<%
 												  for (int i = 0; i < Define.ARY_MENUS.length; i++) {
-												    out.write(" <input name='cbxMenus' type='checkbox'  class='checkbox' value='" + Define.ARY_MENUS[i] + "'>" + Define.ARY_MENUS[i]);
+												    out.write(" <input  type='checkbox'  name='cbxMenus'  class='checkbox' value='" + Define.ARY_MENUS[i] + "'>" + Define.ARY_MENUS[i]);
 												  }
 												%>
 										</div>
@@ -445,7 +445,7 @@ to {
 										<div id="frm_cbx">
 												<%
 												  for (int i = 0; i < Define.ARY_PRICES.length; i++) {
-												    out.write("<input name='cbxPrices' type='checkbox'  class='checkbox' value='" + Define.ARY_PRICES[i] + "'> " + Define.ARY_PRICES[i]);
+												    out.write("<input type='radio'  name='cbxPrices' class='checkbox' value='" + Define.ARY_PRICES[i] + "'> ~" + Define.ARY_PRICES[i] + "0000");
 												  }
 												%>
 										</div>
@@ -456,7 +456,7 @@ to {
 												    if (i == 2) {
 												      out.write("<br>");
 												    }
-												    out.write("<input name='cbxDistances' type='checkbox'  class='checkbox' value='" + Define.ARY_DISTANCES[i] + "'> " + Define.ARY_DISTANCES[i]);
+												    out.write("<input type='radio'  name='cbxDistances' class='checkbox' value='" + Define.ARY_DISTANCES[i] + "'> " + Define.ARY_DISTANCES[i] + "분 이내");
 												  }
 												%>
 										</div>
@@ -464,7 +464,7 @@ to {
 										<div id="frm_cbx">
 												<%
 												  for (int i = 0; i < Define.ARY_RATES.length; i++) {
-												    out.write("<input name='cbxRates' type='checkbox'  class='checkbox' value='" + Define.ARY_RATES[i] + "'> " + Define.ARY_RATES[i]);
+												    out.write("<input  type='radio' name='cbxRates'  class='checkbox' value='" + Define.ARY_RATES[i] + "'> ~" + Define.ARY_RATES[i]);
 												  }
 												%>
 										</div>
@@ -475,7 +475,7 @@ to {
 								</form>
 						</div>
 						<div id="registerRestaurant" class="modal">
-								<form class="modal-content animate" method="post" action="http://localhost:8090/dongbu_world/food_controller?action=<%=Define.ACTION_REGISTER_RESTAURANT%>">
+								<form class="modal-content animate" method="post" action="food_controller?action=<%=Define.ACTION_REGISTER_RESTAURANT%>">
 										<div class="container2">
 												<label><b>음식점 이름</b></label> <input type="text" placeholder="음식점 이름을 입력하세요!" name="restaurant" required>
 												<label><b>제목</b></label> <input type="text" placeholder="제목을 입력하세요!" name="title" required> 
