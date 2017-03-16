@@ -274,9 +274,14 @@ public class RestaurantDAO {
    * @return
    */
   public ArrayList<Restaurant> selectListByColumn(String columnName, String keyword) {
-    String sql = String.format("select * from %s where %s like '%%%s%%'", TABLE_NAME, columnName, keyword);
-    
-    System.out.println(sql);
+    String sql;
+    if (columnName.equals("restaurant")) {
+      sql = String.format("select * from %s where %s like '%%%s%%'", TABLE_NAME, columnName, keyword);
+      System.out.println(sql);
+    } else {
+      sql = String.format("select * from %s where %s = %s ", TABLE_NAME, columnName, keyword);
+      System.out.println(sql);
+    }
     
     Connection conn = null;
     PreparedStatement pstmt = null;
