@@ -140,7 +140,7 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 												<td width="600px">
 														<%
 														  if (dto.getIsNotice().equals("Y")) {
-														%> <b>공지</b> <%
+														%> <b>|공지|</b> <%
 														  } else {
 														%> 일반 <%
 														  }
@@ -161,7 +161,6 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 												<option value="title">제목</option>
 												<option value="userName">작성자</option>
 												<option value="content">내용</option>
-												<option value="articleNo">글번호</option>
 										</select> <input type="text" name="keyword" id="text1" style="width: auto;" />&nbsp;<input type="submit" value="글검색" style="width: auto;" />&nbsp; <input type="button" value="글등록" style="width: auto;" onclick="location.href='blind_inputData.jsp'" />
 								</form>
 						</div>
