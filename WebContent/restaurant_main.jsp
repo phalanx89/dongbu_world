@@ -213,16 +213,25 @@ to {
 
               var map = new daum.maps.Map(container, options);
 
+        
               // 마커 (회사)
+              var imageSrc = 'images/marker_flag.png', // 마커이미지의 주소입니다    
+              imageSize = new daum.maps.Size(50, 50), // 마커이미지의 크기입니다
+              imageOption = {
+                offset : new daum.maps.Point(17, 50)
+              }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+
+              var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption);
+              
               var markerDongbu = new daum.maps.Marker({
               position : new daum.maps.LatLng(37.5093347, 127.057700),
+              image: markerImage,	
               map : map
               });
 
               // 마커 (유저)
               var markerUser = new daum.maps.Marker({
               position : new daum.maps.LatLng(37.5093347, 127.057700),
-              map : map
               });
 
               // 마커 (기등록된 맛집들)
@@ -240,6 +249,7 @@ to {
                 var latlng = mouseEvent.latLng;
                 infowindow.close();
                 markerUser.setPosition(latlng);
+                markerUser.setMap(map);
                 curLatLng = latlng;
 
                 searchDetailAddrFromCoords(mouseEvent.latLng, function(status, result) {
@@ -290,14 +300,42 @@ to {
                 document.getElementById('address').value = curAddress;
                 document.getElementById('coords').value = curLatLng.getLat() + "/" + curLatLng.getLng();
               }
+              
+              function showRestaurantDetail(restaurant, menuType, price, articleNo, address, content, title, takeMin, rate) {
+                document.getElementById('restaurantDetail').style.display = 'block';
+				
+                document.getElementById('detail_restaurant').value = restaurant;
+                document.getElementById('detail_menuType').value = menuType;
+                document.getElementById('detail_price').value = price;
+                document.getElementById('detail_articleNo').value = articleNo;
+                document.getElementById('detail_address').value = address;
+                document.getElementById('detail_content').value = content;
+                document.getElementById('detail_title').value = title;
+                document.getElementById('detail_takeMin').value = takeMin;
+                document.getElementById('detail_rate').value = rate;
+              }
 
               function loadMarkers() {
+                var imageSrc = 'images/marker_star.png', // 마커이미지의 주소입니다    
+                imageSize = new daum.maps.Size(25, 50), // 마커이미지의 크기입니다
+                imageOption = {
+                  offset : new daum.maps.Point(12, 50)
+                }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+
+                var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption);
+                
                 var aryTmp;
                 var lat, lng;
             <%
+            int articleNo = 0;
             String restaurant = "";
             String menuType = "";
             String price = "";
+            String address = "";
+            String content = "";
+            String title = "";
+            int takeMin = 0;
+            int rate = 0;
             
 			String[] coords;
 			String lat = "";
@@ -305,6 +343,7 @@ to {
 			if (list != null) {
 				for (int i = 0; i < list.size(); i++) {
 					Restaurant dto = list.get(i);
+					articleNo = dto.getArticle_no();
 					restaurant = dto.getRestaurant();
 					menuType = dto.getMenuType();
 					price = dto.getPrice();
@@ -318,17 +357,18 @@ to {
               ,
             <%=lng%>
               ),
+              image : markerImage,
                 map : map
                 });
 
                 // 마커에 표시할 인포윈도우를 생성합니다 
-                var infoHtml = getRestaurantHTML('<%=restaurant%>', '<%=menuType%>', '<%=price%>');
+                var infoHtml = getRestaurantHTML('<%=restaurant%>', '<%=menuType%>', '<%=price%>', '<%=articleNo%>', '<%=address%>', '<%=content%>', '<%=title%>', '<%=takeMin%>', '<%=rate%>');
                 var infowindow = new daum.maps.InfoWindow({
                   content : '<div>' + infoHtml + '</div>',
                   removable : true
                 });
 
-                daum.maps.event.addListener(marker, 'rightclick', makeRightClickListener(map, marker, infowindow));
+                daum.maps.event.addListener(marker, 'click', makeRightClickListener(map, marker, infowindow));
 
                 markers.push(marker);
             <%}
@@ -342,18 +382,23 @@ to {
                 }
               }
               
-              function getRestaurantHTML(restaurant, menuType, price) {
+              function getRestaurantHTML(restaurant, menuType, price, articleNo, address, content, title, takeMin, rate) {
                	var html = '<div class="container3">';
                	
                	price = '~' + price + '만원';
                	
                	html += '<label><b>음식점 이름</b></label> <input type="text" value="' + restaurant +'" readonly="readonly"> ';
-               	html += '<label><b>메뉴 종류</b></label> <input type="text" value="' + menuType +'" readonly="readonly"> ';
-               	html += '<label><b>가격대</b></label> <input type="text" value="' + price +'" readonly="readonly"> ';
+               	html += '<label><b>평점</b></label> <input type="text" value="' + price +'" readonly="readonly"> ';
                	html += '</div>';
-               	html += '<div class="container3" style="background-color: #f1f1f1" align="center"><button type="button" onclick="" class="cancelbtn">삭제</button></div>';
+                html += '<div class="container3" style="background-color: #f1f1f1" align="center"><button type="button" onclick="showRestaurantDetail(';
+               	//html += restaurant + ', ' + menuType + ', ' + price + ', ' + articleNo + ', ' + address + ', ' + content + ', ' + title + ', ' + takeMin + ', ' + rate;
+               	html += ')">상세보기</button></div>';
                	
                	return html;
+              }
+             
+              function deleteRestaurant(articleNo) {
+                location.href= 'food_controller?action=<%=Define.ACTION_DELETE_RESTAURANT%>&articleNo=' + articleNo;
               }
               
               /*new window for restaurant registration*/
@@ -431,6 +476,23 @@ to {
 										<div class="container2" style="background-color: #f1f1f1">
 												<button type="button" onclick="document.getElementById('registerRestaurant').style.display='none'" class="cancelbtn">Cancel</button>
 												<span class="psw">Hi? <a href="#">안녕?</a></span>
+										</div>
+								</form>
+						</div>
+						<div id="restaurantDetail" class="modal">
+								<form class="modal-content animate" method="post" action="#">
+										<div class="container2">
+												<label><b>제목</b></label> <input type="text" id="detail_title" name="title" required> 
+												<label><b>음식점 이름</b></label> <input type="text" id="detail_restaurant" name="restaurant" required> 
+												<label><b>음식종류</b></label><br> <input type="text" id="detail_menuType" name="title" required> 
+												<label><b>가격대</b></label><br> <input type="text" id="detail_price" name="title" required>  
+												<label><b>주소</b></label> <input type="text" id="detail_address" name="address" readonly="readonly" required> 
+												<label><b>내용</b></label> <input type="text" id="detail_content" name="content" required> 
+												<label><b>거리</b></label> <input type="text" id="detail_takeMin" name="coords" readonly="readonly" required>
+										</div>
+										<div class="container2" style="background-color: #f1f1f1">
+												<button type="button" onclick="document.getElementById('restaurantDetail').style.display='none'" >확인</button>
+												<button type="button" onclick="document.getElementById('restaurantDetail').style.display='none'" class="cancelbtn">삭제</button>
 										</div>
 								</form>
 						</div>
