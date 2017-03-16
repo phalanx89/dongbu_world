@@ -22,7 +22,7 @@
 /* 		padding: 5px; */
 /* } */
 #content {
-		background-color: #F5F5F5;
+		background-color: #ffffff;
 		float: left;
 		width: 100%;
 		height: 750px;
@@ -38,7 +38,7 @@
 #side_map {
 		float: left;
 		width: 298px;
-		height: 500px;
+		height: 497px;
 		padding: 3px;
 		background-color: #cccccc;
 }
@@ -423,14 +423,16 @@ to {
             </script>
 						<div id="side_map">
 								<form method="post" action="http://localhost:8090/dongbu_world/food_controller?action=<%=Define.ACTION_SEARCH_RESTAURANT%>">
-										<div wdith="100%" align="center">검색 조건 설정</div>
+										<div wdith="100%" align="center"><label><b>음식점 이름 검색</b></label></div>
 										<hr>
 										<div id="frm_search" align="center">
 												<select name="columnName" style="width: 75px; height: 42px;">
 														<option value="restaurant">식당명</option>
 														<option value="empNo">작성자</option>
-												</select><input type="text" name="restaurant" style="width: 220px;" /> <input type="button" name="btnRestaurant" value="검색" style="width: auto;" />
+												</select><input type="text" name="restaurant" style="width: 220px;" /> <input type="button" name="btnRestaurant" value="검색" style="width: 280px;" />
 										</div>
+										<hr>
+										<div wdith="100%" align="center"><label><b>조건 검색</b></label></div>
 										<hr>
 										<div id="frm_cbx">
 												<%
@@ -468,9 +470,8 @@ to {
 										</div>
 										<hr>
 										<div id="frm_submit" align="center">
-												<input type="submit" value="검색" style="width: 100px;"> <input type="reset" value="초기화" style="width: 100px;">
+												<input type="submit" value="검색" style="width: 140px;"> <input type="reset" value="초기화" style="width: 140px;">
 										</div>
-										<hr>
 								</form>
 						</div>
 						<div id="registerRestaurant" class="modal">
