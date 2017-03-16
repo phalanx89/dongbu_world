@@ -13,14 +13,13 @@
 		padding: 0px;
 		margin: 0px;
 }
-
-/* #sideinfo { */
-/* 		background-color: #cccccc; */
-/* 		float: left; */
-/* 		width: 300px; */
-/* 		height: 500px; */
-/* 		padding: 5px; */
-/* } */
+ #sideinfo { 
+ 		background-color: #cccccc; 
+ 		float: left; 
+ 		width: 300px; 
+ 		height: 500px; 
+ 		padding: 5px; 
+ } 
 #content {
 		background-color: #ffffff;
 		float: left;
@@ -33,14 +32,6 @@
 		background-color: #ffffff;
 		clear: both;
 		height: 100px;
-}
-
-#nav {
-		width: 10%;
-		height: 100%;
-		background-color: #eeeeee;
-		padding: 3px;
-		float: left;
 }
 
 input[type=text], input[type=password] {
@@ -118,19 +109,21 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 						<jsp:include page="top.jsp"></jsp:include>
 				</div>
 				<div id="content">
-						<div id="nav">
-								<div align="center">
-										<a href='controller?action=free_selectList'>자유게시판</a>
-								</div>
-								<div align="center">
-										<a href='controller?action=blind_selectList'>익명게시판</a>
-								</div>
-								<div align="center">
-										<a href='controller?action=market_selectList'>동부장터</a>
-								</div>
-								<div align="center">
-										<a href='controller?action=study_selectList'>동부배움터</a>
-								</div>
+						<div id="sideinfo">
+							<table style="border-collapse:collapse;">
+								<tr>
+										<td align="center"> <button style="background-color:#A2A1FA; width:250px; height:60px;" onclick="location.href='controller?action=free_selectList'"><font size="3">자유게시판</font></button></td>
+								</tr>
+								<tr>
+										<td align="center"><button style="background-color:#A2A1FA; width:250px; height:60px;" onclick="location.href='controller?action=blind_selectList'"><font size="3">익명게시판</font></button></td>
+								</tr>
+								<tr>		
+										<td align="center"><button style="background-color:#A2A1FA; width:250px; height:60px;" onclick="location.href='controller?action=market_selectList'"><font size="3">동부장터</font></button></td>
+								</tr>
+								<tr>		
+										<td align="center"><button style="background-color:#A2A1FA; width:250px; height:60px;" onclick="location.href='controller?action=study_selectList'"><font size="3">동부배움터</font></button></td>
+								</tr>		
+						</table>	
 						</div>
 						<div id="content_board">
 								<%
