@@ -12,6 +12,7 @@
 		padding: 0px;
 		margin: 0px;
 }
+
  #sideinfo { 
  		background-color: #ffffff; 
  		float: left; 
@@ -20,7 +21,7 @@
 		padding: 5px; 
 } 
 #content {
-		background-color: #F5F5F5;
+		background-color: #ffffff;
 		float: left;
 		width: 100%;
 		height: 750px;
@@ -34,12 +35,42 @@
 }
 
 input[type=text], input[type=password] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
+		width: 100%;
+		padding: 12px 20px;
+		margin: 8px 0;
+		display: inline-block;
+		border: 1px solid #ccc;
+		box-sizing: border-box;
+}
+
+#myTable {
+		border-collapse: collapse; /* Collapse borders */
+		width: 1200px; /* Full-width */
+		border: 1px solid #ddd; /* Add a grey border */
+		font-size: 13px; /* Increase font-size */
+}
+
+#myTable th, #myTable td {
+		padding: 12px; /* Add padding */
+}
+
+#myTable tr {
+		/* Add a bottom border to all table rows */
+		border-bottom: 1px solid #ddd;
+}
+
+#myTable tr.header, #myTable tr:hover {
+		/* Add a grey background color to the table header and on hover */
+		background-color: #f1f1f1;
+}
+
+input[type=text], input[type=password] {
+		width: 100%;
+		padding: 12px 20px;
+		margin: 8px 0;
+		display: inline-block;
+		border: 1px solid #ccc;
+		box-sizing: border-box;
 }
 
 /* Set a style for all buttons */
@@ -54,21 +85,21 @@ button {
 }
 
 button:hover {
-    opacity: 0.8;
+		opacity: 0.8;
 }
 
 input[type=submit], input[type=reset], input[type=button] {
-    background-color: #7071B2;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 100%;
+		background-color: #7071B2;
+		color: white;
+		padding: 10px 15px;
+		margin: 8px 0;
+		border: none;
+		cursor: pointer;
+		width: 100%;
 }
 
 input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
-    opacity: 0.8;
+		opacity: 0.8;
 }
 </style>
 </head>
@@ -96,43 +127,35 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 						</table>	
 						</div>
 								<div id="content_right">
-										<br> <br> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value=" 일반게시판 ">
 										<form method="post" action="controller?action=market_registerByAdmin">
-												<table id="td1" border="1" align="center">
-														<br>
-														<tr>
-																<br>
-																<td><font face="조선일보명조">글제목 &nbsp;: <input type="text" name="title" style="width: auto;">&nbsp; <%
-   if (((String) request.getSession(false).getAttribute("isAdmin")).equals("Y")) {
- %> <select name="isNotice">
-																						<option value="">=공지여부 선택=</option>
-																						<option value="Y">공지</option>
+												<table id="myTable">
+														<tr class="header">
+															<th>글 등록</th>
+														</tr>
+														<tr align="center">
+																<td>제목 &nbsp; <input type="text" name="title" style="width:70%;">&nbsp; <%
+																	   if (((String) request.getSession(false).getAttribute("isAdmin")).equals("Y")) {
+																	 %> <select name="isNotice" style="width: 125px; height: 40px;">
+																						<option value="Y" selected="selected">공지</option>
 																						<option value="N">일반</option>
 																		</select> <%
-   }
- %>
-																				<br><form enctype="multipart/form-data">
-																						파일첨부 : <input type="file" accept="image/jpeg" ,image/gif>
-																				</form></td>
+																	   }
+																	 %>
 														</tr>
-														<table id="td2" border="1" align="center">
-																<br>
-																<tr>
-																		<td align="center"><TEXTAREA ROWS="16" COLS="100" name='content'></TEXTAREA></td>
-																</tr>
-																<table id="td3" border="0" align="center">
-																		<br>
-																		<tr>
-																				<td align="center"><input type="submit" value="등록" style="width: auto;" />  <input type="button" value="취소" style="width: auto;" onclick="location.href='controller?action=market_selectList'" /></td>
-																		</tr>
-																</table>
-																</form>
-																</div>
-																</div>
-																<!-- 				<div id="sideinfo"></div> -->
-																<div id="footer">
-																		<jsp:include page="footer.jsp"></jsp:include>
-																</div>
-																</div>
+														<tr>
+																<td align="center"><TEXTAREA ROWS="30" COLS="140" name='content'></TEXTAREA></td>
+														</tr>
+														<tr>
+																<td align="center"><input type="submit" value="등록" style="width: auto;" /> <input type="button" value="취소" style="width: auto;" onclick="location.href='controller?action=market_selectList'" /></td>
+														</tr>
+														</table>
+														</form>
+														</div>
+														</div>
+														<!-- 				<div id="sideinfo"></div> -->
+														<div id="footer">
+																<jsp:include page="footer.jsp"></jsp:include>
+														</div>
+														</div>
 </body>
 </html>
