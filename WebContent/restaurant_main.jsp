@@ -295,6 +295,7 @@ to {
                 var aryTmp;
                 var lat, lng;
             <%
+            int articleNo = 0;
             String restaurant = "";
             String menuType = "";
             String price = "";
@@ -305,6 +306,7 @@ to {
 			if (list != null) {
 				for (int i = 0; i < list.size(); i++) {
 					Restaurant dto = list.get(i);
+					articleNo = dto.getArticle_no();
 					restaurant = dto.getRestaurant();
 					menuType = dto.getMenuType();
 					price = dto.getPrice();
@@ -322,7 +324,7 @@ to {
                 });
 
                 // 마커에 표시할 인포윈도우를 생성합니다 
-                var infoHtml = getRestaurantHTML('<%=restaurant%>', '<%=menuType%>', '<%=price%>');
+                var infoHtml = getRestaurantHTML('<%=restaurant%>', '<%=menuType%>', '<%=price%>', '<%=articleNo%>');
                 var infowindow = new daum.maps.InfoWindow({
                   content : '<div>' + infoHtml + '</div>',
                   removable : true
@@ -342,7 +344,7 @@ to {
                 }
               }
               
-              function getRestaurantHTML(restaurant, menuType, price) {
+              function getRestaurantHTML(restaurant, menuType, price, articleNo) {
                	var html = '<div class="container3">';
                	
                	price = '~' + price + '만원';
@@ -351,9 +353,13 @@ to {
                	html += '<label><b>메뉴 종류</b></label> <input type="text" value="' + menuType +'" readonly="readonly"> ';
                	html += '<label><b>가격대</b></label> <input type="text" value="' + price +'" readonly="readonly"> ';
                	html += '</div>';
-               	html += '<div class="container3" style="background-color: #f1f1f1" align="center"><button type="button" onclick="" class="cancelbtn">삭제</button></div>';
+               	html += '<div class="container3" style="background-color: #f1f1f1" align="center"><button type="button" onclick="deleteRestaurant(' + articleNo +')" class="cancelbtn">삭제</button></div>';
                	
                	return html;
+              }
+             
+              function deleteRestaurant(articleNo) {
+                location.href= 'food_controller?action=<%=Define.ACTION_DELETE_RESTAURANT%>&articleNo=' + articleNo;
               }
               
               /*new window for restaurant registration*/

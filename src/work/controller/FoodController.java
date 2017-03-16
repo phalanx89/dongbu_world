@@ -66,6 +66,9 @@ public class FoodController extends HttpServlet {
         case Define.ACTION_SELECT_RESTAURANT_LIST:
           selectRestaurantList(request, response);
           break;
+        case Define.ACTION_DELETE_RESTAURANT:
+          deleteRestaurant(request, response);
+          break;
         default:
           
           break;
@@ -148,6 +151,21 @@ public class FoodController extends HttpServlet {
     
     request.setAttribute("list", list);
     forwardPage("restaurant_main.jsp", request, response);
+  }
+  
+  private void deleteRestaurant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    HttpSession session = request.getSession(false);
+    
+    if (session == null) {
+      System.out.println("session is expired. Please login.");
+      forwardPage("fail.jsp", request, response);
+      return;
+    }
+    
+    int articleNo = Integer.valueOf(request.getParameter("articleNo").toString());
+    mRestaurantService.deleteRestaurant(articleNo);
+    
+    selectRestaurantList(request, response);
   }
   
   private void forwardPage(String url, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

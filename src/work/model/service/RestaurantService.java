@@ -26,6 +26,10 @@ public class RestaurantService {
 	public ArrayList<Restaurant> selectRestaurantList(String[] params) {
 		return dao.selectRestaurantListUsingWhere(getWhereQuery("menu_type", params, "or"));
 	}
+	
+	public int deleteRestaurant(int articleNo) {
+	  return dao.delete(articleNo);
+	}
 
 	/**
 	 * where Àý ¹ÝÈ¯
