@@ -307,7 +307,6 @@ to {
                 document.getElementById('detail_restaurant').value = restaurant;
                 document.getElementById('detail_menuType').value = menuType;
                 document.getElementById('detail_price').value = price;
-                document.getElementById('detail_articleNo').value = articleNo;
                 document.getElementById('detail_address').value = address;
                 document.getElementById('detail_content').value = content;
                 document.getElementById('detail_title').value = title;
@@ -347,6 +346,11 @@ to {
 					restaurant = dto.getRestaurant();
 					menuType = dto.getMenuType();
 					price = dto.getPrice();
+					address = dto.getAddress();
+					content = dto.getContent();
+					title = dto.getTitle();
+					takeMin = dto.getTakeMin();
+					rate = dto.getRate();
 					
 					coords = dto.getCoords().split("/");
 					lat = coords[0];
@@ -384,6 +388,9 @@ to {
               
               function getRestaurantHTML(restaurant, menuType, price, articleNo, address, content, title, takeMin, rate) {
                	var html = '<div class="container3">';
+               	var param = "'" + restaurant + "', '" + menuType + "', '" + price + "', '" + articleNo + "', '" + address + "', '" + content + "', '" + title + "', '" + takeMin + "', '" + rate + "'";
+               	
+               	console.log(param);
                	
                	price = '~' + price + '만원';
                	
@@ -392,6 +399,7 @@ to {
                	html += '</div>';
                 html += '<div class="container3" style="background-color: #f1f1f1" align="center"><button type="button" onclick="showRestaurantDetail(';
                	//html += restaurant + ', ' + menuType + ', ' + price + ', ' + articleNo + ', ' + address + ', ' + content + ', ' + title + ', ' + takeMin + ', ' + rate;
+               	html += param;
                	html += ')">상세보기</button></div>';
                	
                	return html;
@@ -492,7 +500,7 @@ to {
 										</div>
 										<div class="container2" style="background-color: #f1f1f1">
 												<button type="button" onclick="document.getElementById('restaurantDetail').style.display='none'" >확인</button>
-												<button type="button" onclick="document.getElementById('restaurantDetail').style.display='none'" class="cancelbtn">삭제</button>
+												<button type="button" onclick="document.getElementById('restaurantDetail').style.display='none'" class="cancelbtn">닫기</button>
 										</div>
 								</form>
 						</div>
