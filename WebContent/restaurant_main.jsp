@@ -306,12 +306,12 @@ to {
 				
                 document.getElementById('detail_restaurant').value = restaurant;
                 document.getElementById('detail_menuType').value = menuType;
-                document.getElementById('detail_price').value = price;
+                document.getElementById('detail_price').value = '~' + price + '만원';
                 document.getElementById('detail_address').value = address;
                 document.getElementById('detail_content').value = content;
                 document.getElementById('detail_title').value = title;
                 document.getElementById('detail_takeMin').value = takeMin + '분';
-                //document.getElementById('detail_rate').value = rate;
+                document.getElementById('detail_rate').value = rate;
                 document.getElementById('hidden').value = articleNo;
               }
 
@@ -396,7 +396,7 @@ to {
                	price = '~' + price + '만원';
                	
                	html += '<label><b>음식점 이름</b></label> <input type="text" value="' + restaurant +'" readonly="readonly"> ';
-               	html += '<label><b>평점</b></label> <input type="text" value="' + price +'" readonly="readonly"> ';
+               	html += '<label><b>평점</b></label> <input type="text" value="' + rate +'" readonly="readonly"> ';
                	html += '</div>';
                 html += '<div class="container3" style="background-color: #f1f1f1" align="center"><button type="button" onclick="showRestaurantDetail(';
                	html += param;
@@ -476,27 +476,32 @@ to {
 						<div id="registerRestaurant" class="modal">
 								<form class="modal-content animate" method="post" action="http://localhost:8090/dongbu_world/food_controller?action=<%=Define.ACTION_REGISTER_RESTAURANT%>">
 										<div class="container2">
-												<label><b>제목</b></label> <input type="text" placeholder="제목을 입력하세요!" name="title" required> <label><b>음식점 이름</b></label> <input type="text" placeholder="음식점 이름을 입력하세요!" name="restaurant" required> <label><b>음식종류</b></label><br> <input type="radio" name="menuType" value="한식">한식</input> <input type="radio" name="menuType" value="일식">일식</input> <input type="radio" name="menuType" value="분식">분식</input> <input type="radio" name="menuType" value="중식">중식</input> <input type="radio" name="menuType" value="양식">양식</input> <input type="radio" name="menuType" value="아시안">아시안</input> <input type="radio" name="menuType" value="술집">술집</input> <input type="radio" name="menuType" value="퓨전음식">퓨전음식</input> <input type="radio" name="menuType" value="치킨">치킨</input> <input type="radio" name="menuType" value="족발/보쌈">족발/보쌈</input> <input type="radio" name="menuType" value="카페">카페</input> <input type="radio" name="menuType" value="피자/버거">피자/버거</input><br> <label><b>가격대</b></label><br> <input type="radio" name="price"
-														value="1"
-												>~1만원</input> <input type="radio" name="price" value="2">~2만원</input> <input type="radio" name="price" value="3">~3만원</input><br> <label><b>주소</b></label> <input type="text" placeholder="" id="address" name="address" readonly="readonly" required> <label><b>내용</b></label> <input type="text" placeholder="상세한 내용을 입력하세요!" name="content" required> <label><b>좌표</b></label> <input type="text" placeholder="" id="coords" name="coords" readonly="readonly" required>
+												<label><b>음식점 이름</b></label> <input type="text" placeholder="음식점 이름을 입력하세요!" name="restaurant" required>
+												<label><b>제목</b></label> <input type="text" placeholder="제목을 입력하세요!" name="title" required> 
+												<label><b>평점</b></label><br> <input type="radio" name="rate"value="5" required>5점</input><input type="radio" name="rate"value="4">4점</input><input type="radio" name="rate"value="3">3점</input><input type="radio" name="rate"value="2">2점</input><input type="radio" name="rate"value="1">1점</input><br>
+												<label><b>음식종류</b></label><br> <input type="radio" name="menuType" value="한식" required>한식</input> <input type="radio" name="menuType" value="일식">일식</input> <input type="radio" name="menuType" value="분식">분식</input> <input type="radio" name="menuType" value="중식">중식</input> <input type="radio" name="menuType" value="양식">양식</input> <input type="radio" name="menuType" value="아시안">아시안</input> <input type="radio" name="menuType" value="술집">술집</input> <input type="radio" name="menuType" value="퓨전음식">퓨전음식</input> <input type="radio" name="menuType" value="치킨">치킨</input> <input type="radio" name="menuType" value="족발/보쌈">족발/보쌈</input> <input type="radio" name="menuType" value="카페">카페</input> <input type="radio" name="menuType" value="피자/버거">피자/버거</input><br> 
+												<label><b>가격대</b></label><br> <input type="radio" name="price"value="1">~1만원</input> <input type="radio" name="price" value="2">~2만원</input> <input type="radio" name="price" value="3">~3만원</input><br> 
+												<label><b>주소</b></label> <input type="text" placeholder="" id="address" name="address" readonly="readonly" required> 
+												<label><b>내용</b></label> <input type="text" placeholder="상세한 내용을 입력하세요!" name="content" required> 
+												<label><b>좌표</b></label> <input type="text" placeholder="" id="coords" name="coords" readonly="readonly" required>
 												<button type="submit">등록!</button>
 										</div>
 										<div class="container2" style="background-color: #f1f1f1">
 												<button type="button" onclick="document.getElementById('registerRestaurant').style.display='none'" class="cancelbtn">Cancel</button>
-												<span class="psw">Hi? <a href="#">안녕?</a></span>
 										</div>
 								</form>
 						</div>
 						<div id="restaurantDetail" class="modal">
 								<form class="modal-content animate" method="post" action="#">
 										<div class="container2">
-												<label><b>제목</b></label> <input type="text" id="detail_title" name="title" required> 
-												<label><b>음식점 이름</b></label> <input type="text" id="detail_restaurant" name="restaurant" required> 
-												<label><b>음식종류</b></label><br> <input type="text" id="detail_menuType" name="title" required> 
-												<label><b>가격대</b></label><br> <input type="text" id="detail_price" name="title" required>  
-												<label><b>주소</b></label> <input type="text" id="detail_address" name="address" readonly="readonly" required> 
-												<label><b>내용</b></label> <input type="text" id="detail_content" name="content" required> 
-												<label><b>거리</b></label> <input type="text" id="detail_takeMin" name="coords" readonly="readonly" required>
+												<label><b>음식점 이름</b></label> <input type="text" id="detail_restaurant" name="detail_restaurant" required>
+												<label><b>제목</b></label> <input type="text" id="detail_title" name="detail_title" readonly="readonly" required> 
+												<label><b>평점</b></label> <input type="text" id="detail_rate" name="detail_rate" readonly="readonly" required>
+												<label><b>음식종류</b></label><br> <input type="text" id="detail_menuType" name="detail_menuType" readonly="readonly"  required> 
+												<label><b>가격대</b></label><br> <input type="text" id="detail_price" name="detail_price" readonly="readonly" >  
+												<label><b>주소</b></label> <input type="text" id="detail_address" name="detail_address" readonly="readonly" required> 
+												<label><b>내용</b></label> <input type="text" id="detail_content" name="detail_content" readonly="readonly" > 
+												<label><b>거리</b></label> <input type="text" id="detail_takeMin" name="detail_takeMin" readonly="readonly">
 												<input type="hidden" id="hidden" value="">
 										</div>
 										<div class="container2" style="background-color: #f1f1f1">
