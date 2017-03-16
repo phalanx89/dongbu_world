@@ -100,6 +100,12 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 		padding: 16px;
 }
 
+/* Center the image and position the close button */
+.container3 {
+		width: 200px;
+		padding: 16px;
+}
+
 span.psw {
 		float: right;
 		padding-top: 16px;
@@ -288,7 +294,11 @@ to {
               function loadMarkers() {
                 var aryTmp;
                 var lat, lng;
-            <%String restaurant = "";
+            <%
+            String restaurant = "";
+            String menuType = "";
+            String price = "";
+            
 			String[] coords;
 			String lat = "";
 			String lng = "";
@@ -296,6 +306,9 @@ to {
 				for (int i = 0; i < list.size(); i++) {
 					Restaurant dto = list.get(i);
 					restaurant = dto.getRestaurant();
+					menuType = dto.getMenuType();
+					price = dto.getPrice();
+					
 					coords = dto.getCoords().split("/");
 					lat = coords[0];
 					lng = coords[1];%>
@@ -309,35 +322,40 @@ to {
                 });
 
                 // 마커에 표시할 인포윈도우를 생성합니다 
+                var infoHtml = getRestaurantHTML('<%=restaurant%>', '<%=menuType%>', '<%=price%>');
                 var infowindow = new daum.maps.InfoWindow({
-                  content : '<div><%=restaurant%></div>'
+                  content : '<div>' + infoHtml + '</div>',
+                  removable : true
                 });
 
-                // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
-                // 이벤트 리스너로는 클로저를 만들어 등록합니다 
-                // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-                daum.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-                daum.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+                daum.maps.event.addListener(marker, 'rightclick', makeRightClickListener(map, marker, infowindow));
 
                 markers.push(marker);
             <%}
 			}%>
               }
-
-              // 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
-              function makeOverListener(map, marker, infowindow) {
-                return function() {
-                  infowindow.open(map, marker);
-                };
-              }
-
-              // 인포윈도우를 닫는 클로저를 만드는 함수입니다 
-              function makeOutListener(infowindow) {
+              
+              function makeRightClickListener(map, marker, infowindow) {
                 return function() {
                   infowindow.close();
-                };
+                  infowindow.open(map, marker);
+                }
               }
-
+              
+              function getRestaurantHTML(restaurant, menuType, price) {
+               	var html = '<div class="container3">';
+               	
+               	price = '~' + price + '만원';
+               	
+               	html += '<label><b>음식점 이름</b></label> <input type="text" value="' + restaurant +'" readonly="readonly"> ';
+               	html += '<label><b>메뉴 종류</b></label> <input type="text" value="' + menuType +'" readonly="readonly"> ';
+               	html += '<label><b>가격대</b></label> <input type="text" value="' + price +'" readonly="readonly"> ';
+               	html += '</div>';
+               	html += '<div class="container3" style="background-color: #f1f1f1" align="center"><button type="button" onclick="" class="cancelbtn">삭제</button></div>';
+               	
+               	return html;
+              }
+              
               /*new window for restaurant registration*/
               // Get the modal
               var modal = document.getElementById('registerRestaurant');
