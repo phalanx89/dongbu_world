@@ -15,12 +15,12 @@
 
 
  #sideinfo { 
- 		background-color: #cccccc; 
+ 		background-color: #ffffff; 
  		float: left; 
- 		width: 300px; 
- 		height: 500px; 
- 		padding: 5px; 
- } 
+ 		width: 250px; 
+ 		height: 740px; 
+		padding: 5px; 
+} 
  
 #content {
 		background-color: #F5F5F5;
@@ -47,13 +47,13 @@ input[type=text], input[type=password] {
 
 /* Set a style for all buttons */
 button {
-    background-color: #7071B2;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 100%;
+		background-color: #7071B2;
+		color: white;
+		padding: 0px 0px;
+		margin: 0px 0px;
+		border: none;
+		cursor: pointer;
+		width: 100%;
 }
 
 button:hover {
