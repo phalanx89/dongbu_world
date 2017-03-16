@@ -32,6 +32,22 @@ public class Utility {
   }
   
   /**
+   * 
+   * @param max 랜덤으로 받을 가장 큰값
+   * @param num 랜덤으로 가져올 숫자 갯수
+   * @return
+   */
+  public static int[] getRandomNums(int max, int num) {
+    int[] arr = new int[num];
+    
+    for (int i = 0; i < arr.length; i++) {
+      arr[i] = (int) (Math.random() * (max - 1)) + 1;
+    }
+    
+    return arr;
+  }
+  
+  /**
    * 오늘 날짜 (YYYY.MM.DD) 형식 반환
    * 
    * @return

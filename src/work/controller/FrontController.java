@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import work.model.dto.Board;
 import work.model.dto.FreeReply;
 import work.model.dto.Member;
+import work.model.dto.Restaurant;
 import work.model.service.BlindBoardService;
 import work.model.service.BlindReplyService;
 import work.model.service.BoardService;
@@ -23,6 +24,7 @@ import work.model.service.MarketBoardService;
 import work.model.service.MarketReplyService;
 import work.model.service.MemberService;
 import work.model.service.ReplyService;
+import work.model.service.RestaurantService;
 import work.model.service.StudyBoardService;
 import work.model.service.StudyReplyService;
 import work.util.Utility;
@@ -43,7 +45,9 @@ public class FrontController extends HttpServlet {
   public BlindReplyService brservice = new BlindReplyService();
   public MarketReplyService mrservice = new MarketReplyService();
   public StudyReplyService srservice = new StudyReplyService();
+  public RestaurantService mRestaurantService = new RestaurantService();
   private String prefix = "";
+  
   
   /**
    * 웹의 모든 요청을 담당하는 서비스 메서드
@@ -596,6 +600,7 @@ public class FrontController extends HttpServlet {
       
       // 설정정보를 가지고 페이지 포워드(이동)
       RequestDispatcher nextView = request.getRequestDispatcher("fail.jsp");
+      
       nextView.forward(request, response);
       return;
       
@@ -614,7 +619,8 @@ public class FrontController extends HttpServlet {
       
       // 3. 로그인 성공 응답페이지 이동 (loginSuccess.jsp)
       // 새로운 요청으로 이동 = session에 설정해놓았으므로 가능
-      response.sendRedirect("index.jsp");
+      recommend(request, response);
+      //response.sendRedirect("index.jsp");
       
     } else {
       // 로그인 요청 실패
@@ -622,6 +628,25 @@ public class FrontController extends HttpServlet {
       request.getRequestDispatcher("fail.jsp").forward(request, response);
     }
     
+  }
+  
+  /**
+   * 맛집 추천
+   * @param request
+   * @param response
+   * @throws ServletException
+   * @throws IOException
+   */
+  private void recommend(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    int size = mRestaurantService.getListSize();
+    int[] arrArticleNo = Utility.getRandomNums(size, 3);
+    ArrayList<Restaurant> list = new ArrayList<Restaurant>();
+    
+    for (int i = 0; i < arrArticleNo.length; i++) {
+      list.add(mRestaurantService.selectOne(arrArticleNo[i]));
+    }
+    request.setAttribute("list", list);
+    request.getRequestDispatcher("index.jsp").forward(request, response);  
   }
   
   /**

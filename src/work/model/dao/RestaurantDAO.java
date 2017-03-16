@@ -7,9 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
 
 import work.model.dto.Restaurant;
+import work.util.Utility;
 
 /**
  * 
@@ -209,7 +209,7 @@ public class RestaurantDAO {
         dto = new Restaurant(rs.getInt("article_no"), rs.getString("restaurant"), rs.getString("title"), rs.getInt("emp_no"), rs.getString("menu_type"), rs.getString("price"), rs.getInt("rate"), rs.getString("address"), rs.getString("reg_date"), rs.getString("content"), rs.getString("image1"), rs.getString("image2"), rs.getString("image3"), rs.getString("image4"), rs.getString("image5"), rs.getInt("take_min"), rs.getString("coords"));
       }
     } catch (SQLException e) {
-      System.out.println("글 상세 조회 오류: " + e.getMessage());
+      System.out.println("상세 조회 오류: " + e.getMessage());
       e.printStackTrace();
     } finally {
       factory.close(rs, pstmt, conn);
@@ -423,5 +423,33 @@ public class RestaurantDAO {
       factory.close(pstmt, conn);
     }
     return row;
+  }
+  
+  /**
+   * DB에 저장된 리스트의 갯수 반환
+   * @return
+   */
+  public int getListSize() {
+    Connection conn = null;
+    PreparedStatement pstmt = null;
+    ResultSet rs = null;
+    int size = 0;
+    
+    try {
+      conn = getConnection();
+      String sql = "select count(*) from dw_restaurant";
+      pstmt = conn.prepareStatement(sql);
+      rs = pstmt.executeQuery();
+
+      while (rs.next()) {
+        size = rs.getInt(1);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      factory.close(rs, pstmt, conn);
+    }
+    
+    return size;
   }
 }

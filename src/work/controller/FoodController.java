@@ -69,9 +69,6 @@ public class FoodController extends HttpServlet {
         case Define.ACTION_DELETE_RESTAURANT:
           deleteRestaurant(request, response);
           break;
-        default:
-          
-          break;
       }
     } else {
       System.out.println("지원하지 않는 요청입니다.");
@@ -167,6 +164,8 @@ public class FoodController extends HttpServlet {
     
     selectRestaurantList(request, response);
   }
+  
+
   
   private void forwardPage(String url, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     RequestDispatcher nextView = request.getRequestDispatcher(url);

@@ -19,6 +19,10 @@ public class RestaurantService {
 		
 	}
 
+	public Restaurant selectOne(int articleNo) {
+	  return dao.selectOne(articleNo);
+	}
+	
 	public ArrayList<Restaurant> selectRestaurantList() {
     return dao.selectRestaurantList();
   }
@@ -31,6 +35,10 @@ public class RestaurantService {
 	  return dao.delete(articleNo);
 	}
 
+	public int getListSize() {
+	  return dao.getListSize();
+	}
+	
 	/**
 	 * where Àý ¹ÝÈ¯
 	 * 

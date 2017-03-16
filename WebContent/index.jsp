@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
-<%@ page import="work.data.*" %>
+<%@ page import="work.data.*, java.util.ArrayList, work.model.dto.Restaurant" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="kr">
 <head>
@@ -88,6 +88,8 @@ a:hover {
 				</div>
 				<div id="content" align="center">
 						<%
+							ArrayList<Restaurant> list = new ArrayList<Restaurant>();
+							list = (ArrayList<Restaurant>) request.getAttribute("list");
 							String message = (String) request.getAttribute("messageSuccess");
 							if (message != null) {
 							  %>
@@ -96,12 +98,13 @@ a:hover {
 							  </script>
 							  <%
 							}
-						  if (session != null && session.getAttribute("empNo") != null && session.getAttribute("userName") != null) {
+						  if (session != null && session.getAttribute("empNo") != null && session.getAttribute("userName") != null && list != null) {
 						%>
 						<table>
 								<tr>
 										<td colspan="3">&nbsp;</td>
-										<td align="center"> <button style="background-color:#7071B2; width:220px; height:230px;">¸ÀÁý ·©Å·</button></td>
+										<td align="center"> <button style="background-color:#7071B2; width:220px; height:230px; font-size:14px;">
+										<font size="5">¸ÀÁý ÃßÃµ</font><p><%=list.get(0).getRestaurant() %></p><p><%=list.get(1).getRestaurant() %></p><p><%=list.get(2).getRestaurant() %></p></button></td>
 								</tr>
 								<tr>
 										<td align="center"><button style="background-color:#A2A1FA; width:220px; height:230px;" onclick="location.href='controller?action=free_selectList'">°Ô½ÃÆÇ ¸ÞÀÎ</button></td>
