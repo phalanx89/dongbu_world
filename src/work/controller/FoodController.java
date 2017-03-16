@@ -118,7 +118,7 @@ public class FoodController extends HttpServlet {
     dto.setEmp_no(Integer.valueOf((session.getAttribute("empNo").toString())));
     dto.setMenuType(request.getParameter("menuType"));
     dto.setPrice(request.getParameter("price"));
-    dto.setRate(0);
+    dto.setRate(Integer.valueOf(request.getParameter("rate")));
     dto.setRegDate("");
     dto.setAddress(request.getParameter("address"));
     dto.setContent(request.getParameter("content"));

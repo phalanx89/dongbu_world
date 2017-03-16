@@ -82,7 +82,7 @@ a:hover {
 </style>
 </head>
 <body>
-		<div id="container" align="center">
+		<div id="container">
 				<div id="header">
 						<jsp:include page="top.jsp"></jsp:include>
 				</div>
