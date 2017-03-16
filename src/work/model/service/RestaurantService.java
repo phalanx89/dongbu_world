@@ -42,8 +42,8 @@ public class RestaurantService {
     return dao.delete(articleNo);
   }
   
-  public int getListSize() {
-    return dao.getListSize();
+  public ArrayList<String> getRankList() {
+    return dao.getRankList();
   }
   
   /**

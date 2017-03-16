@@ -88,8 +88,8 @@ a:hover {
 				</div>
 				<div id="content" align="center">
 						<%
-							ArrayList<Restaurant> list = new ArrayList<Restaurant>();
-							list = (ArrayList<Restaurant>) request.getAttribute("list");
+							ArrayList<String> list = new ArrayList<String>();
+							list = (ArrayList<String>) request.getAttribute("list");
 							String message = (String) request.getAttribute("messageSuccess");
 							if (message != null) {
 							  %>
@@ -104,7 +104,7 @@ a:hover {
 								<tr>
 										<td colspan="3">&nbsp;</td>
 										<td align="center"> <button style="background-color:#7071B2; width:220px; height:230px; font-size:14px;">
-										<font size="5">맛집 추천</font><p><%=list.get(0).getRestaurant() %></p><p><%=list.get(1).getRestaurant() %></p><p><%=list.get(2).getRestaurant() %></p></button></td>
+										<font size="5">맛집 추천</font><p><%=list.get(0) %></p><p><%=list.get(1) %></p><p><%=list.get(2) %></p></button></td>
 								</tr>
 								<tr>
 										<td align="center"><button style="background-color:#A2A1FA; width:220px; height:230px;" onclick="location.href='controller?action=free_selectList'">게시판 메인</button></td>

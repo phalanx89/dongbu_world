@@ -638,12 +638,12 @@ public class FrontController extends HttpServlet {
    * @throws IOException
    */
   private void recommend(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    int size = mRestaurantService.getListSize();
-    int[] arrArticleNo = Utility.getRandomNums(size, 3);
-    ArrayList<Restaurant> list = new ArrayList<Restaurant>();
+    ArrayList<String> rankList = mRestaurantService.getRankList();
+    ArrayList<String> list = new ArrayList<String>();
+    int[] arrArticleNo = Utility.getRandomNums(rankList.size(), 3);
     
     for (int i = 0; i < arrArticleNo.length; i++) {
-      list.add(mRestaurantService.selectOne(arrArticleNo[i]));
+      list.add(rankList.get(arrArticleNo[i]));
     }
     request.setAttribute("list", list);
     request.getRequestDispatcher("index.jsp").forward(request, response);  

@@ -442,7 +442,7 @@ public class RestaurantDAO {
     
     try {
       conn = getConnection();
-      String sql = "select count(*) from dw_restaurant";
+      String sql = "select count(*) from dw_restaurant group by restaurant";
       pstmt = conn.prepareStatement(sql);
       rs = pstmt.executeQuery();
 
@@ -456,5 +456,31 @@ public class RestaurantDAO {
     }
     
     return size;
+  }
+  
+  public ArrayList<String> getRankList() {
+    Connection conn = null;
+    PreparedStatement pstmt = null;
+    ResultSet rs = null;
+    ArrayList<String> list = null;
+    
+    try {
+      conn = getConnection();
+      String sql = "select distinct restaurant from dw_restaurant";
+      pstmt = conn.prepareStatement(sql);
+      rs = pstmt.executeQuery();
+
+      list = new ArrayList<String>();
+      
+      while (rs.next()) {
+        list.add(rs.getString(1));
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      factory.close(rs, pstmt, conn);
+    }
+    
+    return list;
   }
 }

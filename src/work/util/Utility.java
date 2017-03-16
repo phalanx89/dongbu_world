@@ -40,8 +40,20 @@ public class Utility {
   public static int[] getRandomNums(int max, int num) {
     int[] arr = new int[num];
     
-    for (int i = 0; i < arr.length; i++) {
+    
+    /*
+     * if (arr[0] == arr[1] || arr[0] == arr[2] || arr[1] == arr[2]) { for (int i=0; i<3; i++) {
+     * 
+     * }
+     */
+    for (int i = 0; i < 3; i++) {
       arr[i] = (int) (Math.random() * (max - 1)) + 1;
+      for (int j = 0; j < i; j++) {
+        if (arr[i] == arr[j]) {
+          i--;
+          break;
+        }
+      }
     }
     
     return arr;
