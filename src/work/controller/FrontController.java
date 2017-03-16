@@ -153,7 +153,7 @@ public class FrontController extends HttpServlet {
     }
   }
   
-  /** 자유게시판 글 목록 조회 */
+  /** 게시판 글 목록 조회 */
   protected void selectFreeList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     if (isAuth(request, response)) { // 로그인 사용자 권한 체크
       ArrayList<Board> list = bservice.selectList();
@@ -170,7 +170,7 @@ public class FrontController extends HttpServlet {
   }
   
   /**
-   * 자유게시판 글 상세 조회
+   * 게시판 글 상세 조회
    * 
    * @param request
    * @param response
@@ -182,7 +182,7 @@ public class FrontController extends HttpServlet {
       int articleNo = Integer.valueOf(request.getParameter("articleNo"));
       bservice.plusHits(articleNo);
       Board dto = bservice.selectOne(articleNo);
-      ArrayList<FreeReply> list = rservice.selectList();
+      ArrayList<FreeReply> list = rservice.selectList(articleNo);
       for (FreeReply fr : list) {
         fr.setUserName(mservice.getUserName(fr.getEmpNo()));
       }

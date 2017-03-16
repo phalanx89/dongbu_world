@@ -18,12 +18,11 @@
 /* 		background-color: #cccccc; */
 /* 		float: left; */
 /* 		width: 300px; */
-
 /* 		height: 500px; */
 /* 		padding: 5px; */
 /* } */
 #content {
-		background-color: #F5F5F5;
+		background-color: #ffffff;
 		float: left;
 		width: 100%;
 		height: 750px;
@@ -38,31 +37,40 @@
 
 #nav {
 		width: 10%;
-		height: 500px;
-		border: 1px solid black;
+		height: 100%;
+		background-color: #eeeeee;
+		padding: 3px;
 		float: left;
 }
 
-table {
-		width: 70%;
-		height: auto;
-		empty_cells: hide;
+input[type=text], input[type=password] {
+		width: 100%;
+		padding: 12px 20px;
+		margin: 8px 0;
+		display: inline-block;
+		border: 1px solid #ccc;
+		box-sizing: border-box;
 }
 
-#td1 {
-		height: 40px;
-		vertical-align: inherit;
+#myTable {
+		border-collapse: collapse; /* Collapse borders */
+		width: 1200px; /* Full-width */
+		border: 1px solid #ddd; /* Add a grey border */
+		font-size: 13px; /* Increase font-size */
 }
 
-#td2 {
-		height: 40px;
-		vertical-align: inherit;
+#myTable th, #myTable td {
+		padding: 12px; /* Add padding */
 }
 
-#td3 {
-		height: 150px;
-		width: 70%;
-		vertical-align: inherit;
+#myTable tr {
+		/* Add a bottom border to all table rows */
+		border-bottom: 1px solid #ddd;
+}
+
+#myTable tr.header, #myTable tr:hover {
+		/* Add a grey background color to the table header and on hover */
+		background-color: #f1f1f1;
 }
 
 input[type=text], input[type=password] {
@@ -92,7 +100,7 @@ button:hover {
 input[type=submit], input[type=reset], input[type=button] {
 		background-color: #7071B2;
 		color: white;
-		padding: 14px 20px;
+		padding: 10px 15px;
 		margin: 8px 0;
 		border: none;
 		cursor: pointer;
@@ -119,7 +127,7 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 								</div>
 								<div align="center">
 										<a href='controller?action=market_selectList'>동부장터</a>
-								</div>	
+								</div>
 								<div align="center">
 										<a href='controller?action=study_selectList'>동부배움터</a>
 								</div>
@@ -128,67 +136,64 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 								<%
 								  Board dto = (Board) request.getAttribute("dto");
 								%>
-								<input type="button" value=" 일반게시판 " style="width: auto;"> <input type="button" value="이전글" style="width: auto;" /> <input type="button" value="다음글" style="width: auto;" /> <input type="button" value="글수정" style="width: auto;" onclick="location.href='controller?action=free_correctPage&articleNo=<%=dto.getArticleNo()%>&empNo=<%=dto.getEmpNo()%>'" /> <input type="button" value="글삭제" style="width: auto;" onclick="location.href='controller?action=free_deleteArticle&articleNo=<%=dto.getArticleNo()%>&empNo=<%=dto.getEmpNo()%>'" />
-								<table id="td1" border="1" align="center">
+								&nbsp;<input type="button" value="목록" style="width: auto;" onclick="location.href='controller?action=free_selectList'" />
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<input type="button" value="글수정" style="width: auto;" onclick="location.href='controller?action=free_correctPage&articleNo=<%=dto.getArticleNo()%>&empNo=<%=dto.getEmpNo()%>'" /> <input type="button" value="글삭제" style="width: auto;" onclick="location.href='controller?action=free_deleteArticle&articleNo=<%=dto.getArticleNo()%>&empNo=<%=dto.getEmpNo()%>'" />
+								<table id="myTable">
 										<tr>
-												<th>
+												<th style="width: 8%;" align="left">
 														<%
 														  String isAdmin = ((String) request.getSession(false).getAttribute("isAdmin"));
 														  if (isAdmin != null && isAdmin.equals("Y")) {
-														%> 공지 <%
+														%> |공지| <%
 														  } else {
 														%> 일반 <%
 														  }
 														%>
 												</th>
-												<th><%=dto.getTitle()%></th>
+												<th style="width: 62%;" align="left"><%=dto.getTitle()%></th>
 												<%
 												  Date d = new Date();
 												  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 												%>
-												<td align="right"><%=sdf.format(d)%>
+												<td style="width: 8%;" align="right"><%=sdf.format(d)%>
+												<th style="width: 7%;" align="right"><%=dto.getUserName()%></th>
+												<td style="width: 15%;" align="center">조회수 : <%=dto.getHits()%></td>
 										</tr>
-										<table id="td2" border="1" align="center">
-												<tr>
-														<th><%=dto.getUserName()%></th>
-														<td align="right">조회수 : <%=dto.getHits()%>
-												</tr>
-												<table id="td3" border="1" align="center">
-														<tr>
-																<td align="center"><%=dto.getContent()%></td>
-														</tr>
-														<table id="td4" border="1" align="center">
-																<tr>
-																		<td align="center"><form method='post' action="controller?action=free_registerReply&articleNo=<%=dto.getArticleNo()%>">
-																						<input type="text" name="reply" id="text1" style="width: 50%;" /> <input type="submit" value="등록" style="width: auto;">
-																				</form></td>
-																</tr>
-																<table id="td5" border="1" align="center">
-																		<%
-																		  ArrayList<FreeReply> list = (ArrayList<FreeReply>) request.getAttribute("list");
-																		  if (list != null) {
-																		    for (FreeReply fr : list) {
-																		%>
-																		<tr>댓글</tr>
-																		<tr>
-																				<td align="center"><%=fr.getReplyNo()%></td>
-																				<td><%=fr.getUserName()%></td>
-																				<td><%=fr.getReply()%></td>
-																				<td><%=fr.getRegDate()%></td>
-																				<td align="right"><input type="button" value="수정" style="width: auto;">
-																				<input type="button" value="삭제" style="width: auto;" onclick="location.href='controller?action=free_deleteReply&replyNo=<%=fr.getReplyNo() %>&articleNo=<%=fr.getArticleNo() %>'" /></td>
-																		</tr>
-																		<%
-																		  }
-																		  }
-																		%>
-																</table>
-																</div>
-																</div>
-																<!-- 				<div id="sideinfo"></div> -->
-																<div id="footer">
-																		<jsp:include page="footer.jsp"></jsp:include>
-																</div>
-																</div>
+										<tr class="header" heigth="700px">
+												<td></td>
+												<td colspan="3"><br><%=dto.getContent()%><br>
+												<br></td>
+												<td></td>
+										</tr>
+										<tr>
+												<td colspan="5" align="center"><form method='post' action="controller?action=free_registerReply&articleNo=<%=dto.getArticleNo()%>">
+																<input type="text" name="reply" id="text1" style="width: 86%;">&nbsp;&nbsp;<input type="submit" value="댓글등록" style="width: auto;">
+														</form></td>
+										</tr>
+										<%
+										  ArrayList<FreeReply> list = (ArrayList<FreeReply>) request.getAttribute("list");
+										  if (list != null) {
+										    for (FreeReply fr : list) {
+										%>
+										<tr>
+												<td align="center"><%=fr.getReplyNo()%></td>
+												<td><%=fr.getReply()%></td>
+												<td><%=fr.getRegDate()%></td>
+												<th><%=fr.getUserName()%></th>
+												<td align="right"><input type="button" value="수정" style="width: auto;"> <input type="button" value="삭제" style="width: auto;" onclick="location.href='controller?action=free_deleteReply&replyNo=<%=fr.getReplyNo()%>&articleNo=<%=fr.getArticleNo()%>'" /></td>
+										</tr>
+										<%
+										  }
+										  }
+										%>
+								</table>
+						</div>
+				</div>
+				<!-- 				<div id="sideinfo"></div> -->
+				<div id="footer">
+						<jsp:include page="footer.jsp"></jsp:include>
+				</div>
+		</div>
 </body>
 </html>

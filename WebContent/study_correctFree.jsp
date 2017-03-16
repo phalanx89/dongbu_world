@@ -136,7 +136,7 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 																<table id="td3" border="0" align="center">
 																		<br>
 																		<tr>
-																				<td align="center"><input type="submit" value="등록" style="width: auto;"/>  <input type="button" value="취소" style="width: auto;" onclick="location.href='controller?action=free_selectList'" /></td>
+																				<td align="center"><input type="submit" value="등록" style="width: auto;"/>  <input type="button" value="취소" style="width: auto;" onclick="location.href='controller?action=study_selectList'" /></td>
 																		</tr>
 																</table>
 																</form>
