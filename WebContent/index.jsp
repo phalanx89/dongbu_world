@@ -124,7 +124,7 @@ a:hover {
 						<table>
 								<tr>
 										<td colspan="3">&nbsp;</td>
-										<td align="center"><button style="background-color:#7071B2; width:220px; height:230px;" onclick="">¸ÀÁý ·©Å·</button></td>
+										<td align="center"><button style="background-color:#7071B2; width:220px; height:230px;" onclick="location.href='login.jsp'">¸ÀÁý ·©Å·</button></td>
 								</tr>
 								<tr>
 										<td align="center"><button style="background-color:#A2A1FA; width:220px; height:230px;" onclick="location.href='login.jsp'">°Ô½ÃÆÇ ¸ÞÀÎ</button></td>

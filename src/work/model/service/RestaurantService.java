@@ -28,7 +28,10 @@ public class RestaurantService {
   }
   
   public ArrayList<Restaurant> selectRestaurantList(String[] aryMenus, String[] aryPrices, String[] aryDistances, String[] aryRates) {
-    return dao.selectRestaurantListUsingWhere("where " + getEqualQuery("menu_type", aryMenus, "or") + " and " + getLessThanQuery("price", aryPrices, "or") + " and " + getLessThanQuery("take_min", aryDistances, "or") + " and " + getLessThanQuery("rate", aryRates, "or"));
+    return dao.selectRestaurantListUsingWhere("where " + getEqualQuery("menu_type", aryMenus, "or") 
+    + (aryPrices != null ? " and " : "") + getLessThanQuery("price", aryPrices, "or") 
+    + (aryDistances != null ? " and " : "") + getLessThanQuery("take_min", aryDistances, "or") 
+    + (aryRates != null ? " and " : "") + getLessThanQuery("rate", aryRates, "or"));
   }
   
   public int deleteRestaurant(int articleNo) {
