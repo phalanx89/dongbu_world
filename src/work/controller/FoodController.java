@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import work.data.Define;
+import work.model.dto.Board;
 import work.model.dto.Restaurant;
 import work.model.service.RestaurantService;
 import work.util.Utility;
@@ -68,6 +69,9 @@ public class FoodController extends HttpServlet {
           break;
         case Define.ACTION_DELETE_RESTAURANT:
           deleteRestaurant(request, response);
+          break;
+        case Define.ACTION_COLUMNSEARCH_RESTAURANT:
+          searchRestaurantByColumn(request, response);
           break;
       }
     } else {
@@ -160,6 +164,36 @@ public class FoodController extends HttpServlet {
     mRestaurantService.deleteRestaurant(articleNo);
     
     selectRestaurantList(request, response);
+  }
+  
+  /**
+   * 컬럼명으로 검색하기
+   * @param request
+   * @param response
+   * @throws ServletException
+   * @throws IOException
+   */
+  private void searchRestaurantByColumn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    HttpSession session = request.getSession(false);
+    
+    if (session == null) {
+      System.out.println("session is expired. Please login.");
+      forwardPage("fail.jsp", request, response);
+      return;
+    }
+    
+    String columnName = request.getParameter("columnName");
+    String keyword = request.getParameter("keyword");
+    
+    if (keyword == null || keyword.trim().length() == 0) {
+      request.setAttribute("message", "검색할 내용을 입력하세요");
+      forwardPage("fail.jsp", request, response);
+      return;
+    }
+    
+    ArrayList<Restaurant> list = mRestaurantService.selectListByColumn(columnName, keyword);
+    request.setAttribute("list", list);
+    forwardPage("restaurant_main.jsp", request, response);
   }
   
 

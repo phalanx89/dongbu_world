@@ -422,15 +422,18 @@ to {
               }
             </script>
 						<div id="side_map">
-								<form method="post" action="food_controller?action=<%=Define.ACTION_SEARCH_RESTAURANT%>">
+									<form method="post" action="food_controller?action=<%=Define.ACTION_COLUMNSEARCH_RESTAURANT %>"> 
 										<div width="100%" align="center"><label><b>음식점 이름 검색</b></label></div>
 										<hr>
 										<div id="frm_search" align="center">
 												<select name="columnName" style="width: 75px; height: 42px;">
 														<option value="restaurant">식당명</option>
-														<option value="empNo">작성자</option>
-												</select><input type="text" name="restaurant" style="width: 220px;" /> <input type="button" name="btnRestaurant" value="검색" style="width: 280px;" />
+														<option value="emp_no">작성자</option>
+												</select><input type="text" name="keyword" style="width: 220px;" /> 
+												<input type="submit" name="btnRestaurant" value="검색" style="width: 280px;"/>
 										</div>
+										</form>
+										<form method="post" action="food_controller?action=<%=Define.ACTION_SEARCH_RESTAURANT%>">
 										<hr>
 										<div wdith="100%" align="center"><label><b>조건 검색</b></label></div>
 										<hr>

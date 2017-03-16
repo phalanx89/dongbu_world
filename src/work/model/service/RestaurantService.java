@@ -34,6 +34,10 @@ public class RestaurantService {
     + (aryRates != null ? " and " : "") + getLessThanQuery("rate", aryRates, "or"));
   }
   
+	public ArrayList<Restaurant> selectListByColumn(String columnName, String keyword) {
+	  return dao.selectListByColumn(columnName, keyword);
+	}
+	
   public int deleteRestaurant(int articleNo) {
     return dao.delete(articleNo);
   }
