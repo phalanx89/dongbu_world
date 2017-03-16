@@ -126,10 +126,11 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 								</div>
 						</div>
 						<div id="content_board">
+							<div style="height:640px;overflow:auto">
 								<table id="myTable">
 										<!-- 제목행 -->
 										<tr class="header">
-												<th><font face="조선일보명조">글번호 </th>
+												<th align="right"><font face="조선일보명조">글번호 </th>
 												<th><font face="조선일보명조">글제목 </th>
 												<th><font face="조선일보명조">작성자 </th>
 												<th><font face="조선일보명조">조회수 </th>
@@ -142,11 +143,11 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 										    for (Board dto : list) {
 										%>
 										<tr>
-												<td><font face="조선일보명조"><%=dto.getArticleNo()%></font></td>
+												<td align="right"><font face="조선일보명조"><%=dto.getArticleNo()%></font></td>
 												<td width="600px">
 														<%
 														  if (dto.getIsNotice().equals("Y")) {
-														%> 공지 <%
+														%> <b>공지</b> <%
 														  } else {
 														%> 일반 <%
 														  }
@@ -154,21 +155,24 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 														(<%=dto.getCountReply() %>)
 												</td>
 												<td><font face="조선일보명조"><%=dto.getUserName()%></td>
-												<td><font face="조선일보명조"><%=dto.getHits()%></td>
+												<td align="right"><font face="조선일보명조"><%=dto.getHits()%></td>
 										</tr>
 										<%
 										  }
 										  }
 										%>
 								</table>
+							</div>
 								<br> <br>
 								<form method='post' action="controller?action=free_selectListByColumn">
-										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select name="column">
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+										<select name="column" style="width: 75px; height: 40px;">
 												<option value="title">제목</option>
 												<option value="userName">작성자</option>
 												<option value="content">내용</option>
 												<option value="articleNo">글번호</option>
-										</select> <input type="text" name="keyword" id="text1" style="width: auto;" /><input type="submit" value="글검색" style="width: auto;" /> <input type="button" value="글등록" style="width: auto;" onclick="location.href='free_inputData.jsp'" />
+										</select> <input type="text" name="keyword" id="text1" style="width: auto;" />&nbsp;<input type="submit" value="글검색" style="width: auto;" />&nbsp; <input type="button" value="글등록" style="width: auto;" onclick="location.href='free_inputData.jsp'" />
 								</form>
 						</div>
 				</div>

@@ -12,6 +12,13 @@ public abstract class ReplyService {
    */
   public abstract ArrayList<FreeReply> selectList();
   
+  /**
+   * 댓글 목록 조회(게시글 번호 기준)
+   * @param articleNo
+   * @return
+   */
+  public abstract ArrayList<FreeReply> selectList(int articleNo);
+  
   /** 댓글 등록 */
   public abstract void register(FreeReply dto);
   

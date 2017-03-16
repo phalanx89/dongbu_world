@@ -16,6 +16,13 @@ public class StudyReplyService extends ReplyService {
     return dao.selectList();
   } 
   
+  /**
+   * 댓글 목록 조회(게시글 번호 기준)
+   */
+  public ArrayList<FreeReply> selectList(int articleNo) {
+    return dao.selectList(articleNo);
+  }
+  
   /** 댓글 등록 */
   public void register(FreeReply dto) {
     dao.insert(dto);

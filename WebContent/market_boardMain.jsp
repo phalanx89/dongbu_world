@@ -126,6 +126,7 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 								</div>
 						</div>
 						<div id="content_board">
+							<div style="height:650px;overflow:auto">
 								<table id="myTable">
 										<!-- 제목행 -->
 										<tr class="header">
@@ -146,7 +147,7 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 												<td width="600px">
 														<%
 														  if (dto.getIsNotice().equals("Y")) {
-														%> 공지 <%
+														%> <b>공지</b> <%
 														  } else {
 														%> 일반 <%
 														  }
@@ -161,14 +162,15 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 										  }
 										%>
 								</table>
+							</div>
 								<br> <br>
 								<form method='post' action="controller?action=market_selectListByColumn">
-										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select name="column">
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select name="column" style="width: 75px; height: 40px;">
 												<option value="title">제목</option>
 												<option value="userName">작성자</option>
 												<option value="content">내용</option>
 												<option value="articleNo">글번호</option>
-										</select> <input type="text" name="keyword" id="text1" style="width: auto;" /><input type="submit" value="글검색" style="width: auto;" /> <input type="button" value="글등록" style="width: auto;" onclick="location.href='market_inputData.jsp'" />
+										</select> <input type="text" name="keyword" id="text1" style="width: auto;" />&nbsp;<input type="submit" value="글검색" style="width: auto;" />&nbsp; <input type="button" value="글등록" style="width: auto;" onclick="location.href='market_inputData.jsp'" />
 								</form>
 						</div>
 				</div>

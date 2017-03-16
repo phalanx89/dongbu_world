@@ -71,6 +71,43 @@ public class FreeReplyDAO {
     return list;
   }
   
+  /**
+   * 댓글 전체 조회
+   * 
+   * @return
+   */
+  public ArrayList<FreeReply> selectList(int articleNo) {
+    Connection conn = null;
+    Statement stmt = null;
+    ResultSet rs = null;
+    ArrayList<FreeReply> list = new ArrayList<FreeReply>();
+    
+    try {
+      conn = getConnection();
+      stmt = conn.createStatement();
+      String sql = "select * from " + TABLE_NAME + " where article_no='" + articleNo + "' order by reg_date desc";
+      
+      rs = stmt.executeQuery(sql);
+      FreeReply dto = null;
+      while (rs.next()) {
+        int replyNo = rs.getInt("reply_no");
+        int empNo = rs.getInt("emp_no");
+        String regDate = rs.getString("reg_date");
+        String reply = rs.getString("reply");
+        
+        dto = new FreeReply(replyNo, articleNo, empNo, regDate, reply);
+        list.add(dto);
+      }
+      
+    } catch (SQLException e) {
+      System.out.println("Error : 댓글 조회 오류");
+      e.printStackTrace();
+    } finally {
+      factory.close(rs, stmt, conn);
+    }
+    return list;
+  }
+  
   /** 글 등록 */
   public int insert(FreeReply dto) {
     Connection conn = null;
