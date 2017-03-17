@@ -22,7 +22,7 @@
 /* } */
 
 #content {
-		background-color: #F5F5F5;
+		background-color: #ffffff;
 		float: left;
 		width: 100%;
 		height: 750px;
@@ -42,9 +42,9 @@
 					<jsp:include page="top.jsp"></jsp:include>
 				</div>
 				<div id="content" align="center">
-				<img src ="images/error2.png" width="50%" heigth="40%" />
+				<img src ="images/error2.png" width="70%" heigth="60%" />
 				<div>
-				<%= request.getAttribute("message") %>
+				<%= (request.getAttribute("message") == null? "" : request.getAttribute("message")) %>
 				</div>
 				</div>
 <!-- 				<div id="sideinfo"></div> -->
