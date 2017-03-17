@@ -2,7 +2,7 @@
 <div style="height: 100px; width: 100%; position: static;">
 		<header>
 				<h2>
-						<a href="index.jsp"><img src="images/top_logo.png" /></a>
+						<a href="index.jsp"><img src="images/top_logo1.png" /></a>
 				</h2>
 				<%
 				  if (session != null && session.getAttribute("empNo") != null && session.getAttribute("userName") != null) {
