@@ -473,9 +473,9 @@ to {
 										</div>
 										<hr>
 										<div id="frm_submit" align="center">
-												<input type="submit" value="검색" style="width: 140px;"> <input type="reset" value="초기화" style="width: 140px;">
+												<input type="submit" value="검색" style="width: 135px;"></form> <button type="button" style="width: 135px;" onclick="location.href='food_controller?action=<%=Define.ACTION_SELECT_RESTAURANT_LIST %>'">초기화</button>
 										</div>
-								</form>
+								
 						</div>
 						<div id="registerRestaurant" class="modal">
 								<form class="modal-content animate" method="post" action="food_controller?action=<%=Define.ACTION_REGISTER_RESTAURANT%>">
