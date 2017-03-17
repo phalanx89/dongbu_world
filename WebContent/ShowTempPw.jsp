@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>임시 비밀번호</title>
+<title>DONGBU WORLD 임시 비밀번호</title>
 <style type="text/css">
 #container {
 		background-color: #ffffff;

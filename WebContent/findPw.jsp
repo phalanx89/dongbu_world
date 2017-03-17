@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>비밀번호 찾기</title>
+<title>DONGBU WORLD 비밀번호 찾기</title>
 <style type="text/css">
 #container {
 		background-color: #ffffff;

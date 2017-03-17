@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>로그인</title>
+<title>DONGBU WORLD 로그인</title>
 <style type="text/css">
 #container {
 		background-color: #ffffff;

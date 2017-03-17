@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>맛집 검색</title>
+<title>DONGBU WORLD 맛집 검색</title>
 <style type="text/css">
 #container {
 		background-color: #ffffff;

@@ -4,7 +4,7 @@
 <html lang="kr">
  <head>
 
-  <title>(주)동부미식회</title>
+  <title>DONGBU WORLD (주)동부미식회</title>
   <meta charset="utf-8"></meta>
 
   <style>

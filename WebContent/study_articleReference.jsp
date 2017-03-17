@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>template</title>
+<title>DONGBU WORLD</title>
 <style type="text/css">
 #container {
 		background-color: #ffffff;
