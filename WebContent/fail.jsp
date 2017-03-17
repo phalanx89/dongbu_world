@@ -42,7 +42,7 @@
 					<jsp:include page="top.jsp"></jsp:include>
 				</div>
 				<div id="content" align="center">
-				<img src ="images/error2.png" width="70%" heigth="60%" />
+				<img src ="images/error2.png" width="50%" heigth="40%" />
 				<div>
 				<%= (request.getAttribute("message") == null? "" : request.getAttribute("message")) %>
 				</div>
