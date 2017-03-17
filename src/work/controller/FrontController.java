@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import work.data.Define;
 import work.model.dto.Board;
 import work.model.dto.FreeReply;
 import work.model.dto.Member;
@@ -134,6 +135,9 @@ public class FrontController extends HttpServlet {
           break;
         case "myInfo":
           myInfo(request, response);
+          break;
+        case Define.ACTION_RECOMMEND_RESTAURANT:
+          recommend(request, response);          
           break;
       }
     } else {

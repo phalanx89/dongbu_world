@@ -24,5 +24,5 @@ public class Define {
 	public static final String ACTION_REGISTER_RESTAURANT = "registerRestaurant";
 	public static final String ACTION_SELECT_RESTAURANT_LIST = "selectRestaurantList";
 	public static final String ACTION_DELETE_RESTAURANT = "deleteRestaurant";
-	public static final String ACTION_RECOMMEND_RESTAURANT = "recommendRestaurant";
+	public static final String ACTION_RECOMMEND_RESTAURANT = "recommendRestaurant";	
 }

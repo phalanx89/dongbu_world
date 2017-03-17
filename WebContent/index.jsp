@@ -119,6 +119,29 @@ a:hover {
 								</tr>
 						</table>
 						<%
+						  } else if (session != null && session.getAttribute("empNo") != null && session.getAttribute("userName") != null && list == null) {
+						    %>
+						    <script type="text/javascript">
+						    	location.href= 'controller?action=<%=Define.ACTION_RECOMMEND_RESTAURANT%>';
+						    </script>
+						    <table>
+								<tr>
+										<td colspan="3">&nbsp;</td>
+										<td align="center"><button style="background-color:#7071B2; width:220px; height:230px;" onclick="location.href='login.jsp'">맛집 랭킹</button></td>
+								</tr>
+								<tr>
+										<td align="center"><button style="background-color:#A2A1FA; width:220px; height:230px;" onclick="location.href='login.jsp'">게시판 메인</button></td>
+										<td align="center"><button style="background-color:#B3B3B3; width:220px; height:230px;" onclick="location.href='http://ep.dongbuinc.com/'">구글 포르테</button></td>
+										<td align="center"><button style="background-color:#A2A1FA; width:220px; height:230px;" onclick="location.href='login.jsp'">회원정보조회</button></td>
+										<td align="center"><button style="background-color:#B3B3B3; width:220px; height:230px;" onclick="location.href='login.jsp'">맛집 메인</button></td>
+								</tr>
+								<tr>
+										<td></td>
+										<td align="center"><button style="background-color:#7071B2; width:220px; height:230px;" onclick="location.href='http://dbcni.benecafe.co.kr/'">Bene Cafe</button></td>
+										<td colspan="2"></td>
+								</tr>
+						</table>
+						    <%
 						  } else {
 						%>
 						<table>
