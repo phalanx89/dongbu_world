@@ -85,7 +85,7 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 										<label for="name">입력하신 이메일로 임시 비밀번호가 발송됩니다</label><br />
 										<label for="name">EMAIL</label> <input type="text" name="email" id="text1" style="width: auto;"/><br /> 
 								</fieldset>
-								<input type="submit" name="submit" value="전송" style="width: auto;"/>
+								&nbsp;&nbsp;<input type="submit" name="submit" value="전송" style="width: auto;"/>
 						</form>
 				</div>
 				<!-- 				<div id="sideinfo"></div> -->

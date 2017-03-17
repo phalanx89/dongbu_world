@@ -84,8 +84,8 @@ input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
 										<legend>로그인 정보입력</legend>
 										<label for="name">ID</label> <input type="text" name="empNo" id="text1" style="width: auto;"/><br /> <label for="password">PW</label> <input type="password" name="userPw" style="width: auto;" /><br />
 								</fieldset>
-								<input type="submit" name="submit" value="로그인" style="width: auto;"/>
-								<a href="findPw.jsp" style="text-decoration:none;">비밀번호 찾기</a>
+								&nbsp;&nbsp;<input type="submit" name="submit" value="로그인" style="width: auto;"/>
+								&nbsp;<a href="findPw.jsp" style="text-decoration:none;">비밀번호 찾기</a>
 						</form>
 				</div>
 				<!-- 				<div id="sideinfo"></div> -->
