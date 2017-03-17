@@ -164,6 +164,7 @@ a:hover {
 						<%
 						  }
 						%>
+						<br><br><br>
 				</div>
 				<!-- 				<div id="sideinfo"></div> -->
 				<div id="footer">
