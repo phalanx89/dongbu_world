@@ -127,7 +127,7 @@ a:hover {
 						    <table>
 								<tr>
 										<td colspan="3">&nbsp;</td>
-										<td align="center"><button style="background-color:#7071B2; width:220px; height:230px;" onclick="location.href='login.jsp'">맛집 랭킹</button></td>
+										<td align="center"><button style="background-color:#7071B2; width:220px; height:230px;" onclick="location.href='login.jsp'">맛집 추천</button></td>
 								</tr>
 								<tr>
 										<td align="center"><button style="background-color:#A2A1FA; width:220px; height:230px;" onclick="location.href='login.jsp'">게시판 메인</button></td>
@@ -147,7 +147,7 @@ a:hover {
 						<table>
 								<tr>
 										<td colspan="3">&nbsp;</td>
-										<td align="center"><button style="background-color:#7071B2; width:220px; height:230px;" onclick="location.href='login.jsp'">맛집 랭킹</button></td>
+										<td align="center"><button style="background-color:#7071B2; width:220px; height:230px;" onclick="location.href='login.jsp'">맛집 추천</button></td>
 								</tr>
 								<tr>
 										<td align="center"><button style="background-color:#A2A1FA; width:220px; height:230px;" onclick="location.href='login.jsp'">게시판 메인</button></td>
